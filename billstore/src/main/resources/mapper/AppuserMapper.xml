@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pg.billstore.dao.AppuserMapper">
+
+    <resultMap type="com.pg.billstore.entity.Appuser" id="AppuserMap">
+        <result property="userId" column="user_id" />
+        <result property="nickname" column="nickname" />
+        <result property="truename" column="truename" />
+        <result property="sex" column="sex" />
+        <result property="phone" column="phone" />
+        <result property="idCard" column="id_card" />
+        <result property="avatarUrl" column="avatar_url" />
+        <result property="isAdmin" column="is_admin" />
+        <result property="openId" column="open_id" />
+        <result property="createTime" column="create_time" />
+        <result property="updateTime" column="update_time" />
+    </resultMap>
+
+    <select id="queryPage" resultMap="AppuserMap">
+        SELECT * FROM appuser
+    </select>
+
+    <select id="queryAll" resultMap="AppuserMap">
+        SELECT * FROM appuser
+    </select>
+
+    <select id="queryOne" resultMap="AppuserMap">
+        select * from appuser where user_id = #{userId}
+    </select>
+
+    <insert id="insert">
+        insert into appuser( user_id,nickname,truename,sex,phone,id_card,avatar_url,is_admin,open_id,create_time,update_time )
+        values ( #{userId},#{nickname},#{truename},#{sex},#{phone},#{idCard},#{avatarUrl},#{isAdmin},#{openId},#{createTime},#{updateTime} )
+    </insert>
+
+    <update id="update">
+        update appuser
+        <set>
+            <if test="userId != null and userId != ''">
+                user_id = #{userId},
+            </if>
+            <if test="nickname != null and nickname != ''">
+                nickname = #{nickname},
+            </if>
+            <if test="truename != null and truename != ''">
+                truename = #{truename},
+            </if>
+            <if test="sex != null and sex != ''">
+                sex = #{sex},
+            </if>
+            <if test="phone != null and phone != ''">
+                phone = #{phone},
+            </if>
+            <if test="idCard != null and idCard != ''">
+                id_card = #{idCard},
+            </if>
+            <if test="avatarUrl != null and avatarUrl != ''">
+                avatar_url = #{avatarUrl},
+            </if>
+            <if test="isAdmin != null and isAdmin != ''">
+                is_admin = #{isAdmin},
+            </if>
+            <if test="openId != null and openId != ''">
+                open_id = #{openId},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where user_id = #{userId}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM appuser WHERE user_id = #{userId}
+    </delete>
+
+</mapper>

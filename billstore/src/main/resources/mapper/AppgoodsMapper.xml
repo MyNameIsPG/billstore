@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pg.billstore.dao.AppgoodsMapper">
+
+    <resultMap type="com.pg.billstore.entity.Appgoods" id="AppgoodsMap">
+        <result property="goodId" column="good_id" />
+        <result property="name" column="name" />
+        <result property="fagid" column="fagId" />
+        <result property="isFamily" column="is_family" />
+        <result property="isSelling" column="is_selling" />
+        <result property="orderId" column="order_id" />
+        <result property="createTime" column="create_time" />
+        <result property="updateTime" column="update_time" />
+    </resultMap>
+
+    <select id="queryPage" resultMap="AppgoodsMap">
+        SELECT * FROM appgoods
+    </select>
+
+    <select id="queryAll" resultMap="AppgoodsMap">
+        SELECT * FROM appgoods
+    </select>
+
+    <select id="queryOne" resultMap="AppgoodsMap">
+        select * from appgoods where good_id = #{goodId}
+    </select>
+
+    <insert id="insert">
+        insert into appgoods( good_id,name,fagId,is_family,is_selling,order_id,create_time,update_time )
+        values ( #{goodId},#{name},#{fagid},#{isFamily},#{isSelling},#{orderId},#{createTime},#{updateTime} )
+    </insert>
+
+    <update id="update">
+        update appgoods
+        <set>
+            <if test="goodId != null and goodId != ''">
+                good_id = #{goodId},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="fagid != null and fagid != ''">
+                fagId = #{fagid},
+            </if>
+            <if test="isFamily != null and isFamily != ''">
+                is_family = #{isFamily},
+            </if>
+            <if test="isSelling != null and isSelling != ''">
+                is_selling = #{isSelling},
+            </if>
+            <if test="orderId != null and orderId != ''">
+                order_id = #{orderId},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where good_id = #{goodId}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM appgoods WHERE good_id = #{goodId}
+    </delete>
+
+</mapper>

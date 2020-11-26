@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pg.billstore.dao.ApppytypeMapper">
+
+    <resultMap type="com.pg.billstore.entity.Apppytype" id="ApppytypeMap">
+        <result property="pywayId" column="pyway_id" />
+        <result property="name" column="name" />
+        <result property="orderId" column="order_id" />
+        <result property="createTime" column="create_time" />
+        <result property="updateTime" column="update_time" />
+    </resultMap>
+
+    <select id="queryPage" resultMap="ApppytypeMap">
+        SELECT * FROM apppytype
+    </select>
+
+    <select id="queryAll" resultMap="ApppytypeMap">
+        SELECT * FROM apppytype
+    </select>
+
+    <select id="queryOne" resultMap="ApppytypeMap">
+        select * from apppytype where pyway_id = #{pywayId}
+    </select>
+
+    <insert id="insert">
+        insert into apppytype( pyway_id,name,order_id,create_time,update_time )
+        values ( #{pywayId},#{name},#{orderId},#{createTime},#{updateTime} )
+    </insert>
+
+    <update id="update">
+        update apppytype
+        <set>
+            <if test="pywayId != null and pywayId != ''">
+                pyway_id = #{pywayId},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="orderId != null and orderId != ''">
+                order_id = #{orderId},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where pyway_id = #{pywayId}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM apppytype WHERE pyway_id = #{pywayId}
+    </delete>
+
+</mapper>

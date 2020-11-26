@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pg.billstore.dao.AppgoodspriceMapper">
+
+    <resultMap type="com.pg.billstore.entity.Appgoodsprice" id="AppgoodspriceMap">
+        <result property="goodspriceId" column="goodsprice_id" />
+        <result property="goodId" column="good_id" />
+        <result property="name" column="name" />
+        <result property="price" column="price" />
+        <result property="isSelling" column="is_selling" />
+        <result property="updateUserId" column="update_user_id" />
+        <result property="updateUserName" column="update_user_name" />
+        <result property="createTime" column="create_time" />
+        <result property="updateTime" column="update_time" />
+    </resultMap>
+
+    <select id="queryPage" resultMap="AppgoodspriceMap">
+        SELECT * FROM appgoodsprice
+    </select>
+
+    <select id="queryAll" resultMap="AppgoodspriceMap">
+        SELECT * FROM appgoodsprice
+    </select>
+
+    <select id="queryOne" resultMap="AppgoodspriceMap">
+        select * from appgoodsprice where goodsprice_id = #{goodspriceId}
+    </select>
+
+    <insert id="insert">
+        insert into appgoodsprice( goodsprice_id,good_id,name,price,is_selling,update_user_id,update_user_name,create_time,update_time )
+        values ( #{goodspriceId},#{goodId},#{name},#{price},#{isSelling},#{updateUserId},#{updateUserName},#{createTime},#{updateTime} )
+    </insert>
+
+    <update id="update">
+        update appgoodsprice
+        <set>
+            <if test="goodspriceId != null and goodspriceId != ''">
+                goodsprice_id = #{goodspriceId},
+            </if>
+            <if test="goodId != null and goodId != ''">
+                good_id = #{goodId},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="price != null and price != ''">
+                price = #{price},
+            </if>
+            <if test="isSelling != null and isSelling != ''">
+                is_selling = #{isSelling},
+            </if>
+            <if test="updateUserId != null and updateUserId != ''">
+                update_user_id = #{updateUserId},
+            </if>
+            <if test="updateUserName != null and updateUserName != ''">
+                update_user_name = #{updateUserName},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where goodsprice_id = #{goodspriceId}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM appgoodsprice WHERE goodsprice_id = #{goodspriceId}
+    </delete>
+
+</mapper>

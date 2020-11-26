@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pg.billstore.dao.ApppywayMapper">
+
+    <resultMap type="com.pg.billstore.entity.Apppyway" id="ApppywayMap">
+        <result property="pywayId" column="pyway_id" />
+        <result property="name" column="name" />
+        <result property="isFinshed" column="is_finshed" />
+        <result property="orderId" column="order_id" />
+        <result property="createTime" column="create_time" />
+        <result property="updateTime" column="update_time" />
+    </resultMap>
+
+    <select id="queryPage" resultMap="ApppywayMap">
+        SELECT * FROM apppyway
+    </select>
+
+    <select id="queryAll" resultMap="ApppywayMap">
+        SELECT * FROM apppyway
+    </select>
+
+    <select id="queryOne" resultMap="ApppywayMap">
+        select * from apppyway where pyway_id = #{pywayId}
+    </select>
+
+    <insert id="insert">
+        insert into apppyway( pyway_id,name,is_finshed,order_id,create_time,update_time )
+        values ( #{pywayId},#{name},#{isFinshed},#{orderId},#{createTime},#{updateTime} )
+    </insert>
+
+    <update id="update">
+        update apppyway
+        <set>
+            <if test="pywayId != null and pywayId != ''">
+                pyway_id = #{pywayId},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="isFinshed != null and isFinshed != ''">
+                is_finshed = #{isFinshed},
+            </if>
+            <if test="orderId != null and orderId != ''">
+                order_id = #{orderId},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where pyway_id = #{pywayId}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM apppyway WHERE pyway_id = #{pywayId}
+    </delete>
+
+</mapper>

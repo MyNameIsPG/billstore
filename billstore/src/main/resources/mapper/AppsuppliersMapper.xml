@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pg.billstore.dao.AppsuppliersMapper">
+
+    <resultMap type="com.pg.billstore.entity.Appsuppliers" id="AppsuppliersMap">
+        <result property="suppliersId" column="suppliers_id" />
+        <result property="truename" column="truename" />
+        <result property="nickname" column="nickname" />
+        <result property="sex" column="sex" />
+        <result property="phone" column="phone" />
+        <result property="idCard" column="id_card" />
+        <result property="avatarUrl" column="avatar_url" />
+        <result property="address" column="address" />
+        <result property="openId" column="open_id" />
+        <result property="bankId" column="bank_id" />
+        <result property="bankName" column="bank_name" />
+        <result property="bankArrdress" column="bank_arrdress" />
+        <result property="createTime" column="create_time" />
+        <result property="updateTime" column="update_time" />
+    </resultMap>
+
+    <select id="queryPage" resultMap="AppsuppliersMap">
+        SELECT * FROM appsuppliers
+    </select>
+
+    <select id="queryAll" resultMap="AppsuppliersMap">
+        SELECT * FROM appsuppliers
+    </select>
+
+    <select id="queryOne" resultMap="AppsuppliersMap">
+        select * from appsuppliers where suppliers_id = #{suppliersId}
+    </select>
+
+    <insert id="insert">
+        insert into appsuppliers( suppliers_id,truename,nickname,sex,phone,id_card,avatar_url,address,open_id,bank_id,bank_name,bank_arrdress,create_time,update_time )
+        values ( #{suppliersId},#{truename},#{nickname},#{sex},#{phone},#{idCard},#{avatarUrl},#{address},#{openId},#{bankId},#{bankName},#{bankArrdress},#{createTime},#{updateTime} )
+    </insert>
+
+    <update id="update">
+        update appsuppliers
+        <set>
+            <if test="suppliersId != null and suppliersId != ''">
+                suppliers_id = #{suppliersId},
+            </if>
+            <if test="truename != null and truename != ''">
+                truename = #{truename},
+            </if>
+            <if test="nickname != null and nickname != ''">
+                nickname = #{nickname},
+            </if>
+            <if test="sex != null and sex != ''">
+                sex = #{sex},
+            </if>
+            <if test="phone != null and phone != ''">
+                phone = #{phone},
+            </if>
+            <if test="idCard != null and idCard != ''">
+                id_card = #{idCard},
+            </if>
+            <if test="avatarUrl != null and avatarUrl != ''">
+                avatar_url = #{avatarUrl},
+            </if>
+            <if test="address != null and address != ''">
+                address = #{address},
+            </if>
+            <if test="openId != null and openId != ''">
+                open_id = #{openId},
+            </if>
+            <if test="bankId != null and bankId != ''">
+                bank_id = #{bankId},
+            </if>
+            <if test="bankName != null and bankName != ''">
+                bank_name = #{bankName},
+            </if>
+            <if test="bankArrdress != null and bankArrdress != ''">
+                bank_arrdress = #{bankArrdress},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where suppliers_id = #{suppliersId}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM appsuppliers WHERE suppliers_id = #{suppliersId}
+    </delete>
+
+</mapper>
