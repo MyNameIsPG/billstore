@@ -13,6 +13,8 @@ public interface AppuserMapper {
 
     Appuser queryOne(String userId);
 
+    Appuser quertOneOpenId(String openId);
+
     int insert(Appuser appuser);
 
     int update(Appuser appuser);

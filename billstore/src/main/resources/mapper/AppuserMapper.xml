@@ -28,6 +28,10 @@
         select * from appuser where user_id = #{userId}
     </select>
 
+    <select id="quertOneOpenId" resultMap="AppuserMap">
+        select * from appuser where open_id = #{openId}
+    </select>
+
     <insert id="insert">
         insert into appuser( user_id,nickname,truename,sex,phone,id_card,avatar_url,is_admin,open_id,create_time,update_time )
         values ( #{userId},#{nickname},#{truename},#{sex},#{phone},#{idCard},#{avatarUrl},#{isAdmin},#{openId},#{createTime},#{updateTime} )

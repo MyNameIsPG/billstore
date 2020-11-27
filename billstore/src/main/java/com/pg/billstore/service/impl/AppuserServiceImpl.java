@@ -42,6 +42,12 @@ public class AppuserServiceImpl implements AppuserService {
     }
 
     @Override
+    public Appuser quertOneOpenId(String openId) {
+        Appuser one = this.appuserMapper.quertOneOpenId(openId);
+        return one;
+    }
+
+    @Override
     public int insert(Appuser appuser) {
         appuser.setUserId(UUID.randomUUID().toString().replace("-", ""));
         appuser.setCreateTime(new Date());

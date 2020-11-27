@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pg.billstore.dao.AppwxuserMapper">
+
+    <resultMap type="com.pg.billstore.entity.Appwxuser" id="AppwxuserMap">
+        <result property="wxId" column="wx_id" />
+        <result property="openId" column="open_id" />
+        <result property="nickname" column="nickname" />
+        <result property="gender" column="gender" />
+        <result property="avatarUrl" column="avatar_url" />
+        <result property="mobile" column="mobile" />
+        <result property="role" column="role" />
+        <result property="createTime" column="create_time" />
+        <result property="updateTime" column="update_time" />
+    </resultMap>
+
+    <select id="queryOneOpenId" resultType="java.lang.Integer">
+        select COUNT(*) from appwxusers where open_id = #{openId}
+    </select>
+
+    <select id="queryOneList" resultMap="AppwxuserMap">
+        select * from appwxusers where open_id = #{openId}
+    </select>
+
+    <insert id="insert">
+        insert into appwxusers( wx_id,open_id,nickname,gender,avatar_url,mobile,role,create_time,update_time )
+        values ( #{wxId},#{openId},#{nickname},#{gender},#{avatarUrl},#{mobile},#{role},#{createTime},#{updateTime} )
+    </insert>
+
+    <update id="update">
+        update appwxusers
+        <set>
+            <if test="wxId != null and wxId != ''">
+                wx_id = #{wxId},
+            </if>
+            <if test="openId != null and openId != ''">
+                open_id = #{openId},
+            </if>
+            <if test="nickname != null and nickname != ''">
+                nickname = #{nickname},
+            </if>
+            <if test="gender != null and gender != ''">
+                gender = #{gender},
+            </if>
+            <if test="avatarUrl != null and avatarUrl != ''">
+                avatar_url = #{avatarUrl},
+            </if>
+            <if test="mobile != null and mobile != ''">
+                mobile = #{mobile},
+            </if>
+            <if test="role != null and role != ''">
+                role = #{role},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where wx_id = #{wxId}
+    </update>
+
+</mapper>
