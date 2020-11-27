@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50562
 File Encoding         : 65001
 
-Date: 2020-11-26 19:20:36
+Date: 2020-11-27 17:17:41
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -162,5 +162,25 @@ CREATE TABLE `appuser` (
 -- ----------------------------
 -- Records of appuser
 -- ----------------------------
-INSERT INTO `appuser` VALUES ('09a0d7843bdb47dc91012bc8d7325de6', 'asd', 'ad', '0', 'as', '', '', '0', '', '2020-11-26 15:58:16', null);
-INSERT INTO `appuser` VALUES ('2b257378b04b4a5b9c957abbe4c7b1af', 'asd', 'ad', '0', 'as', '', '', '0', '', '2020-11-26 15:58:04', null);
+
+-- ----------------------------
+-- Table structure for appwxusers
+-- ----------------------------
+DROP TABLE IF EXISTS `appwxusers`;
+CREATE TABLE `appwxusers` (
+  `wx_id` varchar(32) NOT NULL,
+  `open_id` varchar(32) DEFAULT NULL COMMENT '微信小程序id',
+  `nickname` varchar(20) DEFAULT NULL COMMENT '昵称',
+  `gender` int(1) DEFAULT NULL COMMENT '性别',
+  `avatar_url` varchar(255) DEFAULT NULL COMMENT '头像',
+  `mobile` varchar(50) DEFAULT NULL COMMENT '手机号码',
+  `role` int(1) DEFAULT NULL COMMENT '1管理员 2员工 3供应商 3客户',
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`wx_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='微信基础数据表';
+
+-- ----------------------------
+-- Records of appwxusers
+-- ----------------------------
+INSERT INTO `appwxusers` VALUES ('e8a3b6dcb3dc431ba55ed47d18ef5c78', 'oBzz60KcpdjYEAe_rN91SL6r0cBU', '彭贵', '1', 'https://thirdwx.qlogo.cn/mmopen/vi_32/pbjIJqM0Sxv6iaIXmrrqb8saO0weAVqaBhC2u68tmNNxJ7BGGsebVeQgKye8b37ykZaYwzcK6cXuZMVrPDcFTmw/132', null, null, '2020-11-27 16:53:15', null);

@@ -2,23 +2,16 @@ package com.pg.billstore.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.github.pagehelper.Page;
-import com.pg.billstore.entity.Appuser;
 import com.pg.billstore.entity.Appwxuser;
 import com.pg.billstore.handler.BusinessStatus;
-import com.pg.billstore.handler.PageInfo;
 import com.pg.billstore.handler.Result;
-import com.pg.billstore.handler.ResultPage;
-import com.pg.billstore.service.AppuserService;
 import com.pg.billstore.service.AppwxuserService;
 import com.pg.billstore.util.HttpUrlUtil;
-import com.sun.deploy.net.HttpUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.*;
 
 @Api(tags = "微信登录")
@@ -26,9 +19,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class AppWxAuthorizationController {
     private static Logger log = LoggerFactory.getLogger(AppuserController.class);
-
-    @Autowired
-    private AppuserService appuserService;
 
     @Autowired
     private AppwxuserService appwxuserService;

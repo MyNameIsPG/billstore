@@ -4,12 +4,9 @@
 
     <resultMap type="com.pg.billstore.entity.Appuser" id="AppuserMap">
         <result property="userId" column="user_id" />
-        <result property="nickname" column="nickname" />
         <result property="truename" column="truename" />
-        <result property="sex" column="sex" />
         <result property="phone" column="phone" />
         <result property="idCard" column="id_card" />
-        <result property="avatarUrl" column="avatar_url" />
         <result property="isAdmin" column="is_admin" />
         <result property="openId" column="open_id" />
         <result property="createTime" column="create_time" />
@@ -33,8 +30,8 @@
     </select>
 
     <insert id="insert">
-        insert into appuser( user_id,nickname,truename,sex,phone,id_card,avatar_url,is_admin,open_id,create_time,update_time )
-        values ( #{userId},#{nickname},#{truename},#{sex},#{phone},#{idCard},#{avatarUrl},#{isAdmin},#{openId},#{createTime},#{updateTime} )
+        insert into appuser( user_id,truename,phone,id_card,is_admin,open_id,create_time,update_time )
+        values ( #{userId},#{truename},#{phone},#{idCard},#{isAdmin},#{openId},#{createTime},#{updateTime} )
     </insert>
 
     <update id="update">
@@ -43,23 +40,14 @@
             <if test="userId != null and userId != ''">
                 user_id = #{userId},
             </if>
-            <if test="nickname != null and nickname != ''">
-                nickname = #{nickname},
-            </if>
             <if test="truename != null and truename != ''">
                 truename = #{truename},
-            </if>
-            <if test="sex != null and sex != ''">
-                sex = #{sex},
             </if>
             <if test="phone != null and phone != ''">
                 phone = #{phone},
             </if>
             <if test="idCard != null and idCard != ''">
                 id_card = #{idCard},
-            </if>
-            <if test="avatarUrl != null and avatarUrl != ''">
-                avatar_url = #{avatarUrl},
             </if>
             <if test="isAdmin != null and isAdmin != ''">
                 is_admin = #{isAdmin},
