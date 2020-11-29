@@ -17,13 +17,12 @@
 export default {
 	data() {
 		return {
-			userInfo: {},
 			isCanUse: uni.getStorageSync('isCanUse') || false //默认为true
 		};
 	},
 	onLoad() {
 		// 默认加载
-		this.wxGetCode();
+		// this.wxGetCode();
 	},
 	methods: {
 		// 1、获取code
@@ -45,9 +44,6 @@ export default {
 			uni.getUserInfo({
 				provider: 'weixin',
 				success: res => {
-					_this.userInfo = res.userInfo;
-					uni.setStorageSync('userInfo', JSON.stringify(res.userInfo));
-					console.log(res.userInfo);
 					try {
 						uni.setStorageSync('isCanUse', true); //记录是否第一次授权  false:表示不是第一次授权
 					} catch (e) {}
@@ -60,7 +56,21 @@ export default {
 							gender: res.userInfo.gender
 						}
 					}).then(res => {
-						console.log(res);
+						uni.setStorageSync('userInfo', JSON.stringify(res.data));
+						uni.showLoading({
+							title: '登录中！'
+						});
+						setTimeout(() => {
+							if(res.data.role){
+								uni.navigateTo({
+									url: `/pages/index/index`
+								});
+							} else {
+								uni.navigateTo({
+									url: `/pages/authenticate/authenticate`
+								});
+							}
+						}, 500);
 					});
 				},
 				fail(res) {

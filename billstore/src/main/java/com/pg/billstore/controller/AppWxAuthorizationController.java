@@ -2,9 +2,11 @@ package com.pg.billstore.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.pg.billstore.entity.Appuser;
 import com.pg.billstore.entity.Appwxuser;
 import com.pg.billstore.handler.BusinessStatus;
 import com.pg.billstore.handler.Result;
+import com.pg.billstore.service.AppuserService;
 import com.pg.billstore.service.AppwxuserService;
 import com.pg.billstore.util.HttpUrlUtil;
 import io.swagger.annotations.Api;
@@ -12,7 +14,10 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @Api(tags = "微信登录")
 @RequestMapping("/api/wx")
@@ -22,6 +27,9 @@ public class AppWxAuthorizationController {
 
     @Autowired
     private AppwxuserService appwxuserService;
+
+    @Autowired
+    private AppuserService appuserService;
 
     /**
      * 1、第一次进来先查询一下有没有openid
@@ -69,5 +77,36 @@ public class AppWxAuthorizationController {
         Appwxuser queryOneList = this.appwxuserService.queryOneList(openid);
         return queryOneList;
     }
+
+    /**
+     * 1、先根据真实姓名和手机号码 去用户表、客户表、供应商查询是否存在这个记录
+     * 2、如果存在 根据 它的位置来判断是哪个角色
+     */
+    @ApiOperation("微信第一次登录后认证")
+    @GetMapping(value = "/authenticate")
+    public Result<Appwxuser> Authenticate(
+            @RequestParam("truename") String truename,
+            @RequestParam("phone") String phone,
+            @RequestParam("openId") String openId
+    ) {
+
+        Appuser appuser = this.appuserService.quertOneUsernameAndPhone(truename, phone);
+        if(appuser!=null){
+            int saveUsers = this.AuthenticateSaveUsers(phone, openId, appuser.getIsAdmin(), appuser.getUserId());
+            return new Result<Appwxuser>(BusinessStatus.SUCCESS);
+        }
+        return new Result<Appwxuser>(BusinessStatus.USER_ERROR);
+    }
+
+    private int AuthenticateSaveUsers(String phone, String openId, Integer isAdmin, String targetId) {
+        Appwxuser appwxuser = new Appwxuser();
+        appwxuser.setMobile(phone);
+        appwxuser.setOpenId(openId);
+        appwxuser.setRole(isAdmin);
+        appwxuser.setTargetId(targetId);
+        int update = this.appwxuserService.updateOpenId(appwxuser);
+        return update;
+    }
+
 
 }

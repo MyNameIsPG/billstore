@@ -42,9 +42,8 @@ public class AppuserServiceImpl implements AppuserService {
     }
 
     @Override
-    public Appuser quertOneOpenId(String openId) {
-        Appuser one = this.appuserMapper.quertOneOpenId(openId);
-        return one;
+    public Appuser quertOneUsernameAndPhone(String truename, String phone) {
+        return this.appuserMapper.quertOneUsernameAndPhone(truename, phone);
     }
 
     @Override

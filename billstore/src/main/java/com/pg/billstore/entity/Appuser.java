@@ -22,9 +22,6 @@ public class Appuser {
     @ApiModelProperty(value = "是否管理员")
     private Integer isAdmin;
 
-    @ApiModelProperty(value = "微信openid")
-    private String openId;
-
     private Date createTime;
 
     private Date updateTime;

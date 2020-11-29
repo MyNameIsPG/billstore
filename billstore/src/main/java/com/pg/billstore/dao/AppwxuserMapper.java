@@ -15,4 +15,6 @@ public interface AppwxuserMapper {
     int insert(Appwxuser appwxuser);
 
     int update(Appwxuser appwxuser);
+
+    int updateOpenId(Appwxuser appwxuser);
 }

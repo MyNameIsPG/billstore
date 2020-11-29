@@ -1,6 +1,4 @@
 {
-  "navigationBarTitleText": "uni-app",
-  "usingComponents": {
-    "test": "/pages/test/index"
-  }
+  "navigationBarTitleText": "23",
+  "usingComponents": {}
 }

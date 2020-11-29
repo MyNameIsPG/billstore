@@ -16,7 +16,7 @@ public enum BusinessStatus {
 
 
     //权限类异常
-    USER_ERROR(2001, "没有此用户"),
+    USER_ERROR(2001, "授权失败"),
     PASSWORD_ERROR(2002, "密码错误"),
     POWER_ERROR(2003,"没有操作权限"),
     NO_TOKEN(201, "无token，请先登录"),

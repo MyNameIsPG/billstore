@@ -1,7 +1,8 @@
 {
   "pages": [
+    "pages/index/index",
     "pages/authorize/authorize",
-    "pages/index/index"
+    "pages/authenticate/authenticate"
   ],
   "subPackages": [],
   "window": {
@@ -13,6 +14,5 @@
   },
   "usingComponents": {
     "cu-custom": "/colorui/components/cu-custom"
-  },
-  "sitemapLocation": "sitemap76.json"
+  }
 }

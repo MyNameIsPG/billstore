@@ -12,4 +12,6 @@ public interface AppwxuserService {
 
     int update(Appwxuser appwxuser);
 
+    int updateOpenId(Appwxuser appwxuser);
+
 }

@@ -4,6 +4,7 @@
 
     <resultMap type="com.pg.billstore.entity.Appwxuser" id="AppwxuserMap">
         <result property="wxId" column="wx_id" />
+        <result property="targetId" column="target_id" />
         <result property="openId" column="open_id" />
         <result property="nickname" column="nickname" />
         <result property="gender" column="gender" />
@@ -23,8 +24,8 @@
     </select>
 
     <insert id="insert">
-        insert into appwxusers( wx_id,open_id,nickname,gender,avatar_url,mobile,role,create_time,update_time )
-        values ( #{wxId},#{openId},#{nickname},#{gender},#{avatarUrl},#{mobile},#{role},#{createTime},#{updateTime} )
+        insert into appwxusers( wx_id,target_id,open_id,nickname,gender,avatar_url,mobile,role,create_time,update_time )
+        values ( #{wxId},#{targetId},#{openId},#{nickname},#{gender},#{avatarUrl},#{mobile},#{role},#{createTime},#{updateTime} )
     </insert>
 
     <update id="update">
@@ -32,6 +33,9 @@
         <set>
             <if test="wxId != null and wxId != ''">
                 wx_id = #{wxId},
+            </if>
+            <if test="targetId != null and targetId != ''">
+                target_id = #{targetId},
             </if>
             <if test="openId != null and openId != ''">
                 open_id = #{openId},
@@ -59,6 +63,43 @@
             </if>
         </set>
         where wx_id = #{wxId}
+    </update>
+
+    <update id="updateOpenId">
+        update appwxusers
+        <set>
+            <if test="wxId != null and wxId != ''">
+                wx_id = #{wxId},
+            </if>
+            <if test="targetId != null and targetId != ''">
+                target_id = #{targetId},
+            </if>
+            <if test="openId != null and openId != ''">
+                open_id = #{openId},
+            </if>
+            <if test="nickname != null and nickname != ''">
+                nickname = #{nickname},
+            </if>
+            <if test="gender != null and gender != ''">
+                gender = #{gender},
+            </if>
+            <if test="avatarUrl != null and avatarUrl != ''">
+                avatar_url = #{avatarUrl},
+            </if>
+            <if test="mobile != null and mobile != ''">
+                mobile = #{mobile},
+            </if>
+            <if test="role != null and role != ''">
+                role = #{role},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where open_id = #{openId}
     </update>
 
 </mapper>

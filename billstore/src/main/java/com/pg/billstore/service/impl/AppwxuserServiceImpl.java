@@ -37,4 +37,10 @@ public class AppwxuserServiceImpl implements AppwxuserService {
         appwxuser.setUpdateTime(new Date());
         return this.appwxuserMapper.update(appwxuser);
     }
+
+    @Override
+    public int updateOpenId(Appwxuser appwxuser) {
+        appwxuser.setUpdateTime(new Date());
+        return this.appwxuserMapper.updateOpenId(appwxuser);
+    }
 }

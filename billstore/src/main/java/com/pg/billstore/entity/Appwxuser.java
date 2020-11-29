@@ -13,6 +13,9 @@ public class Appwxuser {
     @ApiModelProperty(value = "微信小程序id")
     private String openId;
 
+    @ApiModelProperty(value = "目标id")
+    private String targetId;
+
     @ApiModelProperty(value = "昵称")
     private String nickname;
 

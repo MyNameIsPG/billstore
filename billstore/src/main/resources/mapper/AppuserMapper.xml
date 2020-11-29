@@ -8,7 +8,6 @@
         <result property="phone" column="phone" />
         <result property="idCard" column="id_card" />
         <result property="isAdmin" column="is_admin" />
-        <result property="openId" column="open_id" />
         <result property="createTime" column="create_time" />
         <result property="updateTime" column="update_time" />
     </resultMap>
@@ -25,13 +24,13 @@
         select * from appuser where user_id = #{userId}
     </select>
 
-    <select id="quertOneOpenId" resultMap="AppuserMap">
-        select * from appuser where open_id = #{openId}
+    <select id="quertOneUsernameAndPhone" resultMap="AppuserMap">
+        select * from appuser where truename = #{truename} and phone = #{phone}
     </select>
 
     <insert id="insert">
-        insert into appuser( user_id,truename,phone,id_card,is_admin,open_id,create_time,update_time )
-        values ( #{userId},#{truename},#{phone},#{idCard},#{isAdmin},#{openId},#{createTime},#{updateTime} )
+        insert into appuser( user_id,truename,phone,id_card,is_admin,create_time,update_time )
+        values ( #{userId},#{truename},#{phone},#{idCard},#{isAdmin},#{createTime},#{updateTime} )
     </insert>
 
     <update id="update">
@@ -51,9 +50,6 @@
             </if>
             <if test="isAdmin != null and isAdmin != ''">
                 is_admin = #{isAdmin},
-            </if>
-            <if test="openId != null and openId != ''">
-                open_id = #{openId},
             </if>
             <if test="createTime != null">
                 create_time = #{createTime},

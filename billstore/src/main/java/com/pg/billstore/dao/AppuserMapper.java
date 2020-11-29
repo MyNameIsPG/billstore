@@ -2,6 +2,7 @@ package com.pg.billstore.dao;
 
 import com.github.pagehelper.Page;
 import com.pg.billstore.entity.Appuser;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ public interface AppuserMapper {
 
     Appuser queryOne(String userId);
 
-    Appuser quertOneOpenId(String openId);
+    Appuser quertOneUsernameAndPhone(@Param("truename") String truename, @Param("phone") String phone);
 
     int insert(Appuser appuser);
 

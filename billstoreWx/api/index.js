@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:6001";
+const BASE_URL = "http://192.168.199.190:6001";
 
 export const apiRequest = (options) => {
 	return new Promise((resolve, reject) => {
@@ -6,7 +6,6 @@ export const apiRequest = (options) => {
 			url: BASE_URL + options.url,
 			method: options.methods || "GET",
 			data: options.data || {},
-			dataType: options.dataType || "application/json",
 			success: (res) => {
 				if (res.statusCode !== 200) {
 					return uni.showToast({
