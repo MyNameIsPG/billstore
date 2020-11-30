@@ -9,6 +9,7 @@ import cuCustom from './colorui/components/cu-custom.vue'
 Vue.component('cu-custom',cuCustom)
 
 Vue.prototype.$request = apiRequest
+Vue.prototype.IS_OK = 200
 Vue.config.productionTip = false
 
 App.mpType = 'app'

@@ -1,11 +1,19 @@
 <template>
 	<view class="">
-		<cu-custom bgColor="bg-gradual-blue" :isBack="true"><block slot="content">头像</block></cu-custom>
+		<cu-custom bgColor="bg-gradual-blue"><block slot="content">首页</block></cu-custom>
+		<view class="header-bar">
+			<view class="header-userinfo">
+				<view>
+					<image :src="userInfo.avatarUrl"></image>
+					<text>{{ userInfo.nickname }}</text>
+				</view>
+			</view>
+		</view>
 		<view v-for="(menu, index) in menuList" :key="index">
 			<view class="cu-bar bg-white solid-bottom">
 				<view class="action">
 					<text class="cuIcon-title text-orange "></text>
-					{{menu.title}}
+					{{ menu.title }}
 				</view>
 			</view>
 			<view class="cu-list grid" :class="['col-' + gridCol, gridBorder ? '' : 'no-border']">
@@ -22,6 +30,7 @@
 export default {
 	data() {
 		return {
+			userInfo: JSON.parse(uni.getStorageSync('userInfo')),
 			gridCol: 4,
 			gridBorder: false,
 			menuList: [
@@ -142,4 +151,29 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="stylus">
+.header-bar
+	position relative
+	height 200rpx
+	background -webkit-linear-gradient(to bottom right, #f7883b, #f8ba63)
+	background -o-linear-gradient(to bottom right, #f7883b, #f8ba63)
+	background -moz-linear-gradient(to bottom right, #f7883b, #f8ba63)
+	background linear-gradient(to bottom right, #f7883b, #f8ba63)
+	.header-userinfo
+		height 100%
+		padding 0rpx 40rpx
+		box-sizing border-box
+		display flex
+		align-items center
+		justify-content center
+		image
+			width 100rpx
+			height 100rpx
+			border-radius 50%
+			margin 0 auto
+			display block
+		text
+			color #FFFFFF
+			margin-left 20rpx
+			font-size 30rpx
+</style>

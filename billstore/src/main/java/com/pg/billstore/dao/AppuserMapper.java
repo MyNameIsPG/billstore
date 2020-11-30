@@ -14,7 +14,7 @@ public interface AppuserMapper {
 
     Appuser queryOne(String userId);
 
-    Appuser quertOneUsernameAndPhone(@Param("truename") String truename, @Param("phone") String phone);
+    Appuser queryOneUsernameAndPhone(@Param("truename") String truename, @Param("phone") String phone);
 
     int insert(Appuser appuser);
 

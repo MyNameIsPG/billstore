@@ -5,11 +5,8 @@
     <resultMap type="com.pg.billstore.entity.Appsuppliers" id="AppsuppliersMap">
         <result property="suppliersId" column="suppliers_id" />
         <result property="truename" column="truename" />
-        <result property="nickname" column="nickname" />
-        <result property="sex" column="sex" />
         <result property="phone" column="phone" />
         <result property="idCard" column="id_card" />
-        <result property="avatarUrl" column="avatar_url" />
         <result property="address" column="address" />
         <result property="openId" column="open_id" />
         <result property="bankId" column="bank_id" />
@@ -31,9 +28,13 @@
         select * from appsuppliers where suppliers_id = #{suppliersId}
     </select>
 
+    <select id="queryOneUsernameAndPhone" resultMap="AppsuppliersMap">
+        select * from appsuppliers where truename = #{truename} and phone = #{phone}
+    </select>
+
     <insert id="insert">
-        insert into appsuppliers( suppliers_id,truename,nickname,sex,phone,id_card,avatar_url,address,open_id,bank_id,bank_name,bank_arrdress,create_time,update_time )
-        values ( #{suppliersId},#{truename},#{nickname},#{sex},#{phone},#{idCard},#{avatarUrl},#{address},#{openId},#{bankId},#{bankName},#{bankArrdress},#{createTime},#{updateTime} )
+        insert into appsuppliers( suppliers_id,truename,phone,id_card,address,open_id,bank_id,bank_name,bank_arrdress,create_time,update_time )
+        values ( #{suppliersId},#{truename},#{phone},#{idCard},#{address},#{openId},#{bankId},#{bankName},#{bankArrdress},#{createTime},#{updateTime} )
     </insert>
 
     <update id="update">
@@ -45,20 +46,11 @@
             <if test="truename != null and truename != ''">
                 truename = #{truename},
             </if>
-            <if test="nickname != null and nickname != ''">
-                nickname = #{nickname},
-            </if>
-            <if test="sex != null and sex != ''">
-                sex = #{sex},
-            </if>
             <if test="phone != null and phone != ''">
                 phone = #{phone},
             </if>
             <if test="idCard != null and idCard != ''">
                 id_card = #{idCard},
-            </if>
-            <if test="avatarUrl != null and avatarUrl != ''">
-                avatar_url = #{avatarUrl},
             </if>
             <if test="address != null and address != ''">
                 address = #{address},

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50562
 File Encoding         : 65001
 
-Date: 2020-11-27 17:17:41
+Date: 2020-11-30 16:24:34
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -22,11 +22,8 @@ DROP TABLE IF EXISTS `appcustomer`;
 CREATE TABLE `appcustomer` (
   `customer_id` varchar(32) NOT NULL COMMENT '客户id',
   `truename` varchar(10) DEFAULT NULL COMMENT '真实姓名',
-  `nickname` varchar(255) DEFAULT NULL COMMENT '昵称',
-  `sex` int(1) DEFAULT NULL COMMENT '性别',
   `phone` varchar(11) DEFAULT NULL COMMENT '手机号码',
   `id_card` varchar(18) DEFAULT NULL COMMENT '身份证号码',
-  `avatar_url` varchar(255) DEFAULT NULL COMMENT '头像',
   `address` varchar(255) DEFAULT NULL COMMENT '居住地址',
   `open_id` varchar(255) DEFAULT NULL COMMENT '微信id',
   `create_time` datetime DEFAULT NULL,
@@ -37,6 +34,7 @@ CREATE TABLE `appcustomer` (
 -- ----------------------------
 -- Records of appcustomer
 -- ----------------------------
+INSERT INTO `appcustomer` VALUES ('774745937bad4f7d9ca6b651f0550dce', '彭贵', '18588773304', '', '', '', '2020-11-30 11:36:25', null);
 
 -- ----------------------------
 -- Table structure for appgoods
@@ -121,11 +119,8 @@ DROP TABLE IF EXISTS `appsuppliers`;
 CREATE TABLE `appsuppliers` (
   `suppliers_id` varchar(32) NOT NULL,
   `truename` varchar(10) DEFAULT NULL COMMENT '真实姓名',
-  `nickname` varchar(255) DEFAULT NULL COMMENT '昵称',
-  `sex` int(1) DEFAULT NULL COMMENT '性别',
   `phone` varchar(11) DEFAULT NULL COMMENT '手机号码',
   `id_card` varchar(18) DEFAULT NULL COMMENT '身份证号码',
-  `avatar_url` varchar(255) DEFAULT NULL COMMENT '头像',
   `address` varchar(255) DEFAULT NULL COMMENT '居住地址',
   `open_id` varchar(255) DEFAULT NULL COMMENT '微信id',
   `bank_id` varchar(32) DEFAULT NULL COMMENT '银行卡号',
@@ -146,12 +141,9 @@ CREATE TABLE `appsuppliers` (
 DROP TABLE IF EXISTS `appuser`;
 CREATE TABLE `appuser` (
   `user_id` varchar(32) NOT NULL,
-  `nickname` varchar(10) DEFAULT NULL COMMENT '昵称',
   `truename` varchar(10) DEFAULT NULL COMMENT '真实姓名',
-  `sex` int(1) DEFAULT NULL COMMENT '性别',
   `phone` varchar(11) DEFAULT NULL COMMENT '手机号码',
   `id_card` varchar(18) DEFAULT NULL COMMENT '身份证号码',
-  `avatar_url` varchar(255) DEFAULT NULL COMMENT '头像',
   `is_admin` int(1) DEFAULT NULL COMMENT '是否管理员',
   `open_id` varchar(255) DEFAULT NULL COMMENT '微信openid',
   `create_time` datetime DEFAULT NULL,
@@ -170,6 +162,7 @@ DROP TABLE IF EXISTS `appwxusers`;
 CREATE TABLE `appwxusers` (
   `wx_id` varchar(32) NOT NULL,
   `open_id` varchar(32) DEFAULT NULL COMMENT '微信小程序id',
+  `target_id` varchar(32) DEFAULT NULL COMMENT '目标id',
   `nickname` varchar(20) DEFAULT NULL COMMENT '昵称',
   `gender` int(1) DEFAULT NULL COMMENT '性别',
   `avatar_url` varchar(255) DEFAULT NULL COMMENT '头像',
@@ -183,4 +176,4 @@ CREATE TABLE `appwxusers` (
 -- ----------------------------
 -- Records of appwxusers
 -- ----------------------------
-INSERT INTO `appwxusers` VALUES ('e8a3b6dcb3dc431ba55ed47d18ef5c78', 'oBzz60KcpdjYEAe_rN91SL6r0cBU', '彭贵', '1', 'https://thirdwx.qlogo.cn/mmopen/vi_32/pbjIJqM0Sxv6iaIXmrrqb8saO0weAVqaBhC2u68tmNNxJ7BGGsebVeQgKye8b37ykZaYwzcK6cXuZMVrPDcFTmw/132', null, null, '2020-11-27 16:53:15', null);
+INSERT INTO `appwxusers` VALUES ('da7ef89e280e41a09bf83d6c627349f0', 'oBzz60KcpdjYEAe_rN91SL6r0cBU', '774745937bad4f7d9ca6b651f0550dce', '彭贵', '1', 'https://thirdwx.qlogo.cn/mmopen/vi_32/pbjIJqM0Sxv6iaIXmrrqb8saO0weAVqaBhC2u68tmNNxJ7BGGsebVeQgKye8b37ykZaYwzcK6cXuZMVrPDcFTmw/132', '18588773304', '4', '2020-11-30 11:36:46', '2020-11-30 11:36:53');

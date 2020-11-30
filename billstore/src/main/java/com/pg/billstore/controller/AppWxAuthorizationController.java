@@ -2,10 +2,14 @@ package com.pg.billstore.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.pg.billstore.entity.Appcustomer;
+import com.pg.billstore.entity.Appsuppliers;
 import com.pg.billstore.entity.Appuser;
 import com.pg.billstore.entity.Appwxuser;
 import com.pg.billstore.handler.BusinessStatus;
 import com.pg.billstore.handler.Result;
+import com.pg.billstore.service.AppcustomerService;
+import com.pg.billstore.service.AppsuppliersService;
 import com.pg.billstore.service.AppuserService;
 import com.pg.billstore.service.AppwxuserService;
 import com.pg.billstore.util.HttpUrlUtil;
@@ -30,6 +34,12 @@ public class AppWxAuthorizationController {
 
     @Autowired
     private AppuserService appuserService;
+
+    @Autowired
+    private AppsuppliersService appsuppliersService;
+
+    @Autowired
+    private AppcustomerService appcustomerService;
 
     /**
      * 1、第一次进来先查询一下有没有openid
@@ -90,23 +100,36 @@ public class AppWxAuthorizationController {
             @RequestParam("openId") String openId
     ) {
 
-        Appuser appuser = this.appuserService.quertOneUsernameAndPhone(truename, phone);
+        // 1、先查询人员
+        Appuser appuser = this.appuserService.queryOneUsernameAndPhone(truename, phone);
         if(appuser!=null){
-            int saveUsers = this.AuthenticateSaveUsers(phone, openId, appuser.getIsAdmin(), appuser.getUserId());
-            return new Result<Appwxuser>(BusinessStatus.SUCCESS);
+            Appwxuser appwxuser = this.AuthenticateSaveUsers(phone, openId, appuser.getIsAdmin(), appuser.getUserId());
+            return new Result<Appwxuser>(BusinessStatus.SUCCESS, appwxuser);
+        }
+        // 2、查询供应商
+        Appsuppliers appsuppliers = this.appsuppliersService.queryOneUsernameAndPhone(truename, phone);
+        if(appsuppliers!=null) {
+            Appwxuser appwxuser = this.AuthenticateSaveUsers(phone, openId, 3, appsuppliers.getSuppliersId());
+            return new Result<Appwxuser>(BusinessStatus.SUCCESS, appwxuser);
+        }
+        // 3、查询客户
+        Appcustomer appcustomer = this.appcustomerService.queryOneUsernameAndPhone(truename, phone);
+        if(appcustomer!=null){
+            Appwxuser appwxuser = this.AuthenticateSaveUsers(phone, openId, 4, appcustomer.getCustomerId());
+            return new Result<Appwxuser>(BusinessStatus.SUCCESS, appwxuser);
         }
         return new Result<Appwxuser>(BusinessStatus.USER_ERROR);
     }
 
-    private int AuthenticateSaveUsers(String phone, String openId, Integer isAdmin, String targetId) {
+    private Appwxuser AuthenticateSaveUsers(String phone, String openId, Integer isAdmin, String targetId) {
         Appwxuser appwxuser = new Appwxuser();
         appwxuser.setMobile(phone);
         appwxuser.setOpenId(openId);
         appwxuser.setRole(isAdmin);
         appwxuser.setTargetId(targetId);
-        int update = this.appwxuserService.updateOpenId(appwxuser);
-        return update;
+        this.appwxuserService.updateOpenId(appwxuser);
+        Appwxuser appwxuserData = this.appwxuserService.queryOneList(openId);
+        return appwxuserData;
     }
-
 
 }

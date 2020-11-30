@@ -42,8 +42,8 @@ public class AppuserServiceImpl implements AppuserService {
     }
 
     @Override
-    public Appuser quertOneUsernameAndPhone(String truename, String phone) {
-        return this.appuserMapper.quertOneUsernameAndPhone(truename, phone);
+    public Appuser queryOneUsernameAndPhone(String truename, String phone) {
+        return this.appuserMapper.queryOneUsernameAndPhone(truename, phone);
     }
 
     @Override

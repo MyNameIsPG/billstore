@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<cu-custom bgColor="bg-gradual-blue" :isBack="true">
+		<cu-custom bgColor="bg-gradual-blue">
 			<block slot="content">认证</block>
 		</cu-custom>
 		<form>
@@ -53,7 +53,23 @@
 						openId: JSON.parse(uni.getStorageSync("userInfo")).openId
 					}
 				}).then(res=>{
-					console.log(res)
+					if(res.code===this.IS_OK){
+						uni.navigateTo({
+							url: `/pages/index/index`
+						});
+					} else {
+						uni.showModal({
+						    title: '温馨提示',
+						    content: '用户不存在，请联系管理员',
+						    success: function (res) {
+						        if (res.confirm) {
+						            console.log('用户点击确定');
+						        } else if (res.cancel) {
+						            console.log('用户点击取消');
+						        }
+						    }
+						});
+					}
 				})
 			}
 		}

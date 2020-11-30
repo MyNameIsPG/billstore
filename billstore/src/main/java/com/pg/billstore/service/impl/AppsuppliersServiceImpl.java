@@ -42,6 +42,11 @@ public class AppsuppliersServiceImpl implements AppsuppliersService {
     }
 
     @Override
+    public Appsuppliers queryOneUsernameAndPhone(String truename, String phone) {
+        return this.appsuppliersMapper.queryOneUsernameAndPhone(truename, phone);
+    }
+
+    @Override
     public int insert(Appsuppliers appsuppliers) {
         appsuppliers.setSuppliersId(UUID.randomUUID().toString().replace("-", ""));
         appsuppliers.setCreateTime(new Date());

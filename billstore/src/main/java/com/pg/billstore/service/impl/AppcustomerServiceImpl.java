@@ -42,6 +42,11 @@ public class AppcustomerServiceImpl implements AppcustomerService {
     }
 
     @Override
+    public Appcustomer queryOneUsernameAndPhone(String truename, String phone) {
+        return this.appcustomerMapper.queryOneUsernameAndPhone(truename, phone);
+    }
+
+    @Override
     public int insert(Appcustomer appcustomer) {
         appcustomer.setCustomerId(UUID.randomUUID().toString().replace("-", ""));
         appcustomer.setCreateTime(new Date());
