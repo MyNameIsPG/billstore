@@ -11,11 +11,11 @@
     </resultMap>
 
     <select id="queryPage" resultMap="ApppytypeMap">
-        SELECT * FROM apppytype
+        SELECT * FROM apppytype ORDER BY create_time DESC
     </select>
 
     <select id="queryAll" resultMap="ApppytypeMap">
-        SELECT * FROM apppytype
+        SELECT * FROM apppytype ORDER BY create_time DESC
     </select>
 
     <select id="queryOne" resultMap="ApppytypeMap">

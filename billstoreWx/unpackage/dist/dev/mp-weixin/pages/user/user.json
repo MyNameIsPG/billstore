@@ -1,0 +1,7 @@
+{
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "a-nodata": "/components/a-nodata/a-nodata",
+    "a-addbtn": "/components/a-addbtn/a-addbtn"
+  }
+}

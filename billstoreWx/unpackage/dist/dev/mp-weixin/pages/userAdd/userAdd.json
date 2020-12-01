@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "a-form-add": "/components/a-form-add/a-form-add"
+  }
+}

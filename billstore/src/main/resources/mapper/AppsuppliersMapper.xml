@@ -17,11 +17,11 @@
     </resultMap>
 
     <select id="queryPage" resultMap="AppsuppliersMap">
-        SELECT * FROM appsuppliers
+        SELECT * FROM appsuppliers ORDER BY create_time DESC
     </select>
 
     <select id="queryAll" resultMap="AppsuppliersMap">
-        SELECT * FROM appsuppliers
+        SELECT * FROM appsuppliers ORDER BY create_time DESC
     </select>
 
     <select id="queryOne" resultMap="AppsuppliersMap">

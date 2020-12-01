@@ -14,11 +14,11 @@
     </resultMap>
 
     <select id="queryPage" resultMap="AppgoodsMap">
-        SELECT * FROM appgoods
+        SELECT * FROM appgoods ORDER BY create_time DESC
     </select>
 
     <select id="queryAll" resultMap="AppgoodsMap">
-        SELECT * FROM appgoods
+        SELECT * FROM appgoods ORDER BY create_time DESC
     </select>
 
     <select id="queryOne" resultMap="AppgoodsMap">

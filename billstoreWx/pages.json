@@ -1,9 +1,12 @@
 {
 	"pages": [
+		{ "path" : "pages/userAdd/userAdd" },
 		{ "path": "pages/authorize/authorize" },
 		{ "path": "pages/authenticate/authenticate" },
-		{ "path": "pages/index/index" }
-	],
+		{ "path": "pages/index/index" },
+		{ "path" : "pages/user/user", "style": { "enablePullDownRefresh": true } }
+        
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",

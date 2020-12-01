@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50562
 File Encoding         : 65001
 
-Date: 2020-11-30 16:24:34
+Date: 2020-12-01 17:48:52
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -55,6 +55,11 @@ CREATE TABLE `appgoods` (
 -- ----------------------------
 -- Records of appgoods
 -- ----------------------------
+INSERT INTO `appgoods` VALUES ('38de71497ead48cd8bd87104f94f68f3', '商品4', '小类4', '大类4', '0', '0', '2020-12-01 09:30:16', null);
+INSERT INTO `appgoods` VALUES ('662347ac411a47468d1c8524d55720b6', '商品5', '小类5', '大类5', '0', '0', '2020-12-01 09:31:24', null);
+INSERT INTO `appgoods` VALUES ('698067d99fa748469f7e5d20369839cf', '商品3', '小类3', '大类3', '0', '0', '2020-12-01 09:30:07', null);
+INSERT INTO `appgoods` VALUES ('b93c21ab831542b4b312f2f6cb48189e', '商品1', '小类1', '大类1', '0', '0', '2020-12-01 09:29:32', null);
+INSERT INTO `appgoods` VALUES ('d427fc25661442bdbdcc8ac4590b12bd', '商品2', '小类2', '大类2', '0', '0', '2020-12-01 09:30:04', null);
 
 -- ----------------------------
 -- Table structure for appgoodsprice
@@ -93,6 +98,9 @@ CREATE TABLE `apppytype` (
 -- ----------------------------
 -- Records of apppytype
 -- ----------------------------
+INSERT INTO `apppytype` VALUES ('3a2bce1521454760ae526d62e07e0bbd', '支出2', '0', '2020-12-01 09:12:40', null);
+INSERT INTO `apppytype` VALUES ('41ceed2157584ec0967e8288c103b1dc', '支出3', '0', '2020-12-01 09:12:43', null);
+INSERT INTO `apppytype` VALUES ('676aa9b7cc574b11a71b4f75fe37f04f', '支出1', '0', '2020-12-01 09:12:32', null);
 
 -- ----------------------------
 -- Table structure for apppyway
@@ -111,6 +119,9 @@ CREATE TABLE `apppyway` (
 -- ----------------------------
 -- Records of apppyway
 -- ----------------------------
+INSERT INTO `apppyway` VALUES ('8aaa516010fe4363a4e091c347b84851', '付款方式3', '0', '0', '2020-12-01 09:17:25', null);
+INSERT INTO `apppyway` VALUES ('8b919474a3474ed9a3b6b7dd50581f25', '付款方式1', '0', '0', '2020-12-01 09:17:19', null);
+INSERT INTO `apppyway` VALUES ('a1ad8684600c401f9b5ce3035bde9f08', '付款方式2', '0', '0', '2020-12-01 09:17:21', null);
 
 -- ----------------------------
 -- Table structure for appsuppliers
@@ -154,6 +165,7 @@ CREATE TABLE `appuser` (
 -- ----------------------------
 -- Records of appuser
 -- ----------------------------
+INSERT INTO `appuser` VALUES ('7cfb8aa0c12741a692080a7febfc8087', '张三', '18588773301', '', '0', null, '2020-12-01 11:29:45', null);
 
 -- ----------------------------
 -- Table structure for appwxusers

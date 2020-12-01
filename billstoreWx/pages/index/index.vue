@@ -17,7 +17,7 @@
 				</view>
 			</view>
 			<view class="cu-list grid" :class="['col-' + gridCol, gridBorder ? '' : 'no-border']">
-				<view class="cu-item" v-for="(item, index) in cuIconList" :key="index" v-if="index < gridCol * 2">
+				<view class="cu-item" v-for="(item, index) in menu.children" :key="index" v-if="index < gridCol * 2" @click="handleClickBaseBtn(item.path)">
 					<view :class="['cuIcon-' + item.cuIcon, 'text-' + item.color]"></view>
 					<text>{{ item.name }}</text>
 				</view>
@@ -31,7 +31,7 @@ export default {
 	data() {
 		return {
 			userInfo: JSON.parse(uni.getStorageSync('userInfo')),
-			gridCol: 4,
+			gridCol: 5,
 			gridBorder: false,
 			menuList: [
 				{
@@ -40,113 +40,51 @@ export default {
 						{
 							cuIcon: 'cardboardfill',
 							color: 'red',
-							name: 'VR',
+							name: '人员',
 							path: 'user'
 						},
 						{
 							cuIcon: 'recordfill',
 							color: 'orange',
-							name: '录像',
-							path: 'user'
+							name: '客户',
+							path: 'customer'
 						},
 						{
 							cuIcon: 'picfill',
 							color: 'yellow',
-							name: '图像',
-							path: 'user'
+							name: '供应商',
+							path: 'supplier'
 						},
 						{
 							cuIcon: 'noticefill',
 							color: 'olive',
-							name: '通知',
-							path: 'user'
+							name: '商品',
+							path: 'goods'
 						},
 						{
 							cuIcon: 'upstagefill',
-							color: 'cyan',
-							name: '排行榜'
-						},
-						{
-							cuIcon: 'clothesfill',
-							color: 'blue',
-							name: '皮肤'
-						},
-						{
-							cuIcon: 'discoverfill',
-							color: 'purple',
-							name: '发现'
-						},
-						{
-							cuIcon: 'questionfill',
-							color: 'mauve',
-							name: '帮助'
-						},
-						{
-							cuIcon: 'commandfill',
-							color: 'purple',
-							name: '问答'
+							color: 'paymentmethod',
+							name: '付款方式'
 						},
 						{
 							cuIcon: 'brandfill',
-							color: 'mauve',
-							name: '版权'
+							color: 'expenseCategory',
+							name: '支付类别'
 						}
 					]
 				}
-			],
-			cuIconList: [
-				{
-					cuIcon: 'cardboardfill',
-					color: 'red',
-					name: 'VR'
-				},
-				{
-					cuIcon: 'recordfill',
-					color: 'orange',
-					name: '录像'
-				},
-				{
-					cuIcon: 'picfill',
-					color: 'yellow',
-					name: '图像'
-				},
-				{
-					cuIcon: 'noticefill',
-					color: 'olive',
-					name: '通知'
-				},
-				{
-					cuIcon: 'upstagefill',
-					color: 'cyan',
-					name: '排行榜'
-				},
-				{
-					cuIcon: 'clothesfill',
-					color: 'blue',
-					name: '皮肤'
-				},
-				{
-					cuIcon: 'discoverfill',
-					color: 'purple',
-					name: '发现'
-				},
-				{
-					cuIcon: 'questionfill',
-					color: 'mauve',
-					name: '帮助'
-				},
-				{
-					cuIcon: 'commandfill',
-					color: 'purple',
-					name: '问答'
-				},
-				{
-					cuIcon: 'brandfill',
-					color: 'mauve',
-					name: '版权'
-				}
 			]
 		};
+	},
+	methods: {
+		handleClickBaseBtn(path) {
+			console.log(path)
+			if (path) {
+				uni.navigateTo({
+					url: `/pages/${path}/${path}`
+				});
+			}
+		}
 	}
 };
 </script>
@@ -155,10 +93,6 @@ export default {
 .header-bar
 	position relative
 	height 200rpx
-	background -webkit-linear-gradient(to bottom right, #f7883b, #f8ba63)
-	background -o-linear-gradient(to bottom right, #f7883b, #f8ba63)
-	background -moz-linear-gradient(to bottom right, #f7883b, #f8ba63)
-	background linear-gradient(to bottom right, #f7883b, #f8ba63)
 	.header-userinfo
 		height 100%
 		padding 0rpx 40rpx
@@ -173,7 +107,7 @@ export default {
 			margin 0 auto
 			display block
 		text
-			color #FFFFFF
+			color #333
 			margin-left 20rpx
 			font-size 30rpx
 </style>

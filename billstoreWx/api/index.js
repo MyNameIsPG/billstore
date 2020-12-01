@@ -1,5 +1,29 @@
 const BASE_URL = "http://172.18.1.103:6001";
 
+export const request = (url, data={}, method="GET") => {
+	return new Promise((resolve, reject) => {
+		uni.request({
+			url: BASE_URL + url,
+			method: method,
+			data: data || {},
+			success: (res) => {
+				if (res.statusCode !== 200) {
+					return uni.showToast({
+						title: "获取数据失败"
+					})
+				}
+				resolve(res.data)
+			},
+			fail: (err) => {
+				uni.showToast({
+					title: "接口请求失败"
+				})
+				reject(err)
+			}
+		})
+	})
+}
+
 export const apiRequest = (options) => {
 	return new Promise((resolve, reject) => {
 		uni.request({
@@ -23,3 +47,5 @@ export const apiRequest = (options) => {
 		})
 	})
 }
+
+

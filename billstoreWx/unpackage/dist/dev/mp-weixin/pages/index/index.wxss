@@ -1,10 +1,6 @@
 .header-bar {
   position: relative;
   height: 200rpx;
-  background: -webkit-linear-gradient(to bottom right, #f7883b, #f8ba63);
-  background: -webkit-gradient(linear, left top, right bottom, from(#f7883b), to(#f8ba63));
-  background: -webkit-linear-gradient(top left, #f7883b, #f8ba63);
-  background: linear-gradient(to bottom right, #f7883b, #f8ba63);
 }
 .header-bar .header-userinfo {
   height: 100%;
@@ -29,7 +25,7 @@
   display: block;
 }
 .header-bar .header-userinfo text {
-  color: #fff;
+  color: #333;
   margin-left: 20rpx;
   font-size: 30rpx;
 }
