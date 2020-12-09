@@ -104,11 +104,11 @@
 /******/
 /******/
 /******/ 		// mini-css-extract-plugin CSS loading
-/******/ 		var cssChunks = {"components/a-addbtn/a-addbtn":1,"components/a-nodata/a-nodata":1};
+/******/ 		var cssChunks = {"components/a-addbtn/a-addbtn":1,"components/a-nodata/a-nodata":1,"pages/client/clientHome/clientHome":1,"pages/supplier/supplierHome/supplierHome":1};
 /******/ 		if(installedCssChunks[chunkId]) promises.push(installedCssChunks[chunkId]);
 /******/ 		else if(installedCssChunks[chunkId] !== 0 && cssChunks[chunkId]) {
 /******/ 			promises.push(installedCssChunks[chunkId] = new Promise(function(resolve, reject) {
-/******/ 				var href = "" + ({"colorui/components/cu-custom":"colorui/components/cu-custom","components/a-addbtn/a-addbtn":"components/a-addbtn/a-addbtn","components/a-form-add/a-form-add":"components/a-form-add/a-form-add","components/a-nodata/a-nodata":"components/a-nodata/a-nodata"}[chunkId]||chunkId) + ".wxss";
+/******/ 				var href = "" + ({"colorui/components/cu-custom":"colorui/components/cu-custom","components/a-addbtn/a-addbtn":"components/a-addbtn/a-addbtn","components/a-form-add/a-form-add":"components/a-form-add/a-form-add","components/a-nodata/a-nodata":"components/a-nodata/a-nodata","pages/client/clientHome/clientHome":"pages/client/clientHome/clientHome","pages/client/clientMyOrder/clientMyOrder":"pages/client/clientMyOrder/clientMyOrder","pages/client/clientMyReceivables/clientMyReceivables":"pages/client/clientMyReceivables/clientMyReceivables","pages/client/clientPersonalInfo/clientPersonalInfo":"pages/client/clientPersonalInfo/clientPersonalInfo","pages/supplier/supplierHome/supplierHome":"pages/supplier/supplierHome/supplierHome","pages/supplier/supplierMyReceivables/supplierMyReceivables":"pages/supplier/supplierMyReceivables/supplierMyReceivables","pages/supplier/supplierPersonalInfo/supplierPersonalInfo":"pages/supplier/supplierPersonalInfo/supplierPersonalInfo"}[chunkId]||chunkId) + ".wxss";
 /******/ 				var fullhref = __webpack_require__.p + href;
 /******/ 				var existingLinkTags = document.getElementsByTagName("link");
 /******/ 				for(var i = 0; i < existingLinkTags.length; i++) {

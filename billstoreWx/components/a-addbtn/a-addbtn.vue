@@ -1,5 +1,5 @@
 <template>
-	<view class="fixed-box-add">
+	<view class="fixed-box-add" :style="{ bottom: bottom + 'px', right: right + 'px' }" @touchstart="start" @touchmove="move" @touchend="end">
 		<view class="fixed-box-add-btn" @click="handleClickCommonAddBtn">
 			<view class="circle-v"></view>
 			<view class="circle-h"></view>
@@ -10,7 +10,33 @@
 <script>
 export default {
 	name: 'AAddbtn',
+	data() {
+		return {
+			bottom: 20,
+			right: 20,
+			pageX: 0,
+			pageY: 0
+		};
+	},
 	methods: {
+		start(e) {
+			let page = e.changedTouches[0];
+			this.pageX = page.pageX;
+			this.pageY = page.pageY;
+		},
+		move(e) {
+			let { pageX, pageY, bottom, right } = this;
+			let page = e.changedTouches[0];
+			let x = page.pageX - pageX;
+			let y = page.pageY - pageY;
+			this.pageX = page.pageX;
+			this.pageY = page.pageY;
+			this.right = right - x;
+			this.bottom = bottom - y;
+		},
+		end(e) {
+			let page = e.changedTouches[0];
+		},
 		handleClickCommonAddBtn() {
 			this.$emit('add-btn-click');
 		}
@@ -26,6 +52,7 @@ export default {
 	right 40rpx
 	bottom 40rpx
 	background #007AFF
+	background-image: linear-gradient(45deg, #0081ff, #1cbbb4);
 	box-shadow 0 0 5px 2px rgba(0, 0, 0, 0.2)
 	border-radius 50%
 	.fixed-box-add-btn

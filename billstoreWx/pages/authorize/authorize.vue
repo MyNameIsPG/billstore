@@ -47,31 +47,34 @@ export default {
 					try {
 						uni.setStorageSync('isCanUse', true); //记录是否第一次授权  false:表示不是第一次授权
 					} catch (e) {}
-					this.$request({
-						url: '/api/wx/login',
-						data: {
-							code: code,
-							nickName: res.userInfo.nickName,
-							avatarUrl: res.userInfo.avatarUrl,
-							gender: res.userInfo.gender
-						}
-					}).then(res => {
-						uni.setStorageSync('userInfo', JSON.stringify(res.data));
-						uni.showLoading({
-							title: '登录中！'
-						});
-						setTimeout(() => {
-							if(res.data.role){
-								uni.navigateTo({
-									url: `/pages/index/index`
-								});
-							} else {
-								uni.navigateTo({
-									url: `/pages/authenticate/authenticate`
-								});
-							}
-						}, 500);
+					uni.navigateTo({
+						url: `/pages/authenticate/authenticate`
 					});
+					// this.$request({
+					// 	url: '/api/wx/login',
+					// 	data: {
+					// 		code: code,
+					// 		nickName: res.userInfo.nickName,
+					// 		avatarUrl: res.userInfo.avatarUrl,
+					// 		gender: res.userInfo.gender
+					// 	}
+					// }).then(res => {
+					// 	uni.setStorageSync('userInfo', JSON.stringify(res.data));
+					// 	uni.showLoading({
+					// 		title: '登录中！'
+					// 	});
+					// 	setTimeout(() => {
+					// 		if(res.data.role){
+					// 			uni.navigateTo({
+					// 				url: `/pages/index/index`
+					// 			});
+					// 		} else {
+					// 			uni.navigateTo({
+					// 				url: `/pages/authenticate/authenticate`
+					// 			});
+					// 		}
+					// 	}, 500);
+					// });
 				},
 				fail(res) {
 					console.log(res);

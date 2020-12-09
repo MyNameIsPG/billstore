@@ -1,11 +1,13 @@
 {
 	"pages": [
-		{ "path" : "pages/userAdd/userAdd" },
+		{ "path": "pages/user/user", "style": { "enablePullDownRefresh": true } },
 		{ "path": "pages/authorize/authorize" },
 		{ "path": "pages/authenticate/authenticate" },
 		{ "path": "pages/index/index" },
-		{ "path" : "pages/user/user", "style": { "enablePullDownRefresh": true } }
-        
+		
+		{ "path": "pages/userAdd/userAdd" },
+		{ "path": "pages/client/clientIndex/clientIndex" },
+		{ "path": "pages/supplier/supplierIndex/supplierIndex" }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
