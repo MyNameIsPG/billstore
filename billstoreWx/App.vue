@@ -121,9 +121,11 @@
 	}
 </script>
 
-<style>
+<style lang="scss">
 	@import "colorui/main.css";
 	@import "colorui/icon.css";
+	@import "uview-ui/index.scss";
+	@import "common/demo.scss";
 
 	.nav-list {
 		display: flex;

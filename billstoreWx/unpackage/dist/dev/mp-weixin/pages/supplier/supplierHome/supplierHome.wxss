@@ -18,7 +18,8 @@
 .data-list .item .icon {
   width: 180rpx;
   height: 180rpx;
-  border-radius: 50%;
+  -webkit-border-radius: 50%;
+          border-radius: 50%;
   border: 1px solid #ddd;
   display: -webkit-box;
   display: -webkit-flex;
@@ -59,7 +60,8 @@
 .header-bar .header-userinfo image {
   width: 100rpx;
   height: 100rpx;
-  border-radius: 50%;
+  -webkit-border-radius: 50%;
+          border-radius: 50%;
   margin: 0 auto;
   display: block;
 }

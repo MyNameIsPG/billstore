@@ -1,10 +1,12 @@
 import Vue from 'vue'
 import App from './App'
 
+import uView from 'uview-ui'
 import cuCustom from './colorui/components/cu-custom.vue'
 import ANodata from './components/a-nodata/a-nodata.vue'
 import AAddbtn from './components/a-addbtn/a-addbtn.vue'
 import AFormAdd from './components/a-form-add/a-form-add.vue'
+Vue.use(uView)
 Vue.component('cu-custom', cuCustom)
 Vue.component('a-nodata', ANodata)
 Vue.component('a-addbtn', AAddbtn)

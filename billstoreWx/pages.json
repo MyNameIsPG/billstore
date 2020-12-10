@@ -1,6 +1,9 @@
 {
+	"easycom": {
+		"^u-(.*)": "@/uview-ui/components/u-$1/u-$1.vue"
+	},
 	"pages": [
-		{ "path": "pages/user/user", "style": { "enablePullDownRefresh": true } },
+		{ "path": "pages/user/user" }, // , "style": { "enablePullDownRefresh": true } 
 		{ "path": "pages/authorize/authorize" },
 		{ "path": "pages/authenticate/authenticate" },
 		{ "path": "pages/index/index" },
