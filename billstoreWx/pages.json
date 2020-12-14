@@ -3,20 +3,26 @@
 		"^u-(.*)": "@/uview-ui/components/u-$1/u-$1.vue"
 	},
 	"pages": [
-		{ "path": "pages/user/user" }, // , "style": { "enablePullDownRefresh": true } 
-		{ "path": "pages/authorize/authorize" },
-		{ "path": "pages/authenticate/authenticate" },
-		{ "path": "pages/index/index" },
 		
-		{ "path": "pages/userAdd/userAdd" },
-		{ "path": "pages/client/clientIndex/clientIndex" },
-		{ "path": "pages/supplier/supplierIndex/supplierIndex" }
+		{ "path": "pages/authorize/authorize" }, // 默认页面
+		{ "path": "pages/authenticate/authenticate" }, // 授权页面
+		{ "path": "pages/index/index" }, // 首页
+		{ "path": "pages/client/clientIndex/clientIndex" }, // 客户页面
+		{ "path": "pages/supplier/supplierIndex/supplierIndex" }, // 供应商页面
+		{ "path": "pages/basics/users/users" }, // 用户列表 , "style": { "enablePullDownRefresh": true } 
+		{ "path": "pages/basics/usersAdd/usersAdd" }, // 用户新增
+		{ "path": "pages/basics/roles/roles" }, // 角色列表
+		{ "path": "pages/basics/rolesAdd/rolesAdd" }, // 角色新增
+        { "path": "pages/basics/clients/clients" }, // 客户列表
+        { "path": "pages/basics/clientsAdd/clientsAdd" }, // 客户新增
+		{ "path": "pages/basics/suppliers/suppliers" }, // 供应商列表
+		{ "path": "pages/basics/suppliersAdd/suppliersAdd" } // 供应商新增
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8",
+		"navigationBarBackgroundColor": "#FFFFFF",
+		"backgroundColor": "#FFFFFF",
 		"navigationStyle": "custom"
 	}
 }

@@ -1,23 +1,23 @@
 <template>
 	<view class="">
 		<cu-custom bgColor="bg-gradual-blue"><block slot="content">首页</block></cu-custom>
-		<view class="header-bar">
+		<!-- <view class="header-bar">
 			<view class="header-userinfo">
 				<view>
 					<image :src="userInfo.avatarUrl"></image>
 					<text>{{ userInfo.nickname }}</text>
 				</view>
 			</view>
-		</view>
+		</view> -->
 		<view v-for="(menu, index) in menuList" :key="index">
-			<view class="cu-bar bg-white solid-bottom">
+			<view class="cu-bar bg-white solid-bottom" style="border-bottom: 1px solid #eee;">
 				<view class="action">
 					<text class="cuIcon-title text-orange "></text>
 					{{ menu.title }}
 				</view>
 			</view>
-			<view class="cu-list grid" :class="['col-' + gridCol, gridBorder ? '' : 'no-border']">
-				<view class="cu-item" v-for="(item, index) in menu.children" :key="index" v-if="index < gridCol * 2" @click="handleClickBaseBtn(item.path)">
+			<view class="cu-list grid col-5 no-border">
+				<view class="cu-item" v-for="(item, indexs) in menu.children" :key="item.path" @click="handleClickBaseBtn(item.path)">
 					<view :class="['cuIcon-' + item.cuIcon, 'text-' + item.color]"></view>
 					<text>{{ item.name }}</text>
 				</view>
@@ -30,9 +30,8 @@
 export default {
 	data() {
 		return {
-			userInfo: JSON.parse(uni.getStorageSync('userInfo')),
+			// userInfo: JSON.parse(uni.getStorageSync('userInfo')),
 			gridCol: 5,
-			gridBorder: false,
 			menuList: [
 				{
 					title: '基础',
@@ -41,19 +40,25 @@ export default {
 							cuIcon: 'cardboardfill',
 							color: 'red',
 							name: '人员',
-							path: 'user'
+							path: '/pages/basics/users/users'
 						},
 						{
 							cuIcon: 'recordfill',
 							color: 'orange',
+							name: '角色',
+							path: '/pages/basics/roles/roles'
+						},
+						{
+							cuIcon: 'picfill',
+							color: 'yellow',
 							name: '客户',
-							path: 'customer'
+							path: '/pages/basics/clients/clients'
 						},
 						{
 							cuIcon: 'picfill',
 							color: 'yellow',
 							name: '供应商',
-							path: 'supplier'
+							path: '/pages/basics/suppliers/suppliers'
 						},
 						{
 							cuIcon: 'noticefill',
@@ -81,7 +86,7 @@ export default {
 			console.log(path)
 			if (path) {
 				uni.navigateTo({
-					url: `/pages/${path}/${path}`
+					url: path
 				});
 			}
 		}

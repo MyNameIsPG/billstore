@@ -1,19 +1,25 @@
 {
   "pages": [
-    "pages/user/user",
     "pages/authorize/authorize",
     "pages/authenticate/authenticate",
     "pages/index/index",
-    "pages/userAdd/userAdd",
     "pages/client/clientIndex/clientIndex",
-    "pages/supplier/supplierIndex/supplierIndex"
+    "pages/supplier/supplierIndex/supplierIndex",
+    "pages/basics/users/users",
+    "pages/basics/usersAdd/usersAdd",
+    "pages/basics/roles/roles",
+    "pages/basics/rolesAdd/rolesAdd",
+    "pages/basics/clients/clients",
+    "pages/basics/clientsAdd/clientsAdd",
+    "pages/basics/suppliers/suppliers",
+    "pages/basics/suppliersAdd/suppliersAdd"
   ],
   "subPackages": [],
   "window": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "uni-app",
-    "navigationBarBackgroundColor": "#F8F8F8",
-    "backgroundColor": "#F8F8F8",
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "backgroundColor": "#FFFFFF",
     "navigationStyle": "custom"
   },
   "usingComponents": {
@@ -21,6 +27,5 @@
     "a-nodata": "/components/a-nodata/a-nodata",
     "a-addbtn": "/components/a-addbtn/a-addbtn",
     "a-form-add": "/components/a-form-add/a-form-add"
-  },
-  "sitemapLocation": "sitemap.json"
+  }
 }
