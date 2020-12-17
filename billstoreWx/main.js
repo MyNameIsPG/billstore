@@ -21,6 +21,19 @@ Vue.prototype.$request = apiRequest
 Vue.prototype.request = request
 Vue.prototype.IS_OK = 200
 Vue.config.productionTip = false
+Vue.prototype.swipe_action_options = [{
+		text: '修改',
+		style: {
+			backgroundColor: '#1F6ED4'
+		}
+	},
+	{
+		text: '删除',
+		style: {
+			backgroundColor: '#FF2E63'
+		}
+	}
+]
 
 App.mpType = 'app'
 

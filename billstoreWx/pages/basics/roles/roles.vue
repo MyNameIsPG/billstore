@@ -32,20 +32,7 @@ export default {
 			list: 20,
 			page: 0,
 			show: false,
-			options: [
-				{
-					text: '修改',
-					style: {
-						backgroundColor: '#007aff'
-					}
-				},
-				{
-					text: '删除',
-					style: {
-						backgroundColor: '#dd524d'
-					}
-				}
-			]
+			options: this.swipe_action_options
 		};
 	},
 	methods: {
