@@ -12,7 +12,10 @@
     "pages/basics/clients/clients",
     "pages/basics/clientsAdd/clientsAdd",
     "pages/basics/suppliers/suppliers",
-    "pages/basics/suppliersAdd/suppliersAdd"
+    "pages/basics/suppliersAdd/suppliersAdd",
+    "pages/prices/enter/enter",
+    "pages/prices/sell/sell",
+    "pages/prices/retreat/retreat"
   ],
   "subPackages": [],
   "window": {
@@ -27,5 +30,6 @@
     "a-nodata": "/components/a-nodata/a-nodata",
     "a-addbtn": "/components/a-addbtn/a-addbtn",
     "a-form-add": "/components/a-form-add/a-form-add"
-  }
+  },
+  "sitemapLocation": "sitemap30.json"
 }

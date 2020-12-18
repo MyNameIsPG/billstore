@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "client-home": "/pages/client/clientHome/clientHome",
+    "client-personal-info": "/pages/client/clientPersonalInfo/clientPersonalInfo",
+    "client-my-receivables": "/pages/client/clientMyReceivables/clientMyReceivables",
+    "client-my-order": "/pages/client/clientMyOrder/clientMyOrder"
+  }
+}
