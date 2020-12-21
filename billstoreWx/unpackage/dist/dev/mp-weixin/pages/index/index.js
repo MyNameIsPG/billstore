@@ -196,7 +196,7 @@ var _default =
           cuIcon: 'noticefill',
           color: 'olive',
           name: '商品',
-          path: 'goods' },
+          path: '/pages/basics/goods/goods' },
 
         {
           cuIcon: 'upstagefill',

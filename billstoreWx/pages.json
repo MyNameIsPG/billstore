@@ -17,9 +17,12 @@
         { "path": "pages/basics/clientsAdd/clientsAdd" }, // 客户新增
 		{ "path": "pages/basics/suppliers/suppliers" }, // 供应商列表
 		{ "path": "pages/basics/suppliersAdd/suppliersAdd" }, // 供应商新增
+		
         { "path": "pages/prices/enter/enter" }, // 进价
         { "path": "pages/prices/sell/sell" }, // 售价
-        { "path": "pages/prices/retreat/retreat" } // 退价
+        { "path": "pages/prices/retreat/retreat" }, // 退价
+		
+        { "path" : "pages/basics/goods/goods" } // 商品
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

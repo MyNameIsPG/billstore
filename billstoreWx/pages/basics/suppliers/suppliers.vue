@@ -2,7 +2,10 @@
 	<view>
 		<cu-custom bgColor="bg-gradual-blue" isBack><block slot="content">供应商</block></cu-custom>
 		<!-- <u-empty text="数据为空" mode="list"></u-empty> -->
-		<view class="wrap">
+		<view class="u-search-box">
+			<u-search placeholder="请输入姓名、手机尾号、拼音首字母" v-model="value" :action-style="{'color': '#409eff'}"></u-search>
+		</view>
+		<view class="wrap" style="height: 100%;padding-top: 110rpx;">
 			<view class="item u-border-bottom" v-for="item in list">
 				<u-swipe-action :index="item" @click="click" @open="open" :options="options">
 					<view class="cu-list menu-avatar cu-list-index">
@@ -39,7 +42,8 @@ export default {
 			list: 20,
 			page: 0,
 			show: false,
-			options: this.swipe_action_options
+			options: this.swipe_action_options,
+			value: ""
 		};
 	},
 	methods: {

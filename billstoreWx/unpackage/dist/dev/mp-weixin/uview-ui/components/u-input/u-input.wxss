@@ -40,13 +40,32 @@
   width: 60rpx;
   height: 140rpx;
   color: #666;
-  font-size: 16p;
+  font-size: 16px;
 }
 .cu-list-index.menu-avatar > .cu-item > .cu-avatar.data-v-460c1d26 {
   left: 60rpx;
 }
 .cu-list-index.menu-avatar > .cu-item .content.data-v-460c1d26 {
   left: 174rpx;
+}
+.cu-list-arrow .cu-item.data-v-460c1d26 {
+  font: normal normal normal 14px/1 uicon-iconfont;
+}
+.cu-list-arrow .cu-item.data-v-460c1d26::before {
+  content: "\e605";
+  color: #ddd;
+}
+.u-search-box.data-v-460c1d26 {
+  padding: 18rpx 30rpx;
+  background: #ffffff;
+  margin-bottom: 20rpx;
+  position: fixed;
+  left: 0px;
+  top: 142rpx;
+  z-index: 999;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .u-input.data-v-460c1d26 {
   position: relative;

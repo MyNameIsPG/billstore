@@ -87,7 +87,7 @@ $uni-font-size-paragraph: 30rpx;
 	width: 60rpx;
 	height: 140rpx;
 	color: #666;
-	font-size: 16p;
+	font-size: 16px;
 }
 
 .cu-list-index.menu-avatar > .cu-item > .cu-avatar {
@@ -95,4 +95,24 @@ $uni-font-size-paragraph: 30rpx;
 }
 .cu-list-index.menu-avatar > .cu-item .content {
 	left: 174rpx;
+}
+.cu-list-arrow .cu-item {
+	font: normal normal normal 14px/1 uicon-iconfont
+}
+.cu-list-arrow .cu-item::before {
+	content: "\e605";
+	color: #ddd;
+}
+
+// 搜索框
+.u-search-box {
+	padding: 18rpx 30rpx;
+	background: #ffffff;
+	margin-bottom: 20rpx;
+	position: fixed;
+	left: 0px;
+	top: 142rpx;
+	z-index: 999;
+	width: 100%;
+	box-sizing: border-box;
 }
