@@ -31,6 +31,7 @@ export default {
 			uni.login({
 				provider: 'weixin',
 				success: resCode => {
+					console.log(resCode.code)
 					_this.wxGetUserInfo(resCode.code);
 				},
 				fail(res) {

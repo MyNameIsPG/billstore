@@ -163,6 +163,7 @@ var _default =
       uni.login({
         provider: 'weixin',
         success: function success(resCode) {
+          console.log(resCode.code);
           _this.wxGetUserInfo(resCode.code);
         },
         fail: function fail(res) {

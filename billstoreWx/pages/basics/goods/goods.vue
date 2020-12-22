@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<cu-custom bgColor="bg-gradual-blue" isBack><block slot="content">角色</block></cu-custom>
+		<cu-custom bgColor="bg-gradual-blue" isBack><block slot="content">商品</block></cu-custom>
 		<!-- <u-empty text="数据为空" mode="list"></u-empty> -->
 		<view class="u-search-box">
 			<u-search placeholder="请输入名称" v-model="value" :action-style="{'color': '#409eff'}"></u-search>
@@ -9,12 +9,12 @@
 			<view class="item u-border-bottom" v-for="item in list">
 				<u-swipe-action :index="item" @click="click" @open="open" :options="options">
 					<view class="cu-list menu-avatar cu-list-index cu-list-arrow">
-						<view class="cu-item">
+						<view class="cu-item" @click="handleClick('白鱼大分类'+item)">
 							<view class="cu-item-index">{{item+1}}</view>
 							<view class="cu-avatar lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg);"></view>
 							<view class="content">
 								<view class="text-grey">
-									管理员{{ item }}
+									白鱼大分类{{ item }}
 								</view>
 							</view>
 						</view>
@@ -40,15 +40,19 @@ export default {
 		};
 	},
 	methods: {
+		handleClick(item){
+			uni.navigateTo({
+				url: `/pages/basics/goodsNorms/goodsNorms?id=${item}`
+			});
+		},
 		click(index, index1) {
-			debugger
 			if (index1 == 1) {
 				// this.list.splice(index, 1);
 				this.$u.toast(`删除了第${index}个cell`);
 			} else {
 				// this.list[index].show = false;
 				uni.navigateTo({
-					url: `/pages/basics/rolesAdd/rolesAdd?id=${id}`
+					url: `/pages/basics/goodsAdd/goodsAdd?id=${id}`
 				});
 				this.$u.toast(`修改成功`);
 			}
@@ -56,7 +60,7 @@ export default {
 		open(index) {},
 		addBtnClick() {
 			uni.navigateTo({
-				url: `/pages/basics/rolesAdd/rolesAdd`
+				url: `/pages/basics/goodsAdd/goodsAdd`
 			});
 		}
 	},

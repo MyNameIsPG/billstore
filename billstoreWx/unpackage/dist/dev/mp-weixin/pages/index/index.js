@@ -201,12 +201,43 @@ var _default =
         {
           cuIcon: 'upstagefill',
           color: 'paymentmethod',
-          name: '付款方式' },
+          name: '支付方式',
+          path: '/pages/basics/payMode/payMode' },
 
         {
           cuIcon: 'brandfill',
           color: 'expenseCategory',
-          name: '支付类别' }] }] };
+          name: '支出类别',
+          path: 'pages/basics/expendType/expendType' },
+
+        {
+          cuIcon: 'brandfill',
+          color: 'expenseCategory',
+          name: '到账类别',
+          path: 'pages/basics/accountType/accountType' }] },
+
+
+
+      {
+        title: '价格',
+        children: [
+        {
+          cuIcon: 'cardboardfill',
+          color: 'red',
+          name: '进价',
+          path: '/pages/prices/enter/enter' },
+
+        {
+          cuIcon: 'cardboardfill',
+          color: 'red',
+          name: '售价',
+          path: '/pages/prices/sell/sell' },
+
+        {
+          cuIcon: 'cardboardfill',
+          color: 'red',
+          name: '退价',
+          path: '/pages/prices/retreat/retreat' }] }] };
 
 
 

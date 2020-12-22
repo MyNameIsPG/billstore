@@ -3,6 +3,7 @@
     "pages/authorize/authorize",
     "pages/authenticate/authenticate",
     "pages/index/index",
+    "pages/system/systemIndex/systemIndex",
     "pages/client/clientIndex/clientIndex",
     "pages/supplier/supplierIndex/supplierIndex",
     "pages/basics/users/users",
@@ -16,7 +17,16 @@
     "pages/prices/enter/enter",
     "pages/prices/sell/sell",
     "pages/prices/retreat/retreat",
-    "pages/basics/goods/goods"
+    "pages/basics/goods/goods",
+    "pages/basics/goodsAdd/goodsAdd",
+    "pages/basics/goodsNorms/goodsNorms",
+    "pages/basics/goodsNormsAdd/goodsNormsAdd",
+    "pages/basics/payMode/payMode",
+    "pages/basics/payModeAdd/payModeAdd",
+    "pages/basics/expendType/expendType",
+    "pages/basics/expendTypeAdd/expendTypeAdd",
+    "pages/basics/accountType/accountType",
+    "pages/basics/accountTypeAdd/accountTypeAdd"
   ],
   "subPackages": [],
   "window": {

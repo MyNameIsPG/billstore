@@ -7,6 +7,7 @@
 		{ "path": "pages/authorize/authorize" }, // 默认页面
 		{ "path": "pages/authenticate/authenticate" }, // 授权页面
 		{ "path": "pages/index/index" }, // 首页
+		{ "path": "pages/system/systemIndex/systemIndex" }, // 管理圆
 		{ "path": "pages/client/clientIndex/clientIndex" }, // 客户页面
 		{ "path": "pages/supplier/supplierIndex/supplierIndex" }, // 供应商页面
 		{ "path": "pages/basics/users/users" }, // 用户列表 , "style": { "enablePullDownRefresh": true } 
@@ -22,7 +23,17 @@
         { "path": "pages/prices/sell/sell" }, // 售价
         { "path": "pages/prices/retreat/retreat" }, // 退价
 		
-        { "path" : "pages/basics/goods/goods" } // 商品
+        { "path": "pages/basics/goods/goods" }, // 商品
+        { "path": "pages/basics/goodsAdd/goodsAdd" }, // 商品新增
+        { "path": "pages/basics/goodsNorms/goodsNorms" }, // 商品规格
+        { "path": "pages/basics/goodsNormsAdd/goodsNormsAdd" }, // 商品规格新增
+        { "path": "pages/basics/payMode/payMode" }, // 支付方式
+        { "path": "pages/basics/payModeAdd/payModeAdd" }, // 支付方式新增
+        { "path": "pages/basics/expendType/expendType" }, // 支出类别
+        { "path": "pages/basics/expendTypeAdd/expendTypeAdd" }, // 支出类别新增
+        { "path": "pages/basics/accountType/accountType" }, // 到账类别
+        { "path": "pages/basics/accountTypeAdd/accountTypeAdd" } // 到账类别新增
+		
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

@@ -47,7 +47,6 @@ export default {
 	},
 	methods: {
 		click(index, index1) {
-			debugger;
 			if (index1 == 1) {
 				// this.list.splice(index, 1);
 				this.$u.toast(`删除了第${index}个cell`);

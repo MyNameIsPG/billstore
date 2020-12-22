@@ -92,16 +92,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   uSearch: function() {
-    return __webpack_require__.e(/*! import() | uview-ui/components/u-search/u-search */ "uview-ui/components/u-search/u-search").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-search/u-search.vue */ 310))
+    return __webpack_require__.e(/*! import() | uview-ui/components/u-search/u-search */ "uview-ui/components/u-search/u-search").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-search/u-search.vue */ 282))
   },
   uSwipeAction: function() {
-    return __webpack_require__.e(/*! import() | uview-ui/components/u-swipe-action/u-swipe-action */ "uview-ui/components/u-swipe-action/u-swipe-action").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-swipe-action/u-swipe-action.vue */ 233))
+    return __webpack_require__.e(/*! import() | uview-ui/components/u-swipe-action/u-swipe-action */ "uview-ui/components/u-swipe-action/u-swipe-action").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-swipe-action/u-swipe-action.vue */ 289))
   },
   uLoadmore: function() {
-    return __webpack_require__.e(/*! import() | uview-ui/components/u-loadmore/u-loadmore */ "uview-ui/components/u-loadmore/u-loadmore").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-loadmore/u-loadmore.vue */ 240))
+    return __webpack_require__.e(/*! import() | uview-ui/components/u-loadmore/u-loadmore */ "uview-ui/components/u-loadmore/u-loadmore").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-loadmore/u-loadmore.vue */ 296))
   },
   aAddbtn: function() {
-    return __webpack_require__.e(/*! import() | components/a-addbtn/a-addbtn */ "components/a-addbtn/a-addbtn").then(__webpack_require__.bind(null, /*! @/components/a-addbtn/a-addbtn.vue */ 167))
+    return __webpack_require__.e(/*! import() | components/a-addbtn/a-addbtn */ "components/a-addbtn/a-addbtn").then(__webpack_require__.bind(null, /*! @/components/a-addbtn/a-addbtn.vue */ 231))
   }
 }
 var render = function() {
@@ -201,7 +201,6 @@ var _default =
   },
   methods: {
     click: function click(index, index1) {
-      debugger;
       if (index1 == 1) {
         // this.list.splice(index, 1);
         this.$u.toast("\u5220\u9664\u4E86\u7B2C".concat(index, "\u4E2Acell"));
