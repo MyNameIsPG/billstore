@@ -1,22 +1,144 @@
 <template>
-	<view>
-		booking
+	<view style="background: #FFFFFF;">
+		<view>
+			<u-collapse :accordion="false">
+				<u-collapse-item title="商品分类" :open="true">
+					<view class="list-type">
+						<view class="item active">
+							<view class="item-head">大白</view>
+							<view class="item-text">
+								<text class="item-text1">12.3</text>
+								<text class="item-text2">500</text>
+							</view>
+						</view>
+						<view class="item">
+							<view class="item-head">大白</view>
+							<view class="item-text">
+								<text class="item-text1">12.3</text>
+								<text class="item-text2">500</text>
+							</view>
+						</view>
+						<view class="item">
+							<view class="item-head">大白</view>
+							<view class="item-text">
+								<text class="item-text1">12.3</text>
+								<text class="item-text2">500</text>
+							</view>
+						</view>
+						<view class="item">
+							<view class="item-head">大白</view>
+							<view class="item-text">
+								<text class="item-text1">12.3</text>
+								<text class="item-text2">500</text>
+							</view>
+						</view>
+						<view class="item button"><view class="btns">展开</view></view>
+					</view>
+				</u-collapse-item>
+				<u-collapse-item title="客户分类" :open="true">
+					<view class="list-type">
+						<view class="item active">
+							<view class="item-head">大白</view>
+							<view class="item-text">
+								<text class="item-text1">12.3</text>
+								<text class="item-text2">500</text>
+							</view>
+						</view>
+						<view class="item">
+							<view class="item-head">大白</view>
+							<view class="item-text">
+								<text class="item-text1">12.3</text>
+								<text class="item-text2">500</text>
+							</view>
+						</view>
+						<view class="item">
+							<view class="item-head">大白</view>
+							<view class="item-text">
+								<text class="item-text1">12.3</text>
+								<text class="item-text2">500</text>
+							</view>
+						</view>
+						<view class="item">
+							<view class="item-head">大白</view>
+							<view class="item-text">
+								<text class="item-text1">12.3</text>
+								<text class="item-text2">500</text>
+							</view>
+						</view>
+						<view class="item button"><view class="btns">展开</view></view>
+					</view>
+				</u-collapse-item>
+			</u-collapse>
+		</view>
 	</view>
 </template>
 
 <script>
-	export default {
-		data() {
-			return {
-				
-			}
-		},
-		methods: {
-			
-		}
-	}
+export default {
+	data() {
+		return {};
+	},
+	methods: {}
+};
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+.titles {
+	font-size: 48rpx;
+	text-align: center;
+	padding: 40rpx 0 60rpx;
+	font-weight: 600;
+	background: #ffffff;
+}
+.list-type {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	padding: 0 10rpx;
+	.item {
+		flex: 0 0 25%;
+		margin-bottom: 30rpx;
+		padding: 0rpx 10rpx;
+		box-sizing: border-box;
+		.item-head {
+			padding-top: 10rpx;
+			font-size: 36rpx;
+			font-weight: bold;
+			background: #eee;
+			text-align: center;
+		}
+		.item-text {
+			background: #eee;
+			text-align: center;
+			padding-bottom: 10rpx;
+			.item-text1 {
+				font-size: 30rpx;
+				margin-right: 10rpx;
+			}
+			.item-text2 {
+				font-size: 26rpx;
+			}
+		}
+		&.active {
+			.item-head {
+				background: rgb(227, 230, 115);
+			}
+			.item-text {
+				background: rgb(227, 230, 115);
+			}
+		}
+		&.button {
+			background: #ffffff;
+			.btns {
+				background: #169bd5;
+				color: #fff;
+				padding: 30rpx 0;
+				box-sizing: border-box;
+				text-align: center;
+				font-size: 32rpx;
+			}
+		}
+	}
+}
 </style>
