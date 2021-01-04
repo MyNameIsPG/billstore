@@ -4,6 +4,7 @@
     "pages/authenticate/authenticate",
     "pages/index/index",
     "pages/system/systemIndex/systemIndex",
+    "pages/booking/bookingIndex/bookingIndex",
     "pages/client/clientIndex/clientIndex",
     "pages/supplier/supplierIndex/supplierIndex",
     "pages/basics/users/users",

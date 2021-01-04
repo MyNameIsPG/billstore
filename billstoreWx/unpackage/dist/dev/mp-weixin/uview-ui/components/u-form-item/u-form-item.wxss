@@ -64,8 +64,7 @@
   top: 142rpx;
   z-index: 999;
   width: 100%;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 .u-form-item.data-v-006449ec {
 
@@ -80,8 +79,7 @@
   padding: 20rpx 0;
   font-size: 28rpx;
   color: #303133;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   line-height: 70rpx;
   -webkit-flex-direction: column;
           flex-direction: column;

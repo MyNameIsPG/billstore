@@ -18,8 +18,7 @@
 .data-list .item .icon {
   width: 180rpx;
   height: 180rpx;
-  -webkit-border-radius: 50%;
-          border-radius: 50%;
+  border-radius: 50%;
   border: 1px solid #ddd;
   display: -webkit-box;
   display: -webkit-flex;
@@ -45,8 +44,7 @@
 .header-bar .header-userinfo {
   height: 100%;
   padding: 0rpx 40rpx;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -60,8 +58,7 @@
 .header-bar .header-userinfo image {
   width: 100rpx;
   height: 100rpx;
-  -webkit-border-radius: 50%;
-          border-radius: 50%;
+  border-radius: 50%;
   margin: 0 auto;
   display: block;
 }

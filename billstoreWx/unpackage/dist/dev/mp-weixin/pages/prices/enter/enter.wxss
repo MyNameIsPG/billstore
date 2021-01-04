@@ -100,8 +100,7 @@ page {
 	margin: 10rpx;
 	background: #ff9933;
 	font-size: 30rpx;
-	-webkit-border-radius: 8rpx;
-	        border-radius: 8rpx;
+	border-radius: 8rpx;
 	-webkit-box-pack: center;
 	-webkit-justify-content: center;
 	        justify-content: center;

@@ -64,7 +64,6 @@
   top: 142rpx;
   z-index: 999;
   width: 100%;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 

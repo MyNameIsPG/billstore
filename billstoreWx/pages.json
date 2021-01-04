@@ -7,7 +7,8 @@
 		{ "path": "pages/authorize/authorize" }, // 默认页面
 		{ "path": "pages/authenticate/authenticate" }, // 授权页面
 		{ "path": "pages/index/index" }, // 首页
-		{ "path": "pages/system/systemIndex/systemIndex" }, // 管理圆
+		{ "path": "pages/system/systemIndex/systemIndex" }, // 管理员
+		{ "path": "pages/booking/bookingIndex/bookingIndex" }, // 记账员
 		{ "path": "pages/client/clientIndex/clientIndex" }, // 客户页面
 		{ "path": "pages/supplier/supplierIndex/supplierIndex" }, // 供应商页面
 		{ "path": "pages/basics/users/users" }, // 用户列表 , "style": { "enablePullDownRefresh": true } 

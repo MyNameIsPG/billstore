@@ -54,7 +54,11 @@
 				console.log(this.radio)
 				if(this.radio=="1"){
 					uni.navigateTo({
-						url: `/pages/index/index`
+						url: `/pages/system/systemIndex/systemIndex`
+					});
+				} else if(this.radio=="2"){
+					uni.navigateTo({
+						url: `/pages/booking/bookingIndex/bookingIndex`
 					});
 				} else if(this.radio=="3"){
 					uni.navigateTo({

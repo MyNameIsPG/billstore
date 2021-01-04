@@ -64,8 +64,7 @@
   top: 142rpx;
   z-index: 999;
   width: 100%;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 .wrap.data-v-0a3e3c32 {
   background: #fff;

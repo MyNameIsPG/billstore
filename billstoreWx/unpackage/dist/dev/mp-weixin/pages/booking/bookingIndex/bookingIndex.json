@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "booking-home": "/pages/booking/bookingHome/bookingHome",
+    "booking-work": "/pages/booking/bookingWork/bookingWork",
+    "booking-personal": "/pages/booking/bookingPersonal/bookingPersonal"
+  }
+}

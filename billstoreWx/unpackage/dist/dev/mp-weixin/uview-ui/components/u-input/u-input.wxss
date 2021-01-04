@@ -64,8 +64,7 @@
   top: 142rpx;
   z-index: 999;
   width: 100%;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 .u-input.data-v-460c1d26 {
   position: relative;
@@ -99,10 +98,8 @@
           flex: 1;
 }
 .u-input--border.data-v-460c1d26 {
-  -webkit-border-radius: 6rpx;
-          border-radius: 6rpx;
-  -webkit-border-radius: 4px;
-          border-radius: 4px;
+  border-radius: 6rpx;
+  border-radius: 4px;
   border: 1px solid #dcdfe6;
 }
 .u-input--error.data-v-460c1d26 {
