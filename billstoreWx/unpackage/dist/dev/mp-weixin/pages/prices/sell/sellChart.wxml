@@ -1,0 +1,1 @@
+<view><cu-custom vue-id="d0c8050a-1" bgColor="bg-gradual-blue" isBack="{{true}}" bind:__l="__l" vue-slots="{{['content']}}"><view slot="content">趋势图</view></cu-custom><u-tabs-swiper class="vue-ref" vue-id="d0c8050a-2" list="{{list}}" is-scroll="{{false}}" data-ref="tabs" bind:__l="__l"></u-tabs-swiper></view>

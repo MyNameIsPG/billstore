@@ -1,7 +1,12 @@
 {
+  "component": true,
   "usingComponents": {
     "u-collapse": "/uview-ui/components/u-collapse/u-collapse",
-    "u-collapse-item": "/uview-ui/components/u-collapse-item/u-collapse-item"
-  },
-  "component": true
+    "u-collapse-item": "/uview-ui/components/u-collapse-item/u-collapse-item",
+    "u-table": "/uview-ui/components/u-table/u-table",
+    "u-tr": "/uview-ui/components/u-tr/u-tr",
+    "u-th": "/uview-ui/components/u-th/u-th",
+    "u-td": "/uview-ui/components/u-td/u-td",
+    "u-input": "/uview-ui/components/u-input/u-input"
+  }
 }

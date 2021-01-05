@@ -1,0 +1,1 @@
+{"version":3,"sources":["uni-app:///main.js"],"names":["createPage","Page"],"mappings":";;;;;;;;;;kDAAA;AACA;AACA,qH;AACAA,UAAU,CAACC,kBAAD,CAAV,C","file":"pages/prices/sell/sellChart/sellChart.js","sourcesContent":["import 'uni-pages';\nimport Vue from 'vue'\nimport Page from './pages/prices/sell/sellChart/sellChart.vue'\ncreatePage(Page)"],"sourceRoot":""}

@@ -1,6 +1,6 @@
 <template>
 	<view style="background: #FFFFFF;">
-		<view>
+		<view style="padding: 0 20rpx;">
 			<u-collapse :accordion="false">
 				<u-collapse-item title="商品分类" :open="true">
 					<view class="list-type">
@@ -32,7 +32,7 @@
 								<text class="item-text2">500</text>
 							</view>
 						</view>
-						<view class="item button"><view class="btns">展开</view></view>
+						<view class="item button" @click="handleClickPic"><view class="btns">展开</view></view>
 					</view>
 				</u-collapse-item>
 				<u-collapse-item title="客户分类" :open="true">
@@ -69,6 +69,30 @@
 					</view>
 				</u-collapse-item>
 			</u-collapse>
+			<view style="padding-bottom: 30rpx;">
+				<u-table>
+					<u-tr class="u-tr">
+						<u-th class="u-th">商品</u-th>
+						<u-th class="u-th">价格</u-th>
+						<u-th class="u-th">数量</u-th>
+					</u-tr>
+					<u-tr class="u-tr">
+						<u-td class="u-td"><u-input height="30" value="大白鱼" input-align="center" disabled :clearable="false" /></u-td>
+						<u-td class="u-td"><u-input height="30" v-model="mobile" type="number" placeholder="销售价格" /></u-td>
+						<u-td class="u-td"><u-input height="30" v-model="mobile" type="number" placeholder="销售数量" /></u-td>
+					</u-tr>
+					<u-tr class="u-tr">
+						<u-td class="u-td"><u-input height="30" value="大白鱼" input-align="center" disabled :clearable="false" /></u-td>
+						<u-td class="u-td"><u-input height="30" v-model="mobile" type="number" placeholder="销售价格" /></u-td>
+						<u-td class="u-td"><u-input height="30" v-model="mobile" type="number" placeholder="销售数量" /></u-td>
+					</u-tr>
+					<u-tr class="u-tr">
+						<u-td class="u-td"><u-input height="30" value="大白鱼" input-align="center" disabled :clearable="false" /></u-td>
+						<u-td class="u-td"><u-input height="30" v-model="mobile" type="number" placeholder="销售价格" /></u-td>
+						<u-td class="u-td"><u-input height="30" v-model="mobile" type="number" placeholder="销售数量" /></u-td>
+					</u-tr>
+				</u-table>
+			</view>
 		</view>
 	</view>
 </template>
@@ -76,9 +100,17 @@
 <script>
 export default {
 	data() {
-		return {};
+		return {
+			mobile: ''
+		};
 	},
-	methods: {}
+	methods: {
+		handleClickPic() {
+			uni.navigateTo({
+				url: `/pages/booking/bookingSearch/bookingSearch`
+			});
+		}
+	}
 };
 </script>
 
@@ -92,8 +124,6 @@ export default {
 }
 .list-type {
 	display: flex;
-	align-items: center;
-	justify-content: space-between;
 	flex-wrap: wrap;
 	padding: 0 10rpx;
 	.item {

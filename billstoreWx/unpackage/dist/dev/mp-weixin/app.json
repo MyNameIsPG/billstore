@@ -1,10 +1,14 @@
 {
   "pages": [
-    "pages/booking/bookingIndex/bookingIndex",
+    "pages/prices/sell/sell",
+    "pages/prices/sell/sellChart",
+    "pages/prices/sell/sellAdd",
     "pages/authorize/authorize",
     "pages/authenticate/authenticate",
     "pages/index/index",
     "pages/system/systemIndex/systemIndex",
+    "pages/booking/bookingIndex/bookingIndex",
+    "pages/booking/bookingSearch/bookingSearch",
     "pages/client/clientIndex/clientIndex",
     "pages/supplier/supplierIndex/supplierIndex",
     "pages/basics/users/users",
@@ -16,7 +20,6 @@
     "pages/basics/suppliers/suppliers",
     "pages/basics/suppliersAdd/suppliersAdd",
     "pages/prices/enter/enter",
-    "pages/prices/sell/sell",
     "pages/prices/retreat/retreat",
     "pages/basics/goods/goods",
     "pages/basics/goodsAdd/goodsAdd",
