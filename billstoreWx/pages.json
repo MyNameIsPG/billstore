@@ -4,16 +4,23 @@
 	},
 	"pages": [
 		
-		{ "path": "pages/prices/sell/sell" }, // 售价
-		{ "path": "pages/prices/sell/sellChart" }, // 售价图表
-		{ "path": "pages/prices/sell/sellAdd" }, // 售价新增
+		{ "path": "pages/stock/stockWarehousing/stockWarehousing" }, // 入库
+		{ "path": "pages/stock/stockWarehousing/stockWarehousingAdd" }, // 入库新增
+		
+		{ "path": "pages/stock/stockHome/stockHome" }, // 库存
+		
+		{ "path": "pages/stock/stocDelivery/stocDelivery" }, // 出库
+		{ "path": "pages/stock/stocLoss/stocLoss" }, // 损耗
+		{ "path": "pages/stock/stocOverflow/stocOverflow" }, // 溢出
+		{ "path": "pages/stock/stocReturnGoods/stocReturnGoods" }, // 退货
+		
 		
 		{ "path": "pages/authorize/authorize" }, // 默认页面
 		{ "path": "pages/authenticate/authenticate" }, // 授权页面
 		{ "path": "pages/index/index" }, // 首页
 		{ "path": "pages/system/systemIndex/systemIndex" }, // 管理员
 		{ "path": "pages/booking/bookingIndex/bookingIndex" }, // 记账员
-		{ "path" : "pages/booking/bookingSearch/bookingSearch" }, // 记账员搜索页面
+		{ "path": "pages/booking/bookingSearch/bookingSearch" }, // 记账员搜索页面
 		{ "path": "pages/client/clientIndex/clientIndex" }, // 客户页面
 		{ "path": "pages/supplier/supplierIndex/supplierIndex" }, // 供应商页面
 		{ "path": "pages/basics/users/users" }, // 用户列表 , "style": { "enablePullDownRefresh": true } 
@@ -26,7 +33,14 @@
 		{ "path": "pages/basics/suppliersAdd/suppliersAdd" }, // 供应商新增
 		
         { "path": "pages/prices/enter/enter" }, // 进价
+		{ "path": "pages/prices/enter/enterAdd" }, // 进价新增
+		{ "path": "pages/prices/enter/enterChart" }, // 进价图表
         { "path": "pages/prices/retreat/retreat" }, // 退价
+		{ "path": "pages/prices/retreat/retreatAdd" }, // 退价新增
+		{ "path": "pages/prices/retreat/retreatChart" }, // 退价图表
+		{ "path": "pages/prices/sell/sell" }, // 售价
+		{ "path": "pages/prices/sell/sellAdd" }, // 售价新增
+		{ "path": "pages/prices/sell/sellChart" }, // 售价图表
 		
         { "path": "pages/basics/goods/goods" }, // 商品
         { "path": "pages/basics/goodsAdd/goodsAdd" }, // 商品新增
@@ -39,6 +53,9 @@
         { "path": "pages/basics/accountType/accountType" }, // 到账类别
         { "path": "pages/basics/accountTypeAdd/accountTypeAdd" } // 到账类别新增
 		
+        
+        
+        
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

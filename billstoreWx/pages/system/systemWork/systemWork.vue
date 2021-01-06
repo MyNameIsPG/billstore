@@ -99,6 +99,47 @@
 								path: '/pages/prices/retreat/retreat'
 							},
 						]
+					},
+					{
+						title: '库存',
+						children: [
+							{
+								cuIcon: 'cardboardfill',
+								color: 'red',
+								name: '库存',
+								path: '/pages/stock/stockHome/stockHome'
+							},
+							{
+								cuIcon: 'cardboardfill',
+								color: 'red',
+								name: '入库',
+								path: '/pages/stock/stockWarehousing/stockWarehousing'
+							},
+							{
+								cuIcon: 'cardboardfill',
+								color: 'red',
+								name: '出库',
+								path: '/pages/stock/stocDelivery/stocDelivery'
+							},
+							{
+								cuIcon: 'cardboardfill',
+								color: 'red',
+								name: '损耗',
+								path: '/pages/stock/stocLoss/stocLoss'
+							},
+							{
+								cuIcon: 'cardboardfill',
+								color: 'red',
+								name: '溢出',
+								path: '/pages/stock/stocOverflow/stocOverflow'
+							},
+							{
+								cuIcon: 'cardboardfill',
+								color: 'red',
+								name: '退货',
+								path: '/pages/stock/stocReturnGoods/stocReturnGoods'
+							},
+						]
 					}
 				]
 			};

@@ -807,6 +807,7 @@ var canvasObj = {};var _default =
       Mix.categories = data.Mix.categories;
       Mix.series = data.Mix.series;
       this.showColumn('canvasColumn', Column);
+      debugger;
       this.showColumnMeter('canvasColumnMeter', ColumnMeter);
       this.showLineA('canvasLineA', LineA);
       this.showLineB('canvasLineB', LineB);
