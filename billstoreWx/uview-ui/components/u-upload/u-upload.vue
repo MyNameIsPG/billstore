@@ -315,6 +315,7 @@ export default {
 				.then(res => {
 					let file = null;
 					let listOldLength = this.lists.length;
+					var tempFilePaths = res.tempFilePaths;
 					res.tempFiles.map((val, index) => {
 						// 检查文件后缀是否允许，如果不在this.limitType内，就会返回false
 						if(!this.checkFileExt(val)) return ;
@@ -330,12 +331,21 @@ export default {
 								this.showToast('超出最大允许的文件个数');
 								return;
 							}
-							lists.push({
-								url: val.path,
-								progress: 0,
-								error: false,
-								file: val
+							wx.request({
+								url: res.tempFilePaths[index],
+								method: 'GET',
+								responseType: 'arraybuffer',
+								success: function (res) {
+									var base64 = wx.arrayBufferToBase64(res.data);
+									lists.push({
+										url: 'data:image/jpg;base64,' + base64,
+										progress: 0,
+										error: false,
+										file: 'data:image/jpg;base64,' + base64
+									});
+								}
 							});
+							
 						}
 					});
 					// 每次图片选择完，抛出一个事件，并将当前内部选择的图片数组抛出去
@@ -554,6 +564,9 @@ export default {
 			})
 			if(!noArrowExt) this.showToast(`不允许选择${fileExt}格式的文件`);
 			return noArrowExt;
+		},
+		getBase64(file) {
+			debugger
 		}
 	}
 };

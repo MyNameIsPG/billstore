@@ -20,6 +20,7 @@ import * as request from './api/api.js'
 Vue.prototype.$request = apiRequest
 Vue.prototype.request = request
 Vue.prototype.IS_OK = 200
+Vue.prototype.pageSize = 20
 Vue.config.productionTip = false
 Vue.prototype.swipe_action_options = [{
 		text: '修改',

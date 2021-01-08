@@ -1,6 +1,7 @@
 {
   "usingComponents": {
     "u-search": "/uview-ui/components/u-search/u-search",
+    "u-empty": "/uview-ui/components/u-empty/u-empty",
     "u-swipe-action": "/uview-ui/components/u-swipe-action/u-swipe-action",
     "u-loadmore": "/uview-ui/components/u-loadmore/u-loadmore",
     "a-addbtn": "/components/a-addbtn/a-addbtn"

@@ -30,14 +30,14 @@
 							{
 								cuIcon: 'cardboardfill',
 								color: 'red',
-								name: '人员',
+								name: '管理员',
 								path: '/pages/basics/users/users'
 							},
 							{
-								cuIcon: 'recordfill',
-								color: 'orange',
-								name: '角色',
-								path: '/pages/basics/roles/roles'
+								cuIcon: 'cardboardfill',
+								color: 'red',
+								name: '记账员',
+								path: '/pages/basics/usersBook/usersBook'
 							},
 							{
 								cuIcon: 'picfill',
@@ -50,6 +50,12 @@
 								color: 'yellow',
 								name: '供应商',
 								path: '/pages/basics/suppliers/suppliers'
+							},
+							{
+								cuIcon: 'recordfill',
+								color: 'orange',
+								name: '角色',
+								path: '/pages/basics/roles/roles'
 							},
 							{
 								cuIcon: 'noticefill',

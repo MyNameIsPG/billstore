@@ -45,12 +45,7 @@ export default {
 			uni.getUserInfo({
 				provider: 'weixin',
 				success: res => {
-					try {
-						uni.setStorageSync('isCanUse', true); //记录是否第一次授权  false:表示不是第一次授权
-					} catch (e) {}
-					uni.navigateTo({
-						url: `/pages/authenticate/authenticate`
-					});
+					_this.getWxOpenid(code, res)
 					// this.$request({
 					// 	url: '/api/wx/login',
 					// 	data: {
@@ -81,6 +76,41 @@ export default {
 					console.log(res);
 				}
 			});
+		},
+		async getWxOpenid(code, userInfo) {
+			const res = await this.request.apiUserGetWXOpenid({
+				code: code,
+				nickName: userInfo.userInfo.nickName,
+				avatarUrl: userInfo.userInfo.avatarUrl,
+				gender: userInfo.userInfo.gender
+			})
+			console.log(res)
+			uni.setStorageSync('userInfo', JSON.stringify(res.Data));
+			uni.showLoading({
+				title: '登录中！'
+			});
+			setTimeout(() => {
+				uni.navigateTo({
+					url: `/pages/authenticate/authenticate`
+				});
+				// if(res.Data.userType==="0001"){
+				// 	uni.navigateTo({
+				// 		url: `/pages/system/systemIndex/systemIndex`
+				// 	});
+				// } else if(res.Data.userType==="0002") {
+				// 	uni.navigateTo({
+				// 		url: `/pages/booking/bookingIndex/bookingIndex`
+				// 	});
+				// } else if(res.Data.userType==="0003") {
+				// 	uni.navigateTo({
+				// 		url: `/pages/client/clientIndex/clientIndex`
+				// 	});
+				// } else if(res.Data.userType==="0004") {
+				// 	uni.navigateTo({
+				// 		url: `/pages/supplier/supplierIndex/supplierIndex`
+				// 	});
+				// }
+			}, 500);
 		}
 	}
 };

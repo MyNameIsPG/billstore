@@ -801,7 +801,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"VUE_APP_NAME":"uni-app","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"uni-app","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -2567,210 +2567,7 @@ function code(value) {var len = arguments.length > 1 && arguments[1] !== undefin
 
 /***/ }),
 
-/***/ 17:
-/*!******************************************************************************!*\
-  !*** F:/work/00_billstore/billstoreWx/uview-ui/libs/function/queryParams.js ***!
-  \******************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; /**
-                                                                                                      * 对象转url参数
-                                                                                                      * @param {*} data,对象
-                                                                                                      * @param {*} isPrefix,是否自动加上"?"
-                                                                                                      */
-function queryParams() {var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};var isPrefix = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;var arrayFormat = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'brackets';
-  var prefix = isPrefix ? '?' : '';
-  var _result = [];
-  if (['indices', 'brackets', 'repeat', 'comma'].indexOf(arrayFormat) == -1) arrayFormat = 'brackets';var _loop = function _loop(
-  key) {
-    var value = data[key];
-    // 去掉为空的参数
-    if (['', undefined, null].indexOf(value) >= 0) {
-      return "continue";
-    }
-    // 如果值为数组，另行处理
-    if (value.constructor === Array) {
-      // e.g. {ids: [1, 2, 3]}
-      switch (arrayFormat) {
-        case 'indices':
-          // 结果: ids[0]=1&ids[1]=2&ids[2]=3
-          for (var i = 0; i < value.length; i++) {
-            _result.push(key + '[' + i + ']=' + value[i]);
-          }
-          break;
-        case 'brackets':
-          // 结果: ids[]=1&ids[]=2&ids[]=3
-          value.forEach(function (_value) {
-            _result.push(key + '[]=' + _value);
-          });
-          break;
-        case 'repeat':
-          // 结果: ids=1&ids=2&ids=3
-          value.forEach(function (_value) {
-            _result.push(key + '=' + _value);
-          });
-          break;
-        case 'comma':
-          // 结果: ids=1,2,3
-          var commaStr = "";
-          value.forEach(function (_value) {
-            commaStr += (commaStr ? "," : "") + _value;
-          });
-          _result.push(key + '=' + commaStr);
-          break;
-        default:
-          value.forEach(function (_value) {
-            _result.push(key + '[]=' + _value);
-          });}
-
-    } else {
-      _result.push(key + '=' + value);
-    }};for (var key in data) {var _ret = _loop(key);if (_ret === "continue") continue;
-  }
-  return _result.length ? prefix + _result.join('&') : '';
-}var _default =
-
-queryParams;exports.default = _default;
-
-/***/ }),
-
-/***/ 18:
-/*!************************************************************************!*\
-  !*** F:/work/00_billstore/billstoreWx/uview-ui/libs/function/route.js ***!
-  \************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 19));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;} /**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              * 路由跳转方法，该方法相对于直接使用uni.xxx的好处是使用更加简单快捷
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              * 并且带有路由拦截功能
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              */var
-
-Router = /*#__PURE__*/function () {
-  function Router() {_classCallCheck(this, Router);
-    // 原始属性定义
-    this.config = {
-      type: 'navigateTo',
-      url: '',
-      delta: 1, // navigateBack页面后退时,回退的层数
-      params: {}, // 传递的参数
-      animationType: 'pop-in', // 窗口动画,只在APP有效
-      animationDuration: 300, // 窗口动画持续时间,单位毫秒,只在APP有效
-      intercept: false // 是否需要拦截
-    };
-    // 因为route方法是需要对外赋值给另外的对象使用，同时route内部有使用this，会导致route失去上下文
-    // 这里在构造函数中进行this绑定
-    this.route = this.route.bind(this);
-  }
-
-  // 判断url前面是否有"/"，如果没有则加上，否则无法跳转
-  _createClass(Router, [{ key: "addRootPath", value: function addRootPath(url) {
-      return url[0] === '/' ? url : "/".concat(url);
-    }
-
-    // 整合路由参数
-  }, { key: "mixinParam", value: function mixinParam(url, params) {
-      url = url && this.addRootPath(url);
-
-      // 使用正则匹配，主要依据是判断是否有"/","?","="等，如“/page/index/index?name=mary"
-      // 如果有url中有get参数，转换后无需带上"?"
-      var query = '';
-      if (/.*\/.*\?.*=.*/.test(url)) {
-        // object对象转为get类型的参数
-        query = uni.$u.queryParams(params, false);
-        // 因为已有get参数,所以后面拼接的参数需要带上"&"隔开
-        return url += "&" + query;
-      } else {
-        // 直接拼接参数，因为此处url中没有后面的query参数，也就没有"?/&"之类的符号
-        query = uni.$u.queryParams(params);
-        return url += query;
-      }
-    }
-
-    // 对外的方法名称
-  }, { key: "route", value: function () {var _route = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var options,params,mergeConfig,isNext,_args = arguments;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:options = _args.length > 0 && _args[0] !== undefined ? _args[0] : {};params = _args.length > 1 && _args[1] !== undefined ? _args[1] : {};
-                // 合并用户的配置和内部的默认配置
-                mergeConfig = {};
-
-                if (typeof options === 'string') {
-                  // 如果options为字符串，则为route(url, params)的形式
-                  mergeConfig.url = this.mixinParam(options, params);
-                  mergeConfig.type = 'navigateTo';
-                } else {
-                  mergeConfig = uni.$u.deepClone(options, this.config);
-                  // 否则正常使用mergeConfig中的url和params进行拼接
-                  mergeConfig.url = this.mixinParam(options.url, options.params);
-                }
-
-                if (params.intercept) {
-                  this.config.intercept = params.intercept;
-                }
-                // params参数也带给拦截器
-                mergeConfig.params = params;
-                // 合并内外部参数
-                mergeConfig = uni.$u.deepMerge(this.config, mergeConfig);
-                // 判断用户是否定义了拦截器
-                if (!(typeof uni.$u.routeIntercept === 'function')) {_context.next = 14;break;}_context.next = 10;return (
-
-                  new Promise(function (resolve, reject) {
-                    uni.$u.routeIntercept(mergeConfig, resolve);
-                  }));case 10:isNext = _context.sent;
-                // 如果isNext为true，则执行路由跳转
-                isNext && this.openPage(mergeConfig);_context.next = 15;break;case 14:
-
-                this.openPage(mergeConfig);case 15:case "end":return _context.stop();}}}, _callee, this);}));function route() {return _route.apply(this, arguments);}return route;}()
-
-
-
-    // 执行路由跳转
-  }, { key: "openPage", value: function openPage(config) {
-      // 解构参数
-      var
-      url =
-
-
-
-
-      config.url,type = config.type,delta = config.delta,animationType = config.animationType,animationDuration = config.animationDuration;
-      if (config.type == 'navigateTo' || config.type == 'to') {
-        uni.navigateTo({
-          url: url,
-          animationType: animationType,
-          animationDuration: animationDuration });
-
-      }
-      if (config.type == 'redirectTo' || config.type == 'redirect') {
-        uni.redirectTo({
-          url: url });
-
-      }
-      if (config.type == 'switchTab' || config.type == 'tab') {
-        uni.switchTab({
-          url: url });
-
-      }
-      if (config.type == 'reLaunch' || config.type == 'launch') {
-        uni.reLaunch({
-          url: url });
-
-      }
-      if (config.type == 'navigateBack' || config.type == 'back') {
-        uni.navigateBack({
-          delta: delta });
-
-      }
-    } }]);return Router;}();var _default =
-
-
-new Router().route;exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
-
-/***/ }),
-
-/***/ 180:
+/***/ 160:
 /*!************************************************************************!*\
   !*** F:/work/00_billstore/billstoreWx/components/u-charts/u-charts.js ***!
   \************************************************************************/
@@ -8446,6 +8243,209 @@ if ( true && typeof module.exports === "object") {
 
 /***/ }),
 
+/***/ 17:
+/*!******************************************************************************!*\
+  !*** F:/work/00_billstore/billstoreWx/uview-ui/libs/function/queryParams.js ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; /**
+                                                                                                      * 对象转url参数
+                                                                                                      * @param {*} data,对象
+                                                                                                      * @param {*} isPrefix,是否自动加上"?"
+                                                                                                      */
+function queryParams() {var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};var isPrefix = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;var arrayFormat = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'brackets';
+  var prefix = isPrefix ? '?' : '';
+  var _result = [];
+  if (['indices', 'brackets', 'repeat', 'comma'].indexOf(arrayFormat) == -1) arrayFormat = 'brackets';var _loop = function _loop(
+  key) {
+    var value = data[key];
+    // 去掉为空的参数
+    if (['', undefined, null].indexOf(value) >= 0) {
+      return "continue";
+    }
+    // 如果值为数组，另行处理
+    if (value.constructor === Array) {
+      // e.g. {ids: [1, 2, 3]}
+      switch (arrayFormat) {
+        case 'indices':
+          // 结果: ids[0]=1&ids[1]=2&ids[2]=3
+          for (var i = 0; i < value.length; i++) {
+            _result.push(key + '[' + i + ']=' + value[i]);
+          }
+          break;
+        case 'brackets':
+          // 结果: ids[]=1&ids[]=2&ids[]=3
+          value.forEach(function (_value) {
+            _result.push(key + '[]=' + _value);
+          });
+          break;
+        case 'repeat':
+          // 结果: ids=1&ids=2&ids=3
+          value.forEach(function (_value) {
+            _result.push(key + '=' + _value);
+          });
+          break;
+        case 'comma':
+          // 结果: ids=1,2,3
+          var commaStr = "";
+          value.forEach(function (_value) {
+            commaStr += (commaStr ? "," : "") + _value;
+          });
+          _result.push(key + '=' + commaStr);
+          break;
+        default:
+          value.forEach(function (_value) {
+            _result.push(key + '[]=' + _value);
+          });}
+
+    } else {
+      _result.push(key + '=' + value);
+    }};for (var key in data) {var _ret = _loop(key);if (_ret === "continue") continue;
+  }
+  return _result.length ? prefix + _result.join('&') : '';
+}var _default =
+
+queryParams;exports.default = _default;
+
+/***/ }),
+
+/***/ 18:
+/*!************************************************************************!*\
+  !*** F:/work/00_billstore/billstoreWx/uview-ui/libs/function/route.js ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 19));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;} /**
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              * 路由跳转方法，该方法相对于直接使用uni.xxx的好处是使用更加简单快捷
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              * 并且带有路由拦截功能
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              */var
+
+Router = /*#__PURE__*/function () {
+  function Router() {_classCallCheck(this, Router);
+    // 原始属性定义
+    this.config = {
+      type: 'navigateTo',
+      url: '',
+      delta: 1, // navigateBack页面后退时,回退的层数
+      params: {}, // 传递的参数
+      animationType: 'pop-in', // 窗口动画,只在APP有效
+      animationDuration: 300, // 窗口动画持续时间,单位毫秒,只在APP有效
+      intercept: false // 是否需要拦截
+    };
+    // 因为route方法是需要对外赋值给另外的对象使用，同时route内部有使用this，会导致route失去上下文
+    // 这里在构造函数中进行this绑定
+    this.route = this.route.bind(this);
+  }
+
+  // 判断url前面是否有"/"，如果没有则加上，否则无法跳转
+  _createClass(Router, [{ key: "addRootPath", value: function addRootPath(url) {
+      return url[0] === '/' ? url : "/".concat(url);
+    }
+
+    // 整合路由参数
+  }, { key: "mixinParam", value: function mixinParam(url, params) {
+      url = url && this.addRootPath(url);
+
+      // 使用正则匹配，主要依据是判断是否有"/","?","="等，如“/page/index/index?name=mary"
+      // 如果有url中有get参数，转换后无需带上"?"
+      var query = '';
+      if (/.*\/.*\?.*=.*/.test(url)) {
+        // object对象转为get类型的参数
+        query = uni.$u.queryParams(params, false);
+        // 因为已有get参数,所以后面拼接的参数需要带上"&"隔开
+        return url += "&" + query;
+      } else {
+        // 直接拼接参数，因为此处url中没有后面的query参数，也就没有"?/&"之类的符号
+        query = uni.$u.queryParams(params);
+        return url += query;
+      }
+    }
+
+    // 对外的方法名称
+  }, { key: "route", value: function () {var _route = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var options,params,mergeConfig,isNext,_args = arguments;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:options = _args.length > 0 && _args[0] !== undefined ? _args[0] : {};params = _args.length > 1 && _args[1] !== undefined ? _args[1] : {};
+                // 合并用户的配置和内部的默认配置
+                mergeConfig = {};
+
+                if (typeof options === 'string') {
+                  // 如果options为字符串，则为route(url, params)的形式
+                  mergeConfig.url = this.mixinParam(options, params);
+                  mergeConfig.type = 'navigateTo';
+                } else {
+                  mergeConfig = uni.$u.deepClone(options, this.config);
+                  // 否则正常使用mergeConfig中的url和params进行拼接
+                  mergeConfig.url = this.mixinParam(options.url, options.params);
+                }
+
+                if (params.intercept) {
+                  this.config.intercept = params.intercept;
+                }
+                // params参数也带给拦截器
+                mergeConfig.params = params;
+                // 合并内外部参数
+                mergeConfig = uni.$u.deepMerge(this.config, mergeConfig);
+                // 判断用户是否定义了拦截器
+                if (!(typeof uni.$u.routeIntercept === 'function')) {_context.next = 14;break;}_context.next = 10;return (
+
+                  new Promise(function (resolve, reject) {
+                    uni.$u.routeIntercept(mergeConfig, resolve);
+                  }));case 10:isNext = _context.sent;
+                // 如果isNext为true，则执行路由跳转
+                isNext && this.openPage(mergeConfig);_context.next = 15;break;case 14:
+
+                this.openPage(mergeConfig);case 15:case "end":return _context.stop();}}}, _callee, this);}));function route() {return _route.apply(this, arguments);}return route;}()
+
+
+
+    // 执行路由跳转
+  }, { key: "openPage", value: function openPage(config) {
+      // 解构参数
+      var
+      url =
+
+
+
+
+      config.url,type = config.type,delta = config.delta,animationType = config.animationType,animationDuration = config.animationDuration;
+      if (config.type == 'navigateTo' || config.type == 'to') {
+        uni.navigateTo({
+          url: url,
+          animationType: animationType,
+          animationDuration: animationDuration });
+
+      }
+      if (config.type == 'redirectTo' || config.type == 'redirect') {
+        uni.redirectTo({
+          url: url });
+
+      }
+      if (config.type == 'switchTab' || config.type == 'tab') {
+        uni.switchTab({
+          url: url });
+
+      }
+      if (config.type == 'reLaunch' || config.type == 'launch') {
+        uni.reLaunch({
+          url: url });
+
+      }
+      if (config.type == 'navigateBack' || config.type == 'back') {
+        uni.navigateBack({
+          delta: delta });
+
+      }
+    } }]);return Router;}();var _default =
+
+
+new Router().route;exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
 /***/ 19:
 /*!**********************************************************!*\
   !*** ./node_modules/@babel/runtime/regenerator/index.js ***!
@@ -13983,7 +13983,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"VUE_APP_NAME":"uni-app","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"NODE_ENV":"development","VUE_APP_NAME":"uni-app","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -14004,14 +14004,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"VUE_APP_NAME":"uni-app","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"uni-app","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"VUE_APP_NAME":"uni-app","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"uni-app","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -14097,7 +14097,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"VUE_APP_NAME":"uni-app","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"uni-app","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -15830,7 +15830,399 @@ toast;exports.default = _default;
 
 /***/ }),
 
-/***/ 323:
+/***/ 33:
+/*!****************************************************************************!*\
+  !*** F:/work/00_billstore/billstoreWx/uview-ui/libs/function/getParent.js ***!
+  \****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = getParent; // 获取父组件的参数，因为支付宝小程序不支持provide/inject的写法
+// this.$parent在非H5中，可以准确获取到父组件，但是在H5中，需要多次this.$parent.$parent.xxx
+function getParent(name, keys) {
+  var parent = this.$parent;
+  // 通过while历遍，这里主要是为了H5需要多层解析的问题
+  while (parent) {
+    // 父组件
+    if (parent.$options.name !== name) {
+      // 如果组件的name不相等，继续上一级寻找
+      parent = parent.$parent;
+    } else {var _ret = function () {
+        var data = {};
+        // 判断keys是否数组，如果传过来的是一个数组，那么直接使用数组元素值当做键值去父组件寻找
+        if (Array.isArray(keys)) {
+          keys.map(function (val) {
+            data[val] = parent[val] ? parent[val] : '';
+          });
+        } else {
+          // 历遍传过来的对象参数
+          for (var i in keys) {
+            // 如果子组件有此值则用，无此值则用父组件的值
+            // 判断是否空数组，如果是，则用父组件的值，否则用子组件的值
+            if (Array.isArray(keys[i])) {
+              if (keys[i].length) {
+                data[i] = keys[i];
+              } else {
+                data[i] = parent[i];
+              }
+            } else if (keys[i].constructor === Object) {
+              // 判断是否对象，如果是对象，且有属性，那么使用子组件的值，否则使用父组件的值
+              if (Object.keys(keys[i]).length) {
+                data[i] = keys[i];
+              } else {
+                data[i] = parent[i];
+              }
+            } else {
+              // 只要子组件有传值，即使是false值，也是“传值”了，也需要覆盖父组件的同名参数
+              data[i] = keys[i] || keys[i] === false ? keys[i] : parent[i];
+            }
+          }
+        }
+        return { v: data };}();if (typeof _ret === "object") return _ret.v;
+    }
+  }
+
+  return {};
+}
+
+/***/ }),
+
+/***/ 34:
+/*!**************************************************************************!*\
+  !*** F:/work/00_billstore/billstoreWx/uview-ui/libs/function/$parent.js ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = $parent; // 获取父组件的参数，因为支付宝小程序不支持provide/inject的写法
+// this.$parent在非H5中，可以准确获取到父组件，但是在H5中，需要多次this.$parent.$parent.xxx
+// 这里默认值等于undefined有它的含义，因为最顶层元素(组件)的$parent就是undefined，意味着不传name
+// 值(默认为undefined)，就是查找最顶层的$parent
+function $parent() {var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : undefined;
+  var parent = this.$parent;
+  // 通过while历遍，这里主要是为了H5需要多层解析的问题
+  while (parent) {
+    // 父组件
+    if (parent.$options && parent.$options.name !== name) {
+      // 如果组件的name不相等，继续上一级寻找
+      parent = parent.$parent;
+    } else {
+      return parent;
+    }
+  }
+  return false;
+}
+
+/***/ }),
+
+/***/ 35:
+/*!**********************************************************************!*\
+  !*** F:/work/00_billstore/billstoreWx/uview-ui/libs/function/sys.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.os = os;exports.sys = sys;function os() {
+  return uni.getSystemInfoSync().platform;
+};
+
+function sys() {
+  return uni.getSystemInfoSync();
+}
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
+/***/ 36:
+/*!***************************************************************************!*\
+  !*** F:/work/00_billstore/billstoreWx/uview-ui/libs/function/debounce.js ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var timeout = null;
+
+/**
+                                                                                                                         * 防抖原理：一定时间内，只有最后一次操作，再过wait毫秒后才执行函数
+                                                                                                                         * 
+                                                                                                                         * @param {Function} func 要执行的回调函数 
+                                                                                                                         * @param {Number} wait 延时的时间
+                                                                                                                         * @param {Boolean} immediate 是否立即执行 
+                                                                                                                         * @return null
+                                                                                                                         */
+function debounce(func) {var wait = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 500;var immediate = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+  // 清除定时器
+  if (timeout !== null) clearTimeout(timeout);
+  // 立即执行，此类情况一般用不到
+  if (immediate) {
+    var callNow = !timeout;
+    timeout = setTimeout(function () {
+      timeout = null;
+    }, wait);
+    if (callNow) typeof func === 'function' && func();
+  } else {
+    // 设置定时器，当最后一次操作后，timeout不会再被清除，所以在延时wait毫秒后执行func回调方法
+    timeout = setTimeout(function () {
+      typeof func === 'function' && func();
+    }, wait);
+  }
+}var _default =
+
+debounce;exports.default = _default;
+
+/***/ }),
+
+/***/ 37:
+/*!***************************************************************************!*\
+  !*** F:/work/00_billstore/billstoreWx/uview-ui/libs/function/throttle.js ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var timer, flag;
+/**
+                                                                                                                      * 节流原理：在一定时间内，只能触发一次
+                                                                                                                      * 
+                                                                                                                      * @param {Function} func 要执行的回调函数 
+                                                                                                                      * @param {Number} wait 延时的时间
+                                                                                                                      * @param {Boolean} immediate 是否立即执行
+                                                                                                                      * @return null
+                                                                                                                      */
+function throttle(func) {var wait = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 500;var immediate = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+  if (immediate) {
+    if (!flag) {
+      flag = true;
+      // 如果是立即执行，则在wait毫秒内开始时执行
+      typeof func === 'function' && func();
+      timer = setTimeout(function () {
+        flag = false;
+      }, wait);
+    }
+  } else {
+    if (!flag) {
+      flag = true;
+      // 如果是非立即执行，则在wait毫秒内的结束处执行
+      timer = setTimeout(function () {
+        flag = false;
+        typeof func === 'function' && func();
+      }, wait);
+    }
+
+  }
+};var _default =
+throttle;exports.default = _default;
+
+/***/ }),
+
+/***/ 38:
+/*!***********************************************************************!*\
+  !*** F:/work/00_billstore/billstoreWx/uview-ui/libs/config/config.js ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; // 此版本发布于2020-11-19
+var version = '1.8.2';var _default =
+
+{
+  v: version,
+  version: version,
+  // 主题名称
+  type: [
+  'primary',
+  'success',
+  'info',
+  'error',
+  'warning'] };exports.default = _default;
+
+/***/ }),
+
+/***/ 39:
+/*!***********************************************************************!*\
+  !*** F:/work/00_billstore/billstoreWx/uview-ui/libs/config/zIndex.js ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; // uniapp在H5中各API的z-index值如下：
+/**
+ * actionsheet: 999
+ * modal: 999
+ * navigate: 998
+ * tabbar: 998
+ * toast: 999
+ */var _default =
+
+{
+  toast: 10090,
+  noNetwork: 10080,
+  // popup包含popup，actionsheet，keyboard，picker的值
+  popup: 10075,
+  mask: 10070,
+  navbar: 980,
+  topTips: 975,
+  sticky: 970,
+  indexListSticky: 965 };exports.default = _default;
+
+/***/ }),
+
+/***/ 4:
+/*!***************************************************!*\
+  !*** F:/work/00_billstore/billstoreWx/pages.json ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
+
+/***/ }),
+
+/***/ 40:
+/*!*****************************************************!*\
+  !*** F:/work/00_billstore/billstoreWx/api/index.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.apiRequest = exports.request = void 0;var BASE_URL = "http://172.18.1.76:8097/";
+
+var request = function request(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var method = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "GET";
+  return new Promise(function (resolve, reject) {
+    uni.request({
+      url: BASE_URL + url,
+      method: method,
+      data: data || {},
+      success: function success(res) {
+        if (res.statusCode !== 200) {
+          return uni.showToast({
+            icon: "none",
+            title: "获取数据失败" });
+
+        }
+        if (res.data.ErrCode != 0) {
+          if (res.data.ErrMsg) {
+            return uni.showToast({
+              icon: "none",
+              title: res.data.ErrMsg });
+
+          } else {
+            return uni.showToast({
+              icon: "none",
+              title: "接口请求失败" });
+
+          }
+        }
+        resolve(res.data);
+      },
+      fail: function fail(err) {
+        uni.showToast({
+          icon: "none",
+          title: "接口请求失败" });
+
+        reject(err);
+      } });
+
+  });
+};exports.request = request;
+
+var apiRequest = function apiRequest(options) {
+  return new Promise(function (resolve, reject) {
+    uni.request({
+      url: BASE_URL + options.url,
+      method: options.methods || "GET",
+      data: options.data || {},
+      success: function success(res) {
+        if (res.statusCode !== 200) {
+          return uni.showToast({
+            title: "获取数据失败" });
+
+        }
+        resolve(res.data);
+      },
+      fail: function fail(err) {
+        uni.showToast({
+          title: "接口请求失败" });
+
+        reject(err);
+      } });
+
+  });
+};exports.apiRequest = apiRequest;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
+/***/ 41:
+/*!***************************************************!*\
+  !*** F:/work/00_billstore/billstoreWx/api/api.js ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.apiGoodsSpecsDelete = exports.apiGoodsSpecsInfo = exports.apiGoodsSpecsUpdate = exports.apiGoodsSpecsAdd = exports.apiGoodsSpecsDataPageList = exports.apiGoodsDelete = exports.apiGoodsInfo = exports.apiGoodsUpdate = exports.apiGoodsAdd = exports.apiGoodsDataPageList = exports.apiUserDelete = exports.apiUserInfo = exports.apiUserUpdate = exports.apiUserAdd = exports.apiUserDataPageList = exports.apiUserGetWXOpenid = void 0;var _index = __webpack_require__(/*! ./index */ 40);
+
+/** 获取微信的OpendId并查询用户表是否存在(若存在则返回该实体;若不存在则新增后返回该实体) */
+var apiUserGetWXOpenid = function apiUserGetWXOpenid(data) {return (0, _index.request)("api/User/GetWXOpenid", data, "GET");};
+
+
+
+/** 用户分页查询 */exports.apiUserGetWXOpenid = apiUserGetWXOpenid;
+var apiUserDataPageList = function apiUserDataPageList(data) {return (0, _index.request)("api/User/DataPageList", data, "GET");};
+/** 用户新增 */exports.apiUserDataPageList = apiUserDataPageList;
+var apiUserAdd = function apiUserAdd(data) {return (0, _index.request)("api/User", data, "POST");};
+/** 用户修改 */exports.apiUserAdd = apiUserAdd;
+var apiUserUpdate = function apiUserUpdate(data) {return (0, _index.request)("api/User", data, "PUT");};
+/** 用户单个查询 */exports.apiUserUpdate = apiUserUpdate;
+var apiUserInfo = function apiUserInfo(UserId) {return (0, _index.request)("api/User/" + UserId, null, "GET");};
+/** 用户删除 */exports.apiUserInfo = apiUserInfo;
+var apiUserDelete = function apiUserDelete(UserId) {return (0, _index.request)("api/User/" + UserId, null, "DELETE");};
+
+
+
+/** 商品分页查询 */exports.apiUserDelete = apiUserDelete;
+var apiGoodsDataPageList = function apiGoodsDataPageList(data) {return (0, _index.request)("api/Goods/DataPageList", data, "GET");};
+/** 商品新增 */exports.apiGoodsDataPageList = apiGoodsDataPageList;
+var apiGoodsAdd = function apiGoodsAdd(data) {return (0, _index.request)("api/Goods", data, "POST");};
+/** 商品修改 */exports.apiGoodsAdd = apiGoodsAdd;
+var apiGoodsUpdate = function apiGoodsUpdate(data) {return (0, _index.request)("api/Goods", data, "PUT");};
+/** 商品单个查询 */exports.apiGoodsUpdate = apiGoodsUpdate;
+var apiGoodsInfo = function apiGoodsInfo(GoodsId) {return (0, _index.request)("api/Goods/" + GoodsId, null, "GET");};
+/** 商品删除 */exports.apiGoodsInfo = apiGoodsInfo;
+var apiGoodsDelete = function apiGoodsDelete(GoodsId) {return (0, _index.request)("api/Goods/" + GoodsId, null, "DELETE");};
+
+
+
+/** 商品规格分页查询 */exports.apiGoodsDelete = apiGoodsDelete;
+var apiGoodsSpecsDataPageList = function apiGoodsSpecsDataPageList(data) {return (0, _index.request)("api/GoodsSpecs/DataPageList", data, "GET");};
+/** 商品规格新增 */exports.apiGoodsSpecsDataPageList = apiGoodsSpecsDataPageList;
+var apiGoodsSpecsAdd = function apiGoodsSpecsAdd(data) {return (0, _index.request)("api/GoodsSpecs", data, "POST");};
+/** 商品规格修改 */exports.apiGoodsSpecsAdd = apiGoodsSpecsAdd;
+var apiGoodsSpecsUpdate = function apiGoodsSpecsUpdate(data) {return (0, _index.request)("api/GoodsSpecs", data, "PUT");};
+/** 商品规格单个查询 */exports.apiGoodsSpecsUpdate = apiGoodsSpecsUpdate;
+var apiGoodsSpecsInfo = function apiGoodsSpecsInfo(GoodsSpecsId) {return (0, _index.request)("api/GoodsSpecs/" + GoodsSpecsId, null, "GET");};
+/** 商品规格删除 */exports.apiGoodsSpecsInfo = apiGoodsSpecsInfo;
+var apiGoodsSpecsDelete = function apiGoodsSpecsDelete(GoodsSpecsId) {return (0, _index.request)("api/GoodsSpecs/" + GoodsSpecsId, null, "DELETE");};
+
+
+
+/** 商品分页查询 */
+/** 商品新增 */
+/** 商品修改 */
+/** 商品单个查询 */
+/** 商品删除 */exports.apiGoodsSpecsDelete = apiGoodsSpecsDelete;
+
+/***/ }),
+
+/***/ 415:
 /*!**********************************************************************!*\
   !*** F:/work/00_billstore/billstoreWx/uview-ui/libs/util/emitter.js ***!
   \**********************************************************************/
@@ -15890,7 +16282,7 @@ function _broadcast(componentName, eventName, params) {
 
 /***/ }),
 
-/***/ 324:
+/***/ 416:
 /*!******************************************************************************!*\
   !*** F:/work/00_billstore/billstoreWx/uview-ui/libs/util/async-validator.js ***!
   \******************************************************************************/
@@ -15920,7 +16312,7 @@ function _broadcast(componentName, eventName, params) {
 var formatRegExp = /%[sdj%]/g;
 var warning = function warning() {}; // don't print warning message when in production env or node runtime
 
-if (typeof process !== 'undefined' && Object({"VUE_APP_NAME":"uni-app","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}) && "development" !== 'production' && typeof window !==
+if (typeof process !== 'undefined' && Object({"NODE_ENV":"development","VUE_APP_NAME":"uni-app","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}) && "development" !== 'production' && typeof window !==
 'undefined' && typeof document !== 'undefined') {
   warning = function warning(type, errors) {
     if (typeof console !== 'undefined' && console.warn) {
@@ -17253,11 +17645,11 @@ Schema.warning = warning;
 Schema.messages = messages;var _default =
 
 Schema;exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/node-libs-browser/mock/process.js */ 325)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/node-libs-browser/mock/process.js */ 417)))
 
 /***/ }),
 
-/***/ 325:
+/***/ 417:
 /*!********************************************************!*\
   !*** ./node_modules/node-libs-browser/mock/process.js ***!
   \********************************************************/
@@ -17288,7 +17680,7 @@ exports.binding = function (name) {
     var path;
     exports.cwd = function () { return cwd };
     exports.chdir = function (dir) {
-        if (!path) path = __webpack_require__(/*! path */ 326);
+        if (!path) path = __webpack_require__(/*! path */ 418);
         cwd = path.resolve(dir, cwd);
     };
 })();
@@ -17302,7 +17694,7 @@ exports.features = {};
 
 /***/ }),
 
-/***/ 326:
+/***/ 418:
 /*!***********************************************!*\
   !*** ./node_modules/path-browserify/index.js ***!
   \***********************************************/
@@ -17612,466 +18004,7 @@ var substr = 'ab'.substr(-1) === 'b'
     }
 ;
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node-libs-browser/mock/process.js */ 325)))
-
-/***/ }),
-
-/***/ 33:
-/*!****************************************************************************!*\
-  !*** F:/work/00_billstore/billstoreWx/uview-ui/libs/function/getParent.js ***!
-  \****************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = getParent; // 获取父组件的参数，因为支付宝小程序不支持provide/inject的写法
-// this.$parent在非H5中，可以准确获取到父组件，但是在H5中，需要多次this.$parent.$parent.xxx
-function getParent(name, keys) {
-  var parent = this.$parent;
-  // 通过while历遍，这里主要是为了H5需要多层解析的问题
-  while (parent) {
-    // 父组件
-    if (parent.$options.name !== name) {
-      // 如果组件的name不相等，继续上一级寻找
-      parent = parent.$parent;
-    } else {var _ret = function () {
-        var data = {};
-        // 判断keys是否数组，如果传过来的是一个数组，那么直接使用数组元素值当做键值去父组件寻找
-        if (Array.isArray(keys)) {
-          keys.map(function (val) {
-            data[val] = parent[val] ? parent[val] : '';
-          });
-        } else {
-          // 历遍传过来的对象参数
-          for (var i in keys) {
-            // 如果子组件有此值则用，无此值则用父组件的值
-            // 判断是否空数组，如果是，则用父组件的值，否则用子组件的值
-            if (Array.isArray(keys[i])) {
-              if (keys[i].length) {
-                data[i] = keys[i];
-              } else {
-                data[i] = parent[i];
-              }
-            } else if (keys[i].constructor === Object) {
-              // 判断是否对象，如果是对象，且有属性，那么使用子组件的值，否则使用父组件的值
-              if (Object.keys(keys[i]).length) {
-                data[i] = keys[i];
-              } else {
-                data[i] = parent[i];
-              }
-            } else {
-              // 只要子组件有传值，即使是false值，也是“传值”了，也需要覆盖父组件的同名参数
-              data[i] = keys[i] || keys[i] === false ? keys[i] : parent[i];
-            }
-          }
-        }
-        return { v: data };}();if (typeof _ret === "object") return _ret.v;
-    }
-  }
-
-  return {};
-}
-
-/***/ }),
-
-/***/ 34:
-/*!**************************************************************************!*\
-  !*** F:/work/00_billstore/billstoreWx/uview-ui/libs/function/$parent.js ***!
-  \**************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = $parent; // 获取父组件的参数，因为支付宝小程序不支持provide/inject的写法
-// this.$parent在非H5中，可以准确获取到父组件，但是在H5中，需要多次this.$parent.$parent.xxx
-// 这里默认值等于undefined有它的含义，因为最顶层元素(组件)的$parent就是undefined，意味着不传name
-// 值(默认为undefined)，就是查找最顶层的$parent
-function $parent() {var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : undefined;
-  var parent = this.$parent;
-  // 通过while历遍，这里主要是为了H5需要多层解析的问题
-  while (parent) {
-    // 父组件
-    if (parent.$options && parent.$options.name !== name) {
-      // 如果组件的name不相等，继续上一级寻找
-      parent = parent.$parent;
-    } else {
-      return parent;
-    }
-  }
-  return false;
-}
-
-/***/ }),
-
-/***/ 35:
-/*!**********************************************************************!*\
-  !*** F:/work/00_billstore/billstoreWx/uview-ui/libs/function/sys.js ***!
-  \**********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.os = os;exports.sys = sys;function os() {
-  return uni.getSystemInfoSync().platform;
-};
-
-function sys() {
-  return uni.getSystemInfoSync();
-}
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
-
-/***/ }),
-
-/***/ 36:
-/*!***************************************************************************!*\
-  !*** F:/work/00_billstore/billstoreWx/uview-ui/libs/function/debounce.js ***!
-  \***************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var timeout = null;
-
-/**
-                                                                                                                         * 防抖原理：一定时间内，只有最后一次操作，再过wait毫秒后才执行函数
-                                                                                                                         * 
-                                                                                                                         * @param {Function} func 要执行的回调函数 
-                                                                                                                         * @param {Number} wait 延时的时间
-                                                                                                                         * @param {Boolean} immediate 是否立即执行 
-                                                                                                                         * @return null
-                                                                                                                         */
-function debounce(func) {var wait = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 500;var immediate = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
-  // 清除定时器
-  if (timeout !== null) clearTimeout(timeout);
-  // 立即执行，此类情况一般用不到
-  if (immediate) {
-    var callNow = !timeout;
-    timeout = setTimeout(function () {
-      timeout = null;
-    }, wait);
-    if (callNow) typeof func === 'function' && func();
-  } else {
-    // 设置定时器，当最后一次操作后，timeout不会再被清除，所以在延时wait毫秒后执行func回调方法
-    timeout = setTimeout(function () {
-      typeof func === 'function' && func();
-    }, wait);
-  }
-}var _default =
-
-debounce;exports.default = _default;
-
-/***/ }),
-
-/***/ 37:
-/*!***************************************************************************!*\
-  !*** F:/work/00_billstore/billstoreWx/uview-ui/libs/function/throttle.js ***!
-  \***************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var timer, flag;
-/**
-                                                                                                                      * 节流原理：在一定时间内，只能触发一次
-                                                                                                                      * 
-                                                                                                                      * @param {Function} func 要执行的回调函数 
-                                                                                                                      * @param {Number} wait 延时的时间
-                                                                                                                      * @param {Boolean} immediate 是否立即执行
-                                                                                                                      * @return null
-                                                                                                                      */
-function throttle(func) {var wait = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 500;var immediate = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
-  if (immediate) {
-    if (!flag) {
-      flag = true;
-      // 如果是立即执行，则在wait毫秒内开始时执行
-      typeof func === 'function' && func();
-      timer = setTimeout(function () {
-        flag = false;
-      }, wait);
-    }
-  } else {
-    if (!flag) {
-      flag = true;
-      // 如果是非立即执行，则在wait毫秒内的结束处执行
-      timer = setTimeout(function () {
-        flag = false;
-        typeof func === 'function' && func();
-      }, wait);
-    }
-
-  }
-};var _default =
-throttle;exports.default = _default;
-
-/***/ }),
-
-/***/ 38:
-/*!***********************************************************************!*\
-  !*** F:/work/00_billstore/billstoreWx/uview-ui/libs/config/config.js ***!
-  \***********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; // 此版本发布于2020-11-19
-var version = '1.8.2';var _default =
-
-{
-  v: version,
-  version: version,
-  // 主题名称
-  type: [
-  'primary',
-  'success',
-  'info',
-  'error',
-  'warning'] };exports.default = _default;
-
-/***/ }),
-
-/***/ 39:
-/*!***********************************************************************!*\
-  !*** F:/work/00_billstore/billstoreWx/uview-ui/libs/config/zIndex.js ***!
-  \***********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; // uniapp在H5中各API的z-index值如下：
-/**
- * actionsheet: 999
- * modal: 999
- * navigate: 998
- * tabbar: 998
- * toast: 999
- */var _default =
-
-{
-  toast: 10090,
-  noNetwork: 10080,
-  // popup包含popup，actionsheet，keyboard，picker的值
-  popup: 10075,
-  mask: 10070,
-  navbar: 980,
-  topTips: 975,
-  sticky: 970,
-  indexListSticky: 965 };exports.default = _default;
-
-/***/ }),
-
-/***/ 4:
-/*!***************************************************!*\
-  !*** F:/work/00_billstore/billstoreWx/pages.json ***!
-  \***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-
-
-/***/ }),
-
-/***/ 40:
-/*!*****************************************************!*\
-  !*** F:/work/00_billstore/billstoreWx/api/index.js ***!
-  \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.apiRequest = exports.request = void 0;var BASE_URL = "http://172.18.1.103:6001";
-
-var request = function request(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var method = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "GET";
-  return new Promise(function (resolve, reject) {
-    uni.request({
-      url: BASE_URL + url,
-      method: method,
-      data: data || {},
-      success: function success(res) {
-        if (res.statusCode !== 200) {
-          return uni.showToast({
-            title: "获取数据失败" });
-
-        }
-        resolve(res.data);
-      },
-      fail: function fail(err) {
-        uni.showToast({
-          title: "接口请求失败" });
-
-        reject(err);
-      } });
-
-  });
-};exports.request = request;
-
-var apiRequest = function apiRequest(options) {
-  return new Promise(function (resolve, reject) {
-    uni.request({
-      url: BASE_URL + options.url,
-      method: options.methods || "GET",
-      data: options.data || {},
-      success: function success(res) {
-        if (res.statusCode !== 200) {
-          return uni.showToast({
-            title: "获取数据失败" });
-
-        }
-        resolve(res.data);
-      },
-      fail: function fail(err) {
-        uni.showToast({
-          title: "接口请求失败" });
-
-        reject(err);
-      } });
-
-  });
-};exports.apiRequest = apiRequest;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
-
-/***/ }),
-
-/***/ 41:
-/*!***************************************************!*\
-  !*** F:/work/00_billstore/billstoreWx/api/api.js ***!
-  \***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.apiWxLogin = exports.apiWxAuthenticate = exports.apiUserUpdate = exports.apiUserSave = exports.apiUserQueryPage = exports.apiUserQueryOne = exports.apiUserQueryAll = exports.apiUserDelete = exports.apiSuppliersUpdate = exports.apiSuppliersSave = exports.apiSuppliersQueryPage = exports.apiSuppliersQueryOne = exports.apiSuppliersQueryAll = exports.apiSuppliersDelete = exports.apiPywayUpdate = exports.apiPywaySave = exports.apiPywayQueryPage = exports.apiPywayQueryOne = exports.apiPywayQueryAll = exports.apiPywayDelete = exports.apiPytypeUpdate = exports.apiPytypeSave = exports.apiPytypeQueryPage = exports.apiPytypeQueryOne = exports.apiPytypeQueryAll = exports.apiPytypeDelete = exports.apiGoodspriceUpdate = exports.apiGoodspriceSave = exports.apiGoodspriceQueryPage = exports.apiGoodspriceQueryOne = exports.apiGoodspriceQueryAll = exports.apiGoodspriceDelete = exports.apiGoodsUpdate = exports.apiGoodsSave = exports.apiGoodsQueryPage = exports.apiGoodsQueryOne = exports.apiGoodsQueryAll = exports.apiGoodsDelete = exports.apiCustomerUpdate = exports.apiCustomerSave = exports.apiCustomerQueryPage = exports.apiCustomerQueryOne = exports.apiCustomerQueryAll = exports.apiCustomerDelete = void 0;var _index = __webpack_require__(/*! ./index */ 40);
-
-/** 客户表-删除 */
-var apiCustomerDelete = function apiCustomerDelete(data) {return (0, _index.request)("/api/customer/delete", data, "DELETE");};
-
-/** 客户表-查询全部 */exports.apiCustomerDelete = apiCustomerDelete;
-var apiCustomerQueryAll = function apiCustomerQueryAll(data) {return (0, _index.request)("/api/customer/queryAll", data, "GET");};
-
-/** 客户表-查询单条记录 */exports.apiCustomerQueryAll = apiCustomerQueryAll;
-var apiCustomerQueryOne = function apiCustomerQueryOne(data) {return (0, _index.request)("/api/customer/queryOne", data, "GET");};
-
-/** 客户表-分页查询 */exports.apiCustomerQueryOne = apiCustomerQueryOne;
-var apiCustomerQueryPage = function apiCustomerQueryPage(data) {return (0, _index.request)("/api/customer/queryPage", data, "POST");};
-
-/** 客户表-新增 */exports.apiCustomerQueryPage = apiCustomerQueryPage;
-var apiCustomerSave = function apiCustomerSave(data) {return (0, _index.request)("/api/customer/save", data, "POST");};
-
-/** 客户表-修改 */exports.apiCustomerSave = apiCustomerSave;
-var apiCustomerUpdate = function apiCustomerUpdate(data) {return (0, _index.request)("/api/customer/update", data, "PUT");};
-
-/** 商品表-删除 */exports.apiCustomerUpdate = apiCustomerUpdate;
-var apiGoodsDelete = function apiGoodsDelete(data) {return (0, _index.request)("/api/goods/delete", data, "DELETE");};
-
-/** 商品表-查询全部 */exports.apiGoodsDelete = apiGoodsDelete;
-var apiGoodsQueryAll = function apiGoodsQueryAll(data) {return (0, _index.request)("/api/goods/queryAll", data, "GET");};
-
-/** 商品表-查询单条记录 */exports.apiGoodsQueryAll = apiGoodsQueryAll;
-var apiGoodsQueryOne = function apiGoodsQueryOne(data) {return (0, _index.request)("/api/goods/queryOne", data, "GET");};
-
-/** 商品表-分页查询 */exports.apiGoodsQueryOne = apiGoodsQueryOne;
-var apiGoodsQueryPage = function apiGoodsQueryPage(data) {return (0, _index.request)("/api/goods/queryPage", data, "POST");};
-
-/** 商品表-新增 */exports.apiGoodsQueryPage = apiGoodsQueryPage;
-var apiGoodsSave = function apiGoodsSave(data) {return (0, _index.request)("/api/goods/save", data, "POST");};
-
-/** 商品表-修改 */exports.apiGoodsSave = apiGoodsSave;
-var apiGoodsUpdate = function apiGoodsUpdate(data) {return (0, _index.request)("/api/goods/update", data, "PUT");};
-
-/** 商品价格表-删除 */exports.apiGoodsUpdate = apiGoodsUpdate;
-var apiGoodspriceDelete = function apiGoodspriceDelete(data) {return (0, _index.request)("/api/goodsprice/delete", data, "DELETE");};
-
-/** 商品价格表-查询全部 */exports.apiGoodspriceDelete = apiGoodspriceDelete;
-var apiGoodspriceQueryAll = function apiGoodspriceQueryAll(data) {return (0, _index.request)("/api/goodsprice/queryAll", data, "GET");};
-
-/** 商品价格表-查询单条记录 */exports.apiGoodspriceQueryAll = apiGoodspriceQueryAll;
-var apiGoodspriceQueryOne = function apiGoodspriceQueryOne(data) {return (0, _index.request)("/api/goodsprice/queryOne", data, "GET");};
-
-/** 商品价格表-分页查询 */exports.apiGoodspriceQueryOne = apiGoodspriceQueryOne;
-var apiGoodspriceQueryPage = function apiGoodspriceQueryPage(data) {return (0, _index.request)("/api/goodsprice/queryPage", data, "POST");};
-
-/** 商品价格表-新增 */exports.apiGoodspriceQueryPage = apiGoodspriceQueryPage;
-var apiGoodspriceSave = function apiGoodspriceSave(data) {return (0, _index.request)("/api/goodsprice/save", data, "POST");};
-
-/** 商品价格表-修改 */exports.apiGoodspriceSave = apiGoodspriceSave;
-var apiGoodspriceUpdate = function apiGoodspriceUpdate(data) {return (0, _index.request)("/api/goodsprice/update", data, "PUT");};
-
-/** 支出类别表-删除 */exports.apiGoodspriceUpdate = apiGoodspriceUpdate;
-var apiPytypeDelete = function apiPytypeDelete(data) {return (0, _index.request)("/api/pytype/delete", data, "DELETE");};
-
-/** 支出类别表-查询全部 */exports.apiPytypeDelete = apiPytypeDelete;
-var apiPytypeQueryAll = function apiPytypeQueryAll(data) {return (0, _index.request)("/api/pytype/queryAll", data, "GET");};
-
-/** 支出类别表-查询单条记录 */exports.apiPytypeQueryAll = apiPytypeQueryAll;
-var apiPytypeQueryOne = function apiPytypeQueryOne(data) {return (0, _index.request)("/api/pytype/queryOne", data, "GET");};
-
-/** 支出类别表-分页查询 */exports.apiPytypeQueryOne = apiPytypeQueryOne;
-var apiPytypeQueryPage = function apiPytypeQueryPage(data) {return (0, _index.request)("/api/pytype/queryPage", data, "POST");};
-
-/** 支出类别表-新增 */exports.apiPytypeQueryPage = apiPytypeQueryPage;
-var apiPytypeSave = function apiPytypeSave(data) {return (0, _index.request)("/api/pytype/save", data, "POST");};
-
-/** 支出类别表-修改 */exports.apiPytypeSave = apiPytypeSave;
-var apiPytypeUpdate = function apiPytypeUpdate(data) {return (0, _index.request)("/api/pytype/update", data, "PUT");};
-
-/** 付款方式表-删除 */exports.apiPytypeUpdate = apiPytypeUpdate;
-var apiPywayDelete = function apiPywayDelete(data) {return (0, _index.request)("/api/pyway/delete", data, "DELETE");};
-
-/** 付款方式表-查询全部 */exports.apiPywayDelete = apiPywayDelete;
-var apiPywayQueryAll = function apiPywayQueryAll(data) {return (0, _index.request)("/api/pyway/queryAll", data, "GET");};
-
-/** 付款方式表-查询单条记录 */exports.apiPywayQueryAll = apiPywayQueryAll;
-var apiPywayQueryOne = function apiPywayQueryOne(data) {return (0, _index.request)("/api/pyway/queryOne", data, "GET");};
-
-/** 付款方式表-分页查询 */exports.apiPywayQueryOne = apiPywayQueryOne;
-var apiPywayQueryPage = function apiPywayQueryPage(data) {return (0, _index.request)("/api/pyway/queryPage", data, "POST");};
-
-/** 付款方式表-新增 */exports.apiPywayQueryPage = apiPywayQueryPage;
-var apiPywaySave = function apiPywaySave(data) {return (0, _index.request)("/api/pyway/save", data, "POST");};
-
-/** 付款方式表-修改 */exports.apiPywaySave = apiPywaySave;
-var apiPywayUpdate = function apiPywayUpdate(data) {return (0, _index.request)("/api/pyway/update", data, "PUT");};
-
-/** 供应商表-删除 */exports.apiPywayUpdate = apiPywayUpdate;
-var apiSuppliersDelete = function apiSuppliersDelete(data) {return (0, _index.request)("/api/suppliers/delete", data, "DELETE");};
-
-/** 供应商表-查询全部 */exports.apiSuppliersDelete = apiSuppliersDelete;
-var apiSuppliersQueryAll = function apiSuppliersQueryAll(data) {return (0, _index.request)("/api/suppliers/queryAll", data, "GET");};
-
-/** 供应商表-查询单条记录 */exports.apiSuppliersQueryAll = apiSuppliersQueryAll;
-var apiSuppliersQueryOne = function apiSuppliersQueryOne(data) {return (0, _index.request)("/api/suppliers/queryOne", data, "GET");};
-
-/** 供应商表-分页查询 */exports.apiSuppliersQueryOne = apiSuppliersQueryOne;
-var apiSuppliersQueryPage = function apiSuppliersQueryPage(data) {return (0, _index.request)("/api/suppliers/queryPage", data, "POST");};
-
-/** 供应商表-新增 */exports.apiSuppliersQueryPage = apiSuppliersQueryPage;
-var apiSuppliersSave = function apiSuppliersSave(data) {return (0, _index.request)("/api/suppliers/save", data, "POST");};
-
-/** 供应商表-修改 */exports.apiSuppliersSave = apiSuppliersSave;
-var apiSuppliersUpdate = function apiSuppliersUpdate(data) {return (0, _index.request)("/api/suppliers/update", data, "PUT");};
-
-/** 人员表-删除 */exports.apiSuppliersUpdate = apiSuppliersUpdate;
-var apiUserDelete = function apiUserDelete(data) {return (0, _index.request)("/api/user/delete", data, "DELETE");};
-
-/** 人员表-查询全部 */exports.apiUserDelete = apiUserDelete;
-var apiUserQueryAll = function apiUserQueryAll(data) {return (0, _index.request)("/api/user/queryAll", data, "GET");};
-
-/** 人员表-查询单条记录 */exports.apiUserQueryAll = apiUserQueryAll;
-var apiUserQueryOne = function apiUserQueryOne(data) {return (0, _index.request)("/api/user/queryOne", data, "GET");};
-
-/** 人员表-分页查询 */exports.apiUserQueryOne = apiUserQueryOne;
-var apiUserQueryPage = function apiUserQueryPage(data) {return (0, _index.request)("/api/user/queryPage", data, "POST");};
-
-/** 人员表-新增 */exports.apiUserQueryPage = apiUserQueryPage;
-var apiUserSave = function apiUserSave(data) {return (0, _index.request)("/api/user/save", data, "POST");};
-
-/** 人员表-修改 */exports.apiUserSave = apiUserSave;
-var apiUserUpdate = function apiUserUpdate(data) {return (0, _index.request)("/api/user/update", data, "PUT");};
-
-/** 微信登录-微信第一次登录后认证 */exports.apiUserUpdate = apiUserUpdate;
-var apiWxAuthenticate = function apiWxAuthenticate(data) {return (0, _index.request)("/api/wx/authenticate", data, "GET");};
-
-/** 微信登录-微信登录并查看权限 */exports.apiWxAuthenticate = apiWxAuthenticate;
-var apiWxLogin = function apiWxLogin(data) {return (0, _index.request)("/api/wx/login", data, "GET");};exports.apiWxLogin = apiWxLogin;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node-libs-browser/mock/process.js */ 417)))
 
 /***/ })
 
