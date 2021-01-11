@@ -73,13 +73,13 @@
 								cuIcon: 'brandfill',
 								color: 'expenseCategory',
 								name: '支出类别',
-								path: 'pages/basics/expendType/expendType'
+								path: '/pages/basics/expendType/expendType'
 							},
 							{
 								cuIcon: 'brandfill',
 								color: 'expenseCategory',
 								name: '到账类别',
-								path: 'pages/basics/accountType/accountType'
+								path: '/pages/basics/accountType/accountType'
 							}
 						]
 					},

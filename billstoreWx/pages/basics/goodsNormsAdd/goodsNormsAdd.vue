@@ -3,12 +3,15 @@
 		<cu-custom bgColor="bg-gradual-blue" isBack><block slot="content">商品规格</block></cu-custom>
 		<view style="padding: 0 10px; box-sizing: border-box;">
 			<u-form :model="model" :rules="rules" ref="uForm" :errorType="errorType" label-width="140" label-position="left">
-				<u-form-item label="规格名称" prop="name"><u-input placeholder="请输入规格名称" v-model="model.name" type="text"></u-input></u-form-item>
-				<u-form-item label="规格描述" prop="name"><u-input placeholder="请输入规格描述" v-model="model.name" type="text"></u-input></u-form-item>
-				<u-form-item label="序号" prop="phone"><u-input placeholder="请输入序号" v-model="model.phone" type="number"></u-input></u-form-item>
+				<u-form-item label="规格名称" prop="goodsSpecsName"><u-input placeholder="请输入规格名称" v-model="model.goodsSpecsName" type="text"></u-input></u-form-item>
+				<u-form-item label="规格描述" prop="goodsSpecsDesc"><u-input placeholder="请输入规格描述" v-model="model.goodsSpecsDesc" type="text"></u-input></u-form-item>
+				<u-form-item label="序号" prop="goodsSpecsSort"><u-input placeholder="请输入序号" v-model="model.goodsSpecsSort" type="number"></u-input></u-form-item>
 				<u-form-item label-position="left" label-width="0" prop="likeFruit">
-					<u-checkbox-group @change="checkboxGroupChange" :width="radioCheckWidth" :wrap="radioCheckWrap">
-						<u-checkbox v-model="item.checked" v-for="(item, index) in checkboxList" :key="index" :name="item.name">{{ item.name }}</u-checkbox>
+					<u-checkbox-group>
+						<u-checkbox v-model="model.isSale" name="可销售">可销售</u-checkbox>
+						<u-checkbox v-model="model.isPrice" name="item.name">可定价</u-checkbox>
+						<u-checkbox v-model="model.isBack" name="item.name">可退货</u-checkbox>
+						<u-checkbox v-model="model.isPurchase" name="item.name">可进货</u-checkbox>
 					</u-checkbox-group>
 				</u-form-item>
 				<view style="padding: 10px 0px; box-sizing: border-box;"><u-button type="primary" @click="submit">提交</u-button></view>
@@ -25,33 +28,19 @@ export default {
 			uid: "",
 			errorType: ['toast'],
 			model: {
-				name: '',
-				phone: '',
-				idcard: ''
+				goodsId: '',
+				goodsName: '',
+				goodsSpecsName: '',
+				goodsSpecsDesc: "",
+				goodsSpecsSort: 0,
+				isSale: true,
+				isPrice: true,
+				isBack: true,
+				isPurchase: true
 			},
+			goodsId: "",
+			goodsName: "",
 			radioCheckWrap: false,
-			checkboxList: [
-				{
-					name: '可销售',
-					checked: false,
-					disabled: false
-				},
-				{
-					name: '可定价',
-					checked: false,
-					disabled: false
-				},
-				{
-					name: '可退货',
-					checked: false,
-					disabled: false
-				},
-				{
-					name: '可进货',
-					checked: false,
-					disabled: false
-				}
-			],
 			rules: {
 				name: [
 					{
@@ -92,20 +81,61 @@ export default {
 		};
 	},
 	onLoad(option) {
+		this.goodsName = option.goodsName;
+		this.goodsId = option.goodsId;
 		this.uid = option.id;
+		this.model.goodsId = option.goodsId;
+		this.model.goodsName = option.goodsName;
+		if(option.id){
+			this.getDataInfo();
+		}
 	},
 	onReady() {
 		this.$refs.uForm.setRules(this.rules);
 	},
 	methods: {
-		checkboxGroupChange(e) {
-			this.model.likeFruit = e;
+		async getDataInfo() {
+			const res = await this.request.apiGoodsSpecsInfo(this.uid);
+			if(res.ErrCode===0){
+				this.model = res.Data
+			}
 		},
 		submit() {
-			this.$refs.uForm.validate(valid => {
+			this.$refs.uForm.validate(async valid => {
 				if (valid) {
-					console.log(this.model);
-					console.log('验证通过');
+					if(!this.uid){
+						const res = await this.request.apiGoodsSpecsAdd(this.model);
+						if(res.ErrCode===0){
+							uni.showToast({
+								title: "新增成功"
+							})
+							setTimeout(()=>{
+								uni.navigateTo({
+									url: `/pages/basics/goodsNorms/goodsNorms?goodsId=${this.goodsId}&goodsName=${this.goodsName}`
+								});
+							})
+						} else{
+							uni.showToast({
+								title: "新增失败"
+							})
+						}
+					} else {
+						const res = await this.request.apiGoodsSpecsUpdate(this.model);
+						if(res.ErrCode===0){
+							uni.showToast({
+								title: "修改成功"
+							})
+							setTimeout(()=>{
+								uni.navigateTo({
+									url: `/pages/basics/goodsNorms/goodsNorms?goodsId=${this.goodsId}&goodsName=${this.goodsName}`
+								});
+							})
+						} else{
+							uni.showToast({
+								title: "修改失败"
+							})
+						}
+					}
 				} else {
 					console.log('验证失败');
 				}

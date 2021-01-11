@@ -44,6 +44,45 @@ export const apiGoodsSpecsDelete = GoodsSpecsId => request("api/GoodsSpecs/" + G
 
 
 
+/** 支付方式分页查询 */
+export const apiPayTypeDataPageList = data => request("api/PayType/DataPageList", data, "GET")
+/** 支付方式新增 */
+export const apiPayTypeAdd = data => request("api/PayType", data, "POST")
+/** 支付方式修改 */
+export const apiPayTypeUpdate = data => request("api/PayType", data, "PUT")
+/** 支付方式单个查询 */
+export const apiPayTypeInfo = PayTypeId => request("api/PayType/" + PayTypeId , null, "GET")
+/** 支付方式删除 */
+export const apiPayTypeDelete = PayTypeId => request("api/PayType/" + PayTypeId , null, "DELETE")
+
+
+
+/** 支出类别分页查询 */
+export const apiExpenditureCategoryDataPageList = data => request("api/ExpenditureCategory/DataPageList", data, "GET")
+/** 支出类别新增 */
+export const apiExpenditureCategoryAdd = data => request("api/ExpenditureCategory", data, "POST")
+/** 支出类别修改 */
+export const apiExpenditureCategoryUpdate = data => request("api/ExpenditureCategory", data, "PUT")
+/** 支出类别单个查询 */
+export const apiExpenditureCategoryInfo = ExpenditureCategoryId => request("api/ExpenditureCategory/" + ExpenditureCategoryId , null, "GET")
+/** 支出类别删除 */
+export const apiExpenditureCategoryDelete = ExpenditureCategoryId => request("api/ExpenditureCategory/" + ExpenditureCategoryId , null, "DELETE")
+
+
+
+/** 到账类别分页查询 */
+export const apiCategoryReceiptDataPageList = data => request("api/CategoryReceipt/DataPageList", data, "GET")
+/** 到账类别新增 */
+export const apiCategoryReceiptAdd = data => request("api/CategoryReceipt", data, "POST")
+/** 到账类别修改 */
+export const apiCategoryReceiptUpdate = data => request("api/CategoryReceipt", data, "PUT")
+/** 到账类别单个查询 */
+export const apiCategoryReceiptInfo = CategoryReceiptId => request("api/CategoryReceipt/" + CategoryReceiptId , null, "GET")
+/** 到账类别删除 */
+export const apiCategoryReceiptDelete = CategoryReceiptId => request("api/CategoryReceipt/" + CategoryReceiptId , null, "DELETE")
+
+
+
 /** 商品分页查询 */
 /** 商品新增 */
 /** 商品修改 */

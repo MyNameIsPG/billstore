@@ -15,7 +15,7 @@
 			<view class="item u-border-bottom" v-for="(item, index) in listData">
 				<u-swipe-action :index="index" :key="item.goodsId" @click="click" @open="open" :options="options" :show="item.isShow">
 					<view class="cu-list menu-avatar cu-list-index cu-list-arrow">
-						<view class="cu-item" @click="handleClick('白鱼大分类'+index)">
+						<view class="cu-item">
 							<view class="cu-item-index">{{index+1}}</view>
 							<view class="cu-avatar lg" v-if="item.goodsPic" :style="{backgroundImage: 'url('+item.goodsPic+')'}"></view>
 							<view class="cu-avatar lg" v-else style="background-image: url(../../../static/noListData.png)"></view>
@@ -42,7 +42,12 @@ export default {
 			listData: [],
 			page: 0,
 			show: true,
-			options: this.swipe_action_options,
+			options: [...this.swipe_action_options, {
+				text: '规格',
+				style: {
+					backgroundColor: '#1F6ED4'
+				}
+			}],
 			KeyWord: '',
 			totalCount: 0,
 			totalInex: 0
@@ -79,6 +84,7 @@ export default {
 			this.show = false;
 			let _this = this;
 			let id = this.listData[index].goodsId;
+			let name = this.listData[index].goodsName;
 			if (index1 == 1) {
 				uni.showModal({
 					title: '提示',
@@ -102,9 +108,13 @@ export default {
 						}
 					}
 				});
-			} else {
+			} else if(index1==0) {
 				uni.navigateTo({
 					url: `/pages/basics/goodsAdd/goodsAdd?id=${id}`
+				});
+			} else {
+				uni.navigateTo({
+					url: `/pages/basics/goodsNorms/goodsNorms?goodsId=${id}&goodsName=${name}`
 				});
 			}
 			setTimeout(() => {

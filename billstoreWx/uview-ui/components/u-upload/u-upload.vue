@@ -297,6 +297,7 @@ export default {
 		},
 		// 选择图片
 		selectFile() {
+			let _this = this;
 			if (this.disabled) return;
 			const { name = '', maxCount, multiple, maxSize, sizeType, lists, camera, compressed, maxDuration, sourceType } = this;
 			let chooseFile = null;
