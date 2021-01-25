@@ -19,7 +19,7 @@
 							<view class="cu-item-index">{{index+1}}</view>
 							<view class="content" style="left: 30px;">
 								<view class="text-grey">
-									{{item.expenditureCategoryName}}
+									{{item.categoryReceiptName}}
 								</view>
 							</view>
 						</view>
@@ -51,18 +51,18 @@ export default {
 	},
 	methods: {
 		async getDataList(type) {
-			const res = await this.request.apiCategoryReceiptDataPageList({
-				KeyWord: this.KeyWord,
-				pageIndex: this.page,
-				pageSize: this.pageSize
+			const res = await this.request.apiCategoryReceiptGet({
+				keys: this.KeyWord,
+				pageIdx: this.page,
+				pageSize: this.pageSize,
 			});
-			if (res.ErrCode === 0) {
+			if (res.errCode === 0) {
 				if (type == 'query') {
-					this.listData = res.Data.data;
+					this.listData = res.data;
 				} else {
-					this.listData = [...this.listData, ...res.Data.data];
+					this.listData = [...this.listData, ...res.data];
 				}
-				this.totalCount = res.Data.totalCount;
+				this.totalCount = res.count;
 				this.totalInex = Math.ceil(this.totalCount / this.pageSize) - 1;
 				if (this.page >= this.totalInex) {
 					this.status = 'nomore';
@@ -83,8 +83,8 @@ export default {
 					content: '是否删除该条数据？',
 					success: async function(res) {
 						if (res.confirm) {
-							const res = await _this.request.apiCategoryReceiptDelete(id);
-							if (res.ErrCode === 0) {
+							const res = await _this.request.apiCategoryReceiptidDelete(id);
+							if (res.errCode === 0) {
 								uni.showToast({
 									title: '删除成功'
 								});

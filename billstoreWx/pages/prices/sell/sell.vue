@@ -3,10 +3,16 @@
 		<cu-custom bgColor="bg-gradual-blue" isBack><block slot="content">售价</block></cu-custom>
 		<!-- <u-empty text="数据为空" mode="list"></u-empty> -->
 		<view class="u-search-box">
-			<u-search placeholder="请输入名称" v-model="value" :action-style="{'color': '#409eff'}"></u-search>
+			<u-search
+				@search="handleSearch"
+				@custom="handleSearch"
+				placeholder="请输入名称"
+				v-model="KeyWord"
+				:action-style="{ color: '#409eff' }"
+			></u-search>
 		</view>
 		<view class="wrap" style="height: 100%;padding-top: 110rpx;">
-			<view class="item u-border-bottom" v-for="item in list">
+			<!-- <view class="item u-border-bottom" v-for="item in list">
 				<u-swipe-action :index="item" @click="click" @open="open" :options="options">
 					<view class="cu-list menu-avatar">
 						<view class="cu-item">
@@ -22,7 +28,24 @@
 					</view>
 				</u-swipe-action>
 			</view>
-			<u-loadmore :status="status" style="text-align: center;" />
+			<u-loadmore :status="status" style="text-align: center;" /> -->
+			
+			<view v-if="listData.length == 0" style="padding-top: 110rpx;"><u-empty text="列表为空" mode="list"></u-empty></view>
+			<view class="item u-border-bottom" v-for="(item, index) in listData">
+				<u-swipe-action :index="index" :key="item.goodsSaleId" @click="click" @open="open" :options="options" :show="item.isShow">
+					<view class="cu-list menu-avatar">
+						<view class="cu-item">
+							<view class="cu-item-index">{{index+1}}</view>
+							<view class="content">
+								<view class="text-grey">
+									{{item.goodsSpeName}}
+								</view>
+							</view>
+						</view>
+					</view>
+				</u-swipe-action>
+			</view>
+			<u-loadmore v-if="listData.length > 0" :status="status" style="text-align: center;" />
 		</view>
 	</view>
 </template>
@@ -32,9 +55,9 @@ export default {
 	data() {
 		return {
 			status: 'loadmore',
-			list: 20,
+			listData: [],
 			page: 0,
-			show: false,
+			show: true,
 			options: [{
 				text: '修改',
 				style: {
@@ -46,12 +69,39 @@ export default {
 				style: {
 					backgroundColor: '#FF2E63'
 				}
-			}
-		],
-			value: ""
+			}],
+			KeyWord: '',
+			totalCount: 0,
+			totalInex: 0,
 		};
 	},
+	created() {
+		this.getDataList();
+	},
 	methods: {
+		async getDataList(type) {
+			const res = await this.request.apiGoodsSalePriceGet({
+				keys: this.KeyWord,
+				pageIdx: this.page,
+				pageSize: this.pageSize
+			});
+			if (res.errCode === 0) {
+				if (type == 'query') {
+					this.listData = res.data;
+				} else {
+					this.listData = [...this.listData, ...res.data];
+				}
+				this.totalCount = res.count;
+				this.totalInex = Math.ceil(this.totalCount / this.pageSize) - 1;
+				if (this.page >= this.totalInex) {
+					this.status = 'nomore';
+				}
+			}
+		},
+		handleSearch() {
+			this.page = 0;
+			this.getDataList('query');
+		},
 		click(index, index1) {
 			if (index1 == 1) {
 				// this.list.splice(index, 1);
@@ -69,14 +119,15 @@ export default {
 		open(index) {},
 	},
 	onReachBottom() {
-		if (this.page >= 3) return;
+		if (this.page >= this.totalInex) {
+			this.status = 'nomore';
+			return;
+		}
 		this.status = 'loading';
 		this.page = ++this.page;
 		setTimeout(() => {
-			this.list += 20;
-			if (this.page >= 3) this.status = 'nomore';
-			else this.status = 'loading';
-		}, 2000);
+			this.getDataList();
+		}, 1000);
 	}
 };
 </script>

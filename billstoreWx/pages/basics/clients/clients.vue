@@ -18,11 +18,11 @@
 						<view class="cu-item">
 							<view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg);"></view>
 							<view class="content">
-								<view class="text-grey">{{ item.realName }}</view>
+								<view class="text-grey">{{ item.userName }}</view>
 								<view class="text-gray text-sm flex">
 									<view class="text-cut">
 										<text class="cuIcon-dianhua text-red margin-right-xs"></text>
-										{{ item.mobile }}
+										{{ item.phone }}
 									</view>
 								</view>
 							</view>
@@ -55,19 +55,19 @@ export default {
 	},
 	methods: {
 		async getDataList(type) {
-			const res = await this.request.apiUserDataPageList({
-				KeyWord: this.KeyWord,
-				pageIndex: this.page,
+			const res = await this.request.apiCustomerInfoGet({
+				keys: this.KeyWord,
+				pageIdx: this.page,
 				pageSize: this.pageSize,
 				userType: "0003"
 			});
-			if (res.ErrCode === 0) {
+			if (res.errCode === 0) {
 				if (type == 'query') {
-					this.listData = res.Data.data;
+					this.listData = res.data
 				} else {
-					this.listData = [...this.listData, ...res.Data.data];
+					this.listData = [...this.listData, ...res.data];
 				}
-				this.totalCount = res.Data.totalCount;
+				this.totalCount = res.count;
 				this.totalInex = Math.ceil(this.totalCount / this.pageSize) - 1;
 				if (this.page >= this.totalInex) {
 					this.status = 'nomore';
@@ -88,8 +88,8 @@ export default {
 					content: '是否删除该条数据？',
 					success: async function(res) {
 						if (res.confirm) {
-							const res = await _this.request.apiUserDelete(id);
-							if (res.ErrCode === 0) {
+							const res = await _this.request.apiCustomerInfoidDelete(id);
+							if (res.errCode === 0) {
 								uni.showToast({
 									title: '删除成功'
 								});

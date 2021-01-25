@@ -4,8 +4,8 @@
 		<view style="padding: 0 10px; box-sizing: border-box;">
 			<u-form :model="model" :rules="rules" ref="uForm" :errorType="errorType" label-width="140" label-position="left">
 				<u-form-item label="名称" prop="goodsName"><u-input placeholder="请输入名称" v-model="model.goodsName" type="text"></u-input></u-form-item>
-				<u-form-item label="序号" prop="goodsSort"><u-input placeholder="请输入序号" v-model="model.goodsSort" type="number"></u-input></u-form-item>
-				<u-form-item label-position="left" label="图片" prop="goodsPic" label-width="150">
+				<u-form-item label="序号" prop="order"><u-input placeholder="请输入序号" v-model="model.order" type="number"></u-input></u-form-item>
+				<u-form-item label-position="left" label="图片" prop="imgPath" label-width="150">
 					<u-upload width="160" height="160" :max-count="1" @on-list-change="onListChange" :file-list="fileList"></u-upload>
 				</u-form-item>
 				<view style="padding: 10px 0px; box-sizing: border-box;"><u-button type="primary" @click="submit">提交</u-button></view>
@@ -23,44 +23,16 @@ export default {
 			errorType: ['toast'],
 			fileList: [],
 			model: {
-				goodsName: '',
-				goodsSort: '',
-				goodsPic: ''
+				"goodsName": "",
+				"order": 0,
+				"imgPath": ""
 			},
 			rules: {
 				goodsName: [
 					{
 						required: true,
-						message: '请输入姓名',
+						message: '请输入商品名称',
 						trigger: 'blur'
-					}
-				],
-				phone: [
-					{
-						required: true,
-						message: '请输入手机号',
-						trigger: ['change', 'blur']
-					},
-					{
-						validator: (rule, value, callback) => {
-							return this.$u.test.mobile(value);
-						},
-						message: '手机号码不正确',
-						trigger: ['change', 'blur']
-					}
-				],
-				idcard: [
-					{
-						required: true,
-						message: '请输入身份证号码',
-						trigger: ['change', 'blur']
-					},
-					{
-						validator: (rule, value, callback) => {
-							return this.$u.test.idCard(value);
-						},
-						message: '身份证号码不正确',
-						trigger: ['change', 'blur']
 					}
 				]
 			}
@@ -81,17 +53,17 @@ export default {
 			this.model.goodsPic = data[0].url
 		},
 		async getDataInfo() {
-			const res = await this.request.apiGoodsInfo(this.uid);
-			if(res.ErrCode===0){
-				this.model = res.Data
+			const res = await this.request.apiGoodsidGet(this.uid);
+			if(res.errCode===0){
+				this.model = res.data
 			}
 		},
 		submit() {
 			this.$refs.uForm.validate(async valid => {
 				if (valid) {
 					if(!this.uid){
-						const res = await this.request.apiGoodsAdd(this.model);
-						if(res.ErrCode===0){
+						const res = await this.request.apiGoodsPost(this.model);
+						if(res.errCode===0){
 							uni.showToast({
 								title: "新增成功"
 							})
@@ -106,8 +78,8 @@ export default {
 							})
 						}
 					} else {
-						const res = await this.request.apiGoodsUpdate(this.model);
-						if(res.ErrCode===0){
+						const res = await this.request.apiGoodsPut(this.model);
+						if(res.errCode===0){
 							uni.showToast({
 								title: "修改成功"
 							})

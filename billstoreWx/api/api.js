@@ -83,6 +83,33 @@ export const apiCategoryReceiptDelete = CategoryReceiptId => request("api/Catego
 
 
 
+/** 进价分页查询 */
+export const apiPurchasePriceDataPageList = data => request("api/PurchasePrice/DataPageList", data, "GET")
+/** 进价新增 */
+export const apiPurchasePriceAdd = data => request("api/PurchasePrice", data, "POST")
+/** 进价单个查询 */
+export const apiPurchasePriceInfo = PurchasePriceId => request("api/PurchasePrice/" + PurchasePriceId , null, "GET")
+
+
+
+/** 售价分页查询 */
+export const apiSellPriceDataPageList = data => request("api/SellPrice/DataPageList", data, "GET")
+/** 售价新增 */
+export const apiSellPriceAdd = data => request("api/SellPrice", data, "POST")
+/** 售价单个查询 */
+export const apiSellPriceInfo = SellPriceId => request("api/SellPrice/" + SellPriceId , null, "GET")
+
+
+
+/** 退货分页查询 */
+export const apiReturnPriceDataPageList = data => request("api/ReturnPrice/DataPageList", data, "GET")
+/** 退货新增 */
+export const apiReturnPriceAdd = data => request("api/ReturnPrice", data, "POST")
+/** 退货单个查询 */
+export const apiReturnPriceInfo = ReturnPriceId => request("api/ReturnPrice/" + ReturnPriceId , null, "GET")
+
+
+
 /** 商品分页查询 */
 /** 商品新增 */
 /** 商品修改 */

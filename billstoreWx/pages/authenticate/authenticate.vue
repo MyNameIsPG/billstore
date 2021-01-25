@@ -29,7 +29,7 @@
 				</view>
 			</radio-group>
 			<view class="padding flex flex-direction">
-				<button class="cu-btn bg-blue lg" @click="handleAdd">授权</button>
+				<button class="cu-btn bg-blue lg" open-type="getUserInfo" withCredentials="true" lang="zh_CN" @getuserinfo="wxGetCode">授权</button>
 			</view>
 		</form>
 	</view>
@@ -43,10 +43,56 @@
 				form: {
 					truename: "",
 					phone: ""
-				}
+				},
+				isCanUse: uni.getStorageSync('isCanUse') || false //默认为true
+			}
+		},
+		created() {
+			if(this.isCanUse) {
+				this.handleAdd()
 			}
 		},
 		methods: {
+			// 1、获取code
+			wxGetCode() {
+				let _this = this;
+				uni.login({
+					provider: 'weixin',
+					success: resCode => {
+						console.log(resCode.code)
+						_this.wxGetUserInfo(resCode.code);
+					},
+					fail(res) {
+						console.log(res);
+					}
+				});
+			},
+			// 2、根据code去的微信的用户信息
+			wxGetUserInfo(code) {
+				let _this = this;
+				uni.getUserInfo({
+					provider: 'weixin',
+					success: res => {
+						_this.getWxOpenid(code, res.userInfo)
+					},
+					fail(res) {
+						console.log(res);
+					}
+				});
+			},
+			// 3、调用后台方法 获取token
+			getWxOpenid(code, userInfo) {
+				let _this = this
+				this.$request({
+					url: "api/Authraztion/DevToken"
+				}).then(res=>{
+					uni.setStorageSync('token', res);
+					uni.setStorageSync('isCanUse', true)
+					setTimeout(()=>{
+						_this.handleAdd()
+					},1000)
+				})
+			},
 			RadioChange(e) {
 				this.radio = e.detail.value
 			},
@@ -67,6 +113,10 @@
 				} else if(this.radio=="4"){
 					uni.navigateTo({
 						url: `/pages/supplier/supplierIndex/supplierIndex`
+					});
+				} else {
+					uni.navigateTo({
+						url: `/pages/system/systemIndex/systemIndex`
 					});
 				}
 				// if(!this.form.truename) {

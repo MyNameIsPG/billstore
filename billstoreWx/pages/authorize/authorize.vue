@@ -45,7 +45,7 @@ export default {
 			uni.getUserInfo({
 				provider: 'weixin',
 				success: res => {
-					_this.getWxOpenid(code, res)
+					// _this.getWxOpenid(code, res)
 					// this.$request({
 					// 	url: '/api/wx/login',
 					// 	data: {
@@ -78,17 +78,18 @@ export default {
 			});
 		},
 		async getWxOpenid(code, userInfo) {
-			const res = await this.request.apiUserGetWXOpenid({
-				code: code,
-				nickName: userInfo.userInfo.nickName,
-				avatarUrl: userInfo.userInfo.avatarUrl,
-				gender: userInfo.userInfo.gender
-			})
-			console.log(res)
-			uni.setStorageSync('userInfo', JSON.stringify(res.Data));
-			uni.showLoading({
-				title: '登录中！'
-			});
+			console.log(code)
+			// const res = await this.request.apiUserGetWXOpenid({
+			// 	code: code,
+			// 	nickName: userInfo.userInfo.nickName,
+			// 	avatarUrl: userInfo.userInfo.avatarUrl,
+			// 	gender: userInfo.userInfo.gender
+			// })
+			// console.log(res)
+			// uni.setStorageSync('userInfo', JSON.stringify(res.Data));
+			// uni.showLoading({
+			// 	title: '登录中！'
+			// });
 			setTimeout(() => {
 				uni.navigateTo({
 					url: `/pages/authenticate/authenticate`

@@ -5,8 +5,11 @@
 	"pages": [
 		
 		
+		
 		{ "path": "pages/authenticate/authenticate" }, // 授权页面
 		{ "path": "pages/authorize/authorize" }, // 默认页面
+		
+		
 		
 		{ "path": "pages/index/index" }, // 首页
 		{ "path": "pages/system/systemIndex/systemIndex" }, // 管理员
@@ -38,15 +41,16 @@
 		
 		
 		
+        { "path": "pages/prices/sell/sell" }, // 售价
+        { "path": "pages/prices/sell/sellAdd" }, // 售价新增
+        { "path": "pages/prices/sell/sellChart" }, // 售价图表
+        
         { "path": "pages/prices/enter/enter" }, // 进价
-		{ "path": "pages/prices/enter/enterAdd" }, // 进价新增
-		{ "path": "pages/prices/enter/enterChart" }, // 进价图表
+        { "path": "pages/prices/enter/enterAdd" }, // 进价新增
+        { "path": "pages/prices/enter/enterChart" }, // 进价图表
         { "path": "pages/prices/retreat/retreat" }, // 退价
-		{ "path": "pages/prices/retreat/retreatAdd" }, // 退价新增
-		{ "path": "pages/prices/retreat/retreatChart" }, // 退价图表
-		{ "path": "pages/prices/sell/sell" }, // 售价
-		{ "path": "pages/prices/sell/sellAdd" }, // 售价新增
-		{ "path": "pages/prices/sell/sellChart" }, // 售价图表
+        { "path": "pages/prices/retreat/retreatAdd" }, // 退价新增
+        { "path": "pages/prices/retreat/retreatChart" }, // 退价图表
 		
 		{ "path": "pages/stock/stockWarehousing/stockWarehousing" }, // 入库
 		{ "path": "pages/stock/stockWarehousing/stockWarehousingAdd" }, // 入库新增

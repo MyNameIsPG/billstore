@@ -13,7 +13,7 @@
 		<view class="wrap" style="height: 100%;padding-top: 110rpx;">
 			<view v-if="listData.length == 0" style="padding-top: 110rpx;"><u-empty text="列表为空" mode="list"></u-empty></view>
 			<view class="item u-border-bottom" v-for="(item, index) in listData">
-				<u-swipe-action :index="index" :key="item.goodsSpecsId" @click="click" @open="open" :options="options" :show="item.isShow">
+				<u-swipe-action :index="index" :key="item.goodsSpeId" @click="click" @open="open" :options="options" :show="item.isShow">
 					<view class="cu-list menu-avatar cu-list-index">
 						<view class="cu-item">
 							<view class="cu-item-index">{{index+1}}</view>
@@ -21,7 +21,7 @@
 							<view class="cu-avatar lg" v-else style="background-image: url(../../../static/noListData.png)"></view>
 							<view class="content">
 								<view class="text-grey">
-									{{item.goodsName}}
+									{{item.goodsSpeName}}
 								</view>
 							</view>
 						</view>
@@ -57,19 +57,19 @@ export default {
 	},
 	methods: {
 		async getDataList(type) {
-			const res = await this.request.apiGoodsSpecsDataPageList({
-				KeyWord: this.KeyWord,
-				pageIndex: this.page,
+			const res = await this.request.apiGoodsSpeGet({
+				keys: this.KeyWord,
+				pageIdx: this.page,
 				pageSize: this.pageSize,
 				goodsId: this.goodsId
 			});
-			if (res.ErrCode === 0) {
+			if (res.errCode === 0) {
 				if (type == 'query') {
-					this.listData = res.Data.data;
+					this.listData = res.data;
 				} else {
-					this.listData = [...this.listData, ...res.Data.data];
+					this.listData = [...this.listData, ...res.data];
 				}
-				this.totalCount = res.Data.totalCount;
+				this.totalCount = res.count;
 				this.totalInex = Math.ceil(this.totalCount / this.pageSize) - 1;
 				if (this.page >= this.totalInex) {
 					this.status = 'nomore';
@@ -83,15 +83,15 @@ export default {
 		click(index, index1) {
 			this.show = false;
 			let _this = this;
-			let id = this.listData[index].goodsSpecsId;
+			let id = this.listData[index].goodsSpeId;
 			if (index1 == 1) {
 				uni.showModal({
 					title: '提示',
 					content: '是否删除该条数据？',
 					success: async function(res) {
 						if (res.confirm) {
-							const res = await _this.request.apiGoodsSpecsDelete(id);
-							if (res.ErrCode === 0) {
+							const res = await _this.request.apiGoodsSpeidDelete(id);
+							if (res.errCode === 0) {
 								uni.showToast({
 									title: '删除成功'
 								});

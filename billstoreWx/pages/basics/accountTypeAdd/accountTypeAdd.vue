@@ -43,17 +43,17 @@ export default {
 	},
 	methods: {
 		async getDataInfo() {
-			const res = await this.request.apiCategoryReceiptInfo(this.uid);
-			if(res.ErrCode===0){
-				this.model = res.Data
+			const res = await this.request.apiCategoryReceiptidGet(this.uid);
+			if(res.errCode===0){
+				this.model = res.data
 			}
 		},
 		submit() {
 			this.$refs.uForm.validate(async valid => {
 				if (valid) {
 					if(!this.uid){
-						const res = await this.request.apiCategoryReceiptAdd(this.model);
-						if(res.ErrCode===0){
+						const res = await this.request.apiCategoryReceiptPost(this.model);
+						if(res.errCode===0){
 							uni.showToast({
 								title: "新增成功"
 							})
@@ -68,8 +68,8 @@ export default {
 							})
 						}
 					} else {
-						const res = await this.request.apiCategoryReceiptUpdate(this.model);
-						if(res.ErrCode===0){
+						const res = await this.request.apiCategoryReceiptPut(this.model);
+						if(res.errCode===0){
 							uni.showToast({
 								title: "修改成功"
 							})

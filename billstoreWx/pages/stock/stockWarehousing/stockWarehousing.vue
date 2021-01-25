@@ -42,23 +42,7 @@
 				<swiper-item class="swiper-item">
 					<scroll-view scroll-y style="height: 100%;width: 100%;" @scrolltolower="reachBottom">
 						<view class="page-box">
-							
 							<u-loadmore :status="loadStatus[1]" bgColor="#f2f2f2"></u-loadmore>
-						</view>
-					</scroll-view>
-				</swiper-item>
-				<swiper-item class="swiper-item">
-					<scroll-view scroll-y style="height: 100%;width: 100%;">
-						<view class="page-box">
-							
-						</view>
-					</scroll-view>
-				</swiper-item>
-				<swiper-item class="swiper-item">
-					<scroll-view scroll-y style="height: 100%;width: 100%;" @scrolltolower="reachBottom">
-						<view class="page-box">
-							
-							<u-loadmore :status="loadStatus[3]" bgColor="#f2f2f2"></u-loadmore>
 						</view>
 					</scroll-view>
 				</swiper-item>
@@ -85,12 +69,39 @@ export default {
 			tabsHeight: 0,
 			dx: 0,
 			loadStatus: ['loadmore','loadmore','loadmore','loadmore'],
+			status: 'loadmore',
+			listData: [],
+			page: 0,
+			show: true,
+			options: this.swipe_action_options,
+			KeyWord: '',
+			totalCount: 0,
+			totalInex: 0
 		};
 	},
-	onLoad() {
-		
+	created() {
+		this.getDataList();
 	},
 	methods: {
+		async getDataList(type) {
+			const res = await this.request.apiWarehousingGet({
+				keys: this.KeyWord,
+				pageIdx: this.page,
+				pageSize: this.pageSize,
+			});
+			if (res.errCode === 0) {
+				if (type == 'query') {
+					this.listData = res.data;
+				} else {
+					this.listData = [...this.listData, ...res.data];
+				}
+				this.totalCount = res.count;
+				this.totalInex = Math.ceil(this.totalCount / this.pageSize) - 1;
+				if (this.page >= this.totalInex) {
+					this.status = 'nomore';
+				}
+			}
+		},
 		addBtnClick(){
 			uni.navigateTo({
 				url: `/pages/stock/stockWarehousing/stockWarehousingAdd`

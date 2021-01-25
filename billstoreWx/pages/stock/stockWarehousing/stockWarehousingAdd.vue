@@ -3,12 +3,14 @@
 		<cu-custom bgColor="bg-gradual-blue" isBack><block slot="content">新增入库</block></cu-custom>
 		<view style="padding: 0 10px; box-sizing: border-box;">
 			<u-form :model="model" :rules="rules" ref="uForm" :errorType="errorType" label-width="140" label-position="left">
-				<u-form-item label="商品规格" prop="name"><u-input placeholder="请输入商品规格" v-model="model.name" type="text"></u-input></u-form-item>
-				<u-form-item label="进货批号" prop="phone"><u-input placeholder="请输入进货批号" v-model="model.phone" type="number"></u-input></u-form-item>
-				<u-form-item label="商品价格" prop="idcard"><u-input placeholder="请输入商品价格" v-model="model.idcard" type="idcard"></u-input></u-form-item>
-				<u-form-item label="商品数量" prop="idcard"><u-input placeholder="请输入商品数量" v-model="model.idcard" type="idcard"></u-input></u-form-item>
-				<u-form-item label="商品总价" prop="idcard"><u-input placeholder="请输入商品总价" v-model="model.idcard" type="idcard"></u-input></u-form-item>
+				<u-form-item label="商品规格" prop="goodsId">
+					<u-input :select-open="actionSheetShow" @click="actionSheetShow = true" placeholder="请输入商品规格" v-model="model.goodsId" type="select"></u-input>
+				</u-form-item>
+				<u-form-item label="商品价格" prop="price"><u-input placeholder="请输入商品价格" v-model="model.price" type="number"></u-input></u-form-item>
+				<u-form-item label="商品数量" prop="count"><u-input placeholder="请输入商品数量" v-model="model.count" type="number"></u-input></u-form-item>
+				<u-form-item label="商品总价" prop="amount"><u-input placeholder="请输入商品总价" v-model="getAmount" type="number" disabled="disabled"></u-input></u-form-item>
 				<view style="padding: 10px 0px; box-sizing: border-box;"><u-button type="primary" @click="submit">提交</u-button></view>
+				<u-action-sheet :list="actionSheetList" v-model="actionSheetShow" @click="actionSheetCallback"></u-action-sheet>
 			</u-form>
 		</view>
 	</view>
@@ -19,64 +21,78 @@ export default {
 	data() {
 		let that = this;
 		return {
-			uid: "",
+			uid: '',
 			errorType: ['toast'],
 			model: {
-				name: '',
-				phone: '',
-				idcard: ''
+				goodsId: '',
+				goodsName: '',
+				goodsSpeId: '',
+				goodsSpeName: '',
+				price: 0,
+				count: 1,
+				amount: 0
 			},
 			rules: {
-				name: [
+				goodsId: [
 					{
 						required: true,
-						message: '请输入姓名',
+						message: '请选择商品',
 						trigger: 'blur'
 					}
-				],
-				phone: [
-					{
-						required: true,
-						message: '请输入手机号',
-						trigger: ['change', 'blur']
-					},
-					{
-						validator: (rule, value, callback) => {
-							return this.$u.test.mobile(value);
-						},
-						message: '手机号码不正确',
-						trigger: ['change', 'blur']
-					}
-				],
-				idcard: [
-					{
-						required: true,
-						message: '请输入身份证号码',
-						trigger: ['change', 'blur']
-					},
-					{
-						validator: (rule, value, callback) => {
-							return this.$u.test.idCard(value);
-						},
-						message: '身份证号码不正确',
-						trigger: ['change', 'blur']
-					}
 				]
-			}
+			},
+			actionSheetList: [],
+			actionSheetShow: false
 		};
+	},
+	computed: {
+		getAmount() {
+			return this.model.price * this.model.count
+		}
 	},
 	onLoad(option) {
 		this.uid = option.id;
+		this.getApiGoodsSpeGet();
 	},
 	onReady() {
 		this.$refs.uForm.setRules(this.rules);
 	},
 	methods: {
+		async getApiGoodsSpeGet() {
+			const res = await this.request.apiGoodsSpeGet({
+				pageIdx: 1,
+				pageSize: 100
+			});
+			if (res.errCode === 0) {
+				this.actionSheetList = res.count;
+			}
+		},
+		actionSheetCallback(index) {
+			uni.hideKeyboard();
+			this.model.goodsId = this.actionSheetList[index].goodsId;
+			this.model.goodsName = this.actionSheetList[index].goodsName;
+			this.model.goodsSpeId = this.actionSheetList[index].goodsSpeId;
+			this.model.goodsSpeName = this.actionSheetList[index].goodsSpeName;
+		},
 		submit() {
-			this.$refs.uForm.validate(valid => {
+			this.$refs.uForm.validate(async valid => {
 				if (valid) {
-					console.log(this.model);
-					console.log('验证通过');
+					this.model.amount = this.model.price * this.model.count
+					const res = await this.request.apiWarehousingPost(this.model);
+					if(res.errCode===0){
+						uni.showToast({
+							title: "新增成功"
+						})
+						setTimeout(()=>{
+							uni.navigateTo({
+								url: `/pages/stock/stockWarehousing/stockWarehousing`
+							});
+						})
+					} else{
+						uni.showToast({
+							title: "新增失败"
+						})
+					}
 				} else {
 					console.log('验证失败');
 				}

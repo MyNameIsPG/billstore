@@ -3,9 +3,9 @@
 		<cu-custom bgColor="bg-gradual-blue" isBack><block slot="content">商品规格</block></cu-custom>
 		<view style="padding: 0 10px; box-sizing: border-box;">
 			<u-form :model="model" :rules="rules" ref="uForm" :errorType="errorType" label-width="140" label-position="left">
-				<u-form-item label="规格名称" prop="goodsSpecsName"><u-input placeholder="请输入规格名称" v-model="model.goodsSpecsName" type="text"></u-input></u-form-item>
-				<u-form-item label="规格描述" prop="goodsSpecsDesc"><u-input placeholder="请输入规格描述" v-model="model.goodsSpecsDesc" type="text"></u-input></u-form-item>
-				<u-form-item label="序号" prop="goodsSpecsSort"><u-input placeholder="请输入序号" v-model="model.goodsSpecsSort" type="number"></u-input></u-form-item>
+				<u-form-item label="规格名称" prop="goodsSpeName"><u-input placeholder="请输入规格名称" v-model="model.goodsSpeName" type="text"></u-input></u-form-item>
+				<u-form-item label="规格描述" prop="goodsSpeDes"><u-input placeholder="请输入规格描述" v-model="model.goodsSpeDes" type="text"></u-input></u-form-item>
+				<u-form-item label="序号" prop="order"><u-input placeholder="请输入序号" v-model="model.order" type="number"></u-input></u-form-item>
 				<u-form-item label-position="left" label-width="0" prop="likeFruit">
 					<u-checkbox-group>
 						<u-checkbox v-model="model.isSale" name="可销售">可销售</u-checkbox>
@@ -30,9 +30,9 @@ export default {
 			model: {
 				goodsId: '',
 				goodsName: '',
-				goodsSpecsName: '',
-				goodsSpecsDesc: "",
-				goodsSpecsSort: 0,
+				goodsSpeName: '',
+				goodsSpeDes: "",
+				order: 0,
 				isSale: true,
 				isPrice: true,
 				isBack: true,
@@ -42,39 +42,11 @@ export default {
 			goodsName: "",
 			radioCheckWrap: false,
 			rules: {
-				name: [
+				goodsSpeName: [
 					{
 						required: true,
-						message: '请输入姓名',
+						message: '请输入规格名称',
 						trigger: 'blur'
-					}
-				],
-				phone: [
-					{
-						required: true,
-						message: '请输入手机号',
-						trigger: ['change', 'blur']
-					},
-					{
-						validator: (rule, value, callback) => {
-							return this.$u.test.mobile(value);
-						},
-						message: '手机号码不正确',
-						trigger: ['change', 'blur']
-					}
-				],
-				idcard: [
-					{
-						required: true,
-						message: '请输入身份证号码',
-						trigger: ['change', 'blur']
-					},
-					{
-						validator: (rule, value, callback) => {
-							return this.$u.test.idCard(value);
-						},
-						message: '身份证号码不正确',
-						trigger: ['change', 'blur']
 					}
 				]
 			}
@@ -95,17 +67,17 @@ export default {
 	},
 	methods: {
 		async getDataInfo() {
-			const res = await this.request.apiGoodsSpecsInfo(this.uid);
-			if(res.ErrCode===0){
-				this.model = res.Data
+			const res = await this.request.apiGoodsSpeidGet(this.uid);
+			if(res.errCode===0){
+				this.model = res.data
 			}
 		},
 		submit() {
 			this.$refs.uForm.validate(async valid => {
 				if (valid) {
 					if(!this.uid){
-						const res = await this.request.apiGoodsSpecsAdd(this.model);
-						if(res.ErrCode===0){
+						const res = await this.request.apiGoodsSpePost(this.model);
+						if(res.errCode===0){
 							uni.showToast({
 								title: "新增成功"
 							})
@@ -120,8 +92,8 @@ export default {
 							})
 						}
 					} else {
-						const res = await this.request.apiGoodsSpecsUpdate(this.model);
-						if(res.ErrCode===0){
+						const res = await this.request.apiGoodsSpePut(this.model);
+						if(res.errCode===0){
 							uni.showToast({
 								title: "修改成功"
 							})

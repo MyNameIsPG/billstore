@@ -12,10 +12,11 @@ Vue.component('a-nodata', ANodata)
 Vue.component('a-addbtn', AAddbtn)
 Vue.component('a-form-add', AFormAdd)
 
+
 import {
 	apiRequest
 } from './api/index.js'
-import * as request from './api/api.js'
+import * as request from './api/newApi.js'
 
 Vue.prototype.$request = apiRequest
 Vue.prototype.request = request

@@ -56,18 +56,18 @@ export default {
 	methods: {
 		async getDataList(type) {
 			const res = await this.request.apiUserDataPageList({
-				KeyWord: this.KeyWord,
-				pageIndex: this.page,
+				keys: this.KeyWord,
+				pageIdx: this.page,
 				pageSize: this.pageSize,
 				userType: "0002"
 			});
-			if (res.ErrCode === 0) {
+			if (res.errCode === 0) {
 				if (type == 'query') {
-					this.listData = res.Data.data;
+					this.listData = res.data;
 				} else {
-					this.listData = [...this.listData, ...res.Data.data];
+					this.listData = [...this.listData, ...res.data];
 				}
-				this.totalCount = res.Data.totalCount;
+				this.totalCount = res.count;
 				this.totalInex = Math.ceil(this.totalCount / this.pageSize) - 1;
 				if (this.page >= this.totalInex) {
 					this.status = 'nomore';
@@ -89,7 +89,7 @@ export default {
 					success: async function(res) {
 						if (res.confirm) {
 							const res = await _this.request.apiUserDelete(id);
-							if (res.ErrCode === 0) {
+							if (res.errCode === 0) {
 								uni.showToast({
 									title: '删除成功'
 								});

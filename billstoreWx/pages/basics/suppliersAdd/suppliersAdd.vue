@@ -3,14 +3,14 @@
 		<cu-custom bgColor="bg-gradual-blue" isBack><block slot="content">供应商</block></cu-custom>
 		<view style="padding: 0 10px; box-sizing: border-box;">
 			<u-form :model="model" :rules="rules" ref="uForm" :errorType="errorType" label-width="140" label-position="left">
-				<u-form-item label="姓名" prop="realName"><u-input placeholder="请输入姓名" v-model="model.realName" type="text"></u-input></u-form-item>
-				<u-form-item label="手机号码" prop="mobile"><u-input placeholder="请输入手机号" v-model="model.mobile" type="number"></u-input></u-form-item>
+				<u-form-item label="姓名" prop="userName"><u-input placeholder="请输入姓名" v-model="model.userName" type="text"></u-input></u-form-item>
+				<u-form-item label="手机号码" prop="phone"><u-input placeholder="请输入手机号" v-model="model.phone" type="number"></u-input></u-form-item>
 				<u-form-item label="身份证号" prop="idCard"><u-input placeholder="请输入身份证号" v-model="model.idCard" type="idcard"></u-input></u-form-item>
-				<u-form-item label="银行卡号" prop="bankCardNumber"><u-input placeholder="请输入银行卡号" v-model="model.bankCardNumber" type="number"></u-input></u-form-item>
+				<u-form-item label="银行卡号" prop="bankId"><u-input placeholder="请输入银行卡号" v-model="model.bankId" type="number"></u-input></u-form-item>
 				<u-form-item label="开户行" prop="bankName"><u-input placeholder="请输入开户行" v-model="model.bankName" type="idcard"></u-input></u-form-item>
-				<u-form-item label="开户行地址" prop="bankNameAddress"><u-input placeholder="请输入开户行地址" v-model="model.bankNameAddress" type="idcard"></u-input></u-form-item>
-				<u-form-item label="地址" prop="address">
-					<u-input type="textarea"  placeholder="请输入地址" v-model="model.address" />
+				<u-form-item label="开户行地址" prop="bankAdress"><u-input placeholder="请输入开户行地址" v-model="model.bankAdress" type="idcard"></u-input></u-form-item>
+				<u-form-item label="地址" prop="idAdress">
+					<u-input type="textarea"  placeholder="请输入地址" v-model="model.idAdress" />
 				</u-form-item>
 				<view style="padding: 10px 0px; box-sizing: border-box;"><u-button type="primary" @click="submit">提交</u-button></view>
 			</u-form>
@@ -26,24 +26,23 @@ export default {
 			uid: "",
 			errorType: ['toast'],
 			model: {
-				realName: '',
-				mobile: '',
+				userName: '',
+				phone: '',
 				idCard: '',
-				userType: "0004",
-				bankCardNumber: "",
+				bankId: "",
 				bankName: "",
-				bankNameAddress: "",
-				address: ""
+				bankAdress: "",
+				idAdress: ""
 			},
 			rules: {
-				realName: [
+				userName: [
 					{
 						required: true,
 						message: '请输入姓名',
 						trigger: 'blur'
 					}
 				],
-				mobile: [
+				phone: [
 					{
 						required: true,
 						message: '请输入手机号',
@@ -85,17 +84,17 @@ export default {
 	},
 	methods: {
 		async getDataInfo() {
-			const res = await this.request.apiUserInfo(this.uid);
-			if(res.ErrCode===0){
-				this.model = res.Data
+			const res = await this.request.apiSupplierInfoidGet(this.uid);
+			if(res.errCode===0){
+				this.model = res.data
 			}
 		},
 		submit() {
 			this.$refs.uForm.validate(async valid => {
 				if (valid) {
 					if(!this.uid){
-						const res = await this.request.apiUserAdd(this.model);
-						if(res.ErrCode===0){
+						const res = await this.request.apiSupplierInfoPost(this.model);
+						if(res.errCode===0){
 							uni.showToast({
 								title: "新增成功"
 							})
@@ -110,8 +109,8 @@ export default {
 							})
 						}
 					} else {
-						const res = await this.request.apiUserUpdate(this.model);
-						if(res.ErrCode===0){
+						const res = await this.request.apiSupplierInfoPut(this.model);
+						if(res.errCode===0){
 							uni.showToast({
 								title: "修改成功"
 							})

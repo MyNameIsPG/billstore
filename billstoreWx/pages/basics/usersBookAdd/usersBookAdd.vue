@@ -76,7 +76,7 @@ export default {
 	methods: {
 		async getDataInfo() {
 			const res = await this.request.apiUserInfo(this.uid);
-			if(res.ErrCode===0){
+			if(res.errCode===0){
 				this.model = res.Data
 			}
 		},
@@ -85,7 +85,7 @@ export default {
 				if (valid) {
 					if(!this.uid){
 						const res = await this.request.apiUserAdd(this.model);
-						if(res.ErrCode===0){
+						if(res.errCode===0){
 							uni.showToast({
 								title: "新增成功"
 							})
@@ -101,7 +101,7 @@ export default {
 						}
 					} else {
 						const res = await this.request.apiUserUpdate(this.model);
-						if(res.ErrCode===0){
+						if(res.errCode===0){
 							uni.showToast({
 								title: "修改成功"
 							})

@@ -47,17 +47,17 @@ export default {
 	},
 	methods: {
 		async getDataInfo() {
-			const res = await this.request.apiPayTypeInfo(this.uid);
-			if(res.ErrCode===0){
-				this.model = res.Data
+			const res = await this.request.apiPayTypeidGet(this.uid);
+			if(res.errCode===0){
+				this.model = res.data
 			}
 		},
 		submit() {
 			this.$refs.uForm.validate(async valid => {
 				if (valid) {
 					if(!this.uid){
-						const res = await this.request.apiPayTypeAdd(this.model);
-						if(res.ErrCode===0){
+						const res = await this.request.apiPayTypePost(this.model);
+						if(res.errCode===0){
 							uni.showToast({
 								title: "新增成功"
 							})
@@ -72,8 +72,8 @@ export default {
 							})
 						}
 					} else {
-						const res = await this.request.apiPayTypeUpdate(this.model);
-						if(res.ErrCode===0){
+						const res = await this.request.apiPayTypePut(this.model);
+						if(res.errCode===0){
 							uni.showToast({
 								title: "修改成功"
 							})
