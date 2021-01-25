@@ -1,7 +1,0 @@
-{
-  "usingComponents": {
-    "supplier-home": "/pages/supplier/supplierHome/supplierHome",
-    "supplier-personal-info": "/pages/supplier/supplierPersonalInfo/supplierPersonalInfo",
-    "supplier-my-receivables": "/pages/supplier/supplierMyReceivables/supplierMyReceivables"
-  }
-}

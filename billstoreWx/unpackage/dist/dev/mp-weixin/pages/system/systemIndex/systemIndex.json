@@ -1,7 +1,0 @@
-{
-  "usingComponents": {
-    "system-home": "/pages/system/systemHome/systemHome",
-    "system-work": "/pages/system/systemWork/systemWork",
-    "system-personal": "/pages/system/systemPersonal/systemPersonal"
-  }
-}
